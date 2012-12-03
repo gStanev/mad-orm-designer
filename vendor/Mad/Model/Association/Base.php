@@ -74,6 +74,12 @@ abstract class Mad_Model_Association_Base
     protected $_assocName = null;
 
     /**
+     * 
+     * @var string
+     */
+    static public $validOptions = array();
+    
+    /**
      * The method used to create the association.
      * eg. (hasOne|belongsTo|hasMany|hasAndBelongsToMany)
      * Lazy loaded
@@ -173,6 +179,27 @@ abstract class Mad_Model_Association_Base
      * @var object
      */
     protected $_conn = null;
+    
+    /**
+     * 
+     * Enter description here ...
+     * @var string
+     */
+    const TYPE_BELONGS_TO = 'belongsTo';
+
+    /**
+     * 
+     * Enter description here ...
+     * @var string
+     */
+    const TYPE_HAS_ONE = 'hasOne';
+    
+    /**
+     * 
+     * Enter description here ...
+     * @var string
+     */
+    const TYPE_HAS_MANY = 'hasMany';
 
 
     /*##########################################################################

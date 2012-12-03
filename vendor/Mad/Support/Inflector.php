@@ -319,8 +319,41 @@ class Mad_Support_Inflector
      */
     public static function foreignKey($className, $separateClassNameAndIdWithUnderscore=true)
     {
-        throw new Exception('not implemented yet');
+        $output = self::singularize(self::tableize($className));
+        
+        if($separateClassNameAndIdWithUnderscore === true) {
+        	$output .= '_';	
+        }
+        
+        $output .= 'id';
+        
+        return $output;
     }
+    
+    /**
+     *
+     * Examples
+     *   Mad_Support_Inflector::foreignKey("message_id")        #=> "Message"
+     *   Mad_Support_Inflector::foreignKey("fax_job_id")        #=> "FaxJob"
+     */
+    public static function foreignKeyToModelName($foreignKey)
+    {
+		$foreignKey = str_replace('_id', '', $foreignKey);
+		return self::classify($foreignKey);
+    }
+    
+    /**
+     *
+     * Examples
+     *   Mad_Support_Inflector::foreignKey("message_id")        #=> "Message"
+     *   Mad_Support_Inflector::foreignKey("fax_job_id")        #=> "FaxJob"
+     */
+    public static function foreignKeyToTableName($foreignKey)
+    {
+		$foreignKey = str_replace('_id', '', $foreignKey);
+		return self::tableize($foreignKey);
+    }
+    
 
     /**
      * Ordinalize turns a number into an ordinal string used to denote the

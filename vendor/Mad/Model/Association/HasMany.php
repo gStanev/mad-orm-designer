@@ -22,6 +22,16 @@ class Mad_Model_Association_HasMany extends Mad_Model_Association_Collection
     # Construct/Destruct
     ##########################################################################*/
 
+	/**
+	 * 
+	 * @var array
+	 */
+	static public $validOptions = array(
+		'className', 'foreignKey', 'primaryKey', 'associationPrimaryKey',
+		'include', 'select', 'conditions', 'order', 'finderSql',
+		'dependent' => 'nullify'
+	);
+	
     /**
      * Construct association object
      * 
@@ -30,11 +40,7 @@ class Mad_Model_Association_HasMany extends Mad_Model_Association_Collection
      */
     public function __construct($assocName, $options, Mad_Model_Base $model)
     {
-        $valid = array('className', 'foreignKey', 'primaryKey', 'associationPrimaryKey',
-                       'include', 'select', 'conditions', 'order', 'finderSql',
-                       'dependent' => 'nullify');
-
-        $this->_options   = Mad_Support_Base::assertValidKeys($options, $valid);
+        $this->_options   = Mad_Support_Base::assertValidKeys($options, self::$validOptions);
         $this->_assocName = $assocName;
         $this->_model     = $model;
         $this->_conn      = $model->connection();
@@ -139,7 +145,7 @@ class Mad_Model_Association_HasMany extends Mad_Model_Association_Collection
                                         array(':value' => $baseModel->$pkName));
 
         // invalid dependency
-        } else {
+        } elseif($this->_options['dependent'] !== 'none') {
             $assoc = $this->getClass().' hasMany '.$this->getAssocClass();
             $msg = 'Invalid setting for $assoc association "dependent" option';
             throw new Mad_Model_Association_Exception($msg);

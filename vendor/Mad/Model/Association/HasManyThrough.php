@@ -28,6 +28,16 @@ class Mad_Model_Association_HasManyThrough extends Mad_Model_Association_Collect
      */
     protected $_throughModel = null;
 
+    /**
+	 * 
+	 * @var array
+	 */
+	static public $validOptions = array(
+			'className', 'foreignKey', 'associationForeignKey', 
+			'primaryKey', 'associationPrimaryKey', 'include', 
+			'select', 'conditions', 'order', 'finderSql',
+			'through', 'dependent' => 'nullify'
+	);
 
     /*##########################################################################
     # Construct/Destruct
@@ -41,12 +51,7 @@ class Mad_Model_Association_HasManyThrough extends Mad_Model_Association_Collect
      */
     public function __construct($assocName, $options, Mad_Model_Base $model)
     {
-        $valid = array('className', 'foreignKey', 'associationForeignKey', 
-                       'primaryKey', 'associationPrimaryKey', 'include', 
-                       'select', 'conditions', 'order', 'finderSql',
-                       'through', 'dependent' => 'nullify');
-
-        $this->_options   = Mad_Support_Base::assertValidKeys($options, $valid);
+        $this->_options   = Mad_Support_Base::assertValidKeys($options, self::$validOptions);
         $this->_assocName = $assocName;
         $this->_model     = $model;
         $this->_conn      = $model->connection();
@@ -173,7 +178,7 @@ class Mad_Model_Association_HasManyThrough extends Mad_Model_Association_Collect
             $this->_conn->update($sql, 'Update');
 
         // invalid dependency
-        } else {
+        } elseif($this->_options['dependent'] !== 'none') {
             $assoc = $this->getClass().' hasMany '.$this->getAssocClass();
             $msg = 'Invalid setting for $assoc association "dependent" option';
             throw new Mad_Model_Association_Exception($msg);

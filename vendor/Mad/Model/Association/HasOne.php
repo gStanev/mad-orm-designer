@@ -22,6 +22,15 @@ class Mad_Model_Association_HasOne extends Mad_Model_Association_Proxy
     # Construct/Destruct
     ##########################################################################*/
 
+	/**
+	 * 
+	 * @var array
+	 */
+	static public $validOptions = array(
+		'className', 'foreignKey', 'primaryKey', 'include',  
+		'order', 'dependent' => 'nullify', 'conditions'
+	);
+	
     /**
      * Construct association object
      * 
@@ -31,9 +40,7 @@ class Mad_Model_Association_HasOne extends Mad_Model_Association_Proxy
      */
     public function __construct($assocName, $options, Mad_Model_Base $model)
     {
-        $valid = array('className', 'foreignKey', 'primaryKey', 'include',  
-                       'order', 'dependent' => 'nullify');
-        $this->_options = Mad_Support_Base::assertValidKeys($options, $valid);
+        $this->_options = Mad_Support_Base::assertValidKeys($options, self::$validOptions);
         $this->_assocName = $assocName;
         $this->_model     = $model;
         $this->_conn      = $model->connection();
@@ -104,7 +111,7 @@ class Mad_Model_Association_HasOne extends Mad_Model_Association_Proxy
             $assocModel->updateAll("$fkName = NULL", "$fkName = :val", 
                                    array(':val' => $value));
         // invalid dependency
-        } else {
+        } elseif($this->_options['dependent'] !== 'none') {
             $assoc = $this->getClass().' hasOne '.$this->getAssocClass();
             $msg = 'Invalid setting for $assoc association "dependent" option';
             throw new Mad_Model_Association_Exception($msg);
@@ -126,9 +133,15 @@ class Mad_Model_Association_HasOne extends Mad_Model_Association_Proxy
             
             $order = $this->_constructOrder();
 
+            
             // query for associated object
             $options = array('conditions' => "$table.$fkName = :value", 
                              'order'      => $order);
+            
+            if(!empty($this->_options['conditions'])) {
+            	$options['conditions'] .= ' AND ' . $this->_options['conditions'];
+            }
+            
             if (!empty($this->_options['include'])) {
               $options['include'] = $this->_options['include'];
             }

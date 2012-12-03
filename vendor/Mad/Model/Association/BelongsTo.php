@@ -22,6 +22,13 @@ class Mad_Model_Association_BelongsTo extends Mad_Model_Association_Proxy
     # Construct/Destruct
     ##########################################################################*/
 
+	/**
+	 * 
+	 * @var array
+	 */
+	static public $validOptions = array('className', 'foreignKey', 'primaryKey', 'include');
+	
+	
     /**
      * Construct association object
      * 
@@ -30,9 +37,7 @@ class Mad_Model_Association_BelongsTo extends Mad_Model_Association_Proxy
      */
     public function __construct($assocName, $options, Mad_Model_Base $model)
     {
-        $valid = array('className', 'foreignKey', 'primaryKey', 'include');
-
-        $this->_options   = Mad_Support_Base::assertValidKeys($options, $valid);
+        $this->_options   = Mad_Support_Base::assertValidKeys($options, self::$validOptions);
         $this->_assocName = $assocName;
         $this->_model     = $model;
         $this->_conn      = $model->connection();

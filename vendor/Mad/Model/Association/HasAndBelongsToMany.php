@@ -22,6 +22,17 @@ class Mad_Model_Association_HasAndBelongsToMany extends Mad_Model_Association_Co
     # Construct/Destruct
     ##########################################################################*/
 
+	/**
+	 * 
+	 * @var array
+	 */
+	static public $validOptions = array(
+		'className', 'conditions', 'order', 'foreignKey', 'primaryKey',
+		'associationForeignKey', 'associationPrimaryKey', 'joinTable',
+		'uniq', 'include', 'finderSql', 'deleteSql', 'insertSql'
+	);
+	
+	
     /**
      * Construct association object
      *
@@ -31,11 +42,7 @@ class Mad_Model_Association_HasAndBelongsToMany extends Mad_Model_Association_Co
      */
     public function __construct($assocName, $options, Mad_Model_Base $model)
     {
-        $valid = array('className', 'conditions', 'order', 'foreignKey', 'primaryKey',
-                       'associationForeignKey', 'associationPrimaryKey', 'joinTable',
-                       'uniq', 'include', 'finderSql', 'deleteSql', 'insertSql');
-
-        $this->_options   = Mad_Support_Base::assertValidKeys($options, $valid);
+        $this->_options   = Mad_Support_Base::assertValidKeys($options, self::$validOptions);
         $this->_assocName = $assocName;
         $this->_model     = $model;
         $this->_conn      = $model->connection();
