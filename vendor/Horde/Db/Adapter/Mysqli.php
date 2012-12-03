@@ -137,6 +137,7 @@ class Horde_Db_Adapter_Mysqli extends Horde_Db_Adapter_Abstract
         if (defined('MYSQLI_OPT_INT_AND_FLOAT_NATIVE'))
             $mysqli->options(MYSQLI_OPT_INT_AND_FLOAT_NATIVE, true);
 
+		$mysqli->set_charset('UTF8');
         $this->_connection = $mysqli;
         $this->_active     = true;
     }

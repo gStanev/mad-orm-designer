@@ -85,8 +85,9 @@ abstract class Horde_Db_Adapter_Abstract
     ##########################################################################*/
 
     /**
-     * @param array $config Configuration options and optional objects (logger,
+     * @param array $config  array('host' => '', 'username' => '', 'password' => '', 'dbname' => '', 'port' => ) Configuration options and optional objects (logger,
      * cache, etc.)
+        
      */
     public function __construct($config)
     {
