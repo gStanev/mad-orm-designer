@@ -737,6 +737,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      */
     public function baseClass()
     {
+    	return get_class($this);
         // go up single hierarchy if this is an STI model
         $parentClass = get_parent_class($this);
         if ($parentClass != 'Mad_Model_Base') {
@@ -1089,8 +1090,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     public static function find($type, $options=null, $bindVars=null)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_find($type, $options, $bindVars);
     }
 
@@ -1107,8 +1108,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     public static function first($options=null, $bindVars=null)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_find('first', $options, $bindVars);
     }
 
@@ -1121,8 +1122,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     public static function count($options=null, $bindVars=null) 
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_count($options, $bindVars);
     }
 
@@ -1158,8 +1159,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     protected static function findBySql($type, $sql, $bindVars=null)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_findBySql($type, $sql, $bindVars);
     }
 
@@ -1183,8 +1184,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     protected static function countBySql($sql, $bindVars=null)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_countBySql($sql, $bindVars);
     }
 
@@ -1198,8 +1199,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     protected static function paginate($options=null, $bindVars=null)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_paginate($options, $bindVars);
     }
 
@@ -1216,8 +1217,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     public static function exists($id)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_exists($id);
     }
 
@@ -1241,8 +1242,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     public static function create($attributes)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_create($attributes);
     }
 
@@ -1266,8 +1267,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     public static function update($id, $attributes=null)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_update($id, $attributes);
     }
 
@@ -1290,8 +1291,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     public static function delete($id)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_delete($id);
     }
 
@@ -1311,8 +1312,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     public static function updateAll($set, $conditions=null, $bindVars=null)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_updateAll($set, $conditions, $bindVars);
     }
 
@@ -1329,8 +1330,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     public static function deleteAll($conditions=null, $bindVars=null)
     {
         // hack to get name of this class (because of static)
-        $bt = debug_backtrace();
-        $m = new $bt[1]['class'];
+        $className = get_called_class();
+        $m = new $className;
         return $m->_deleteAll($conditions, $bindVars);
     }
 
@@ -1689,8 +1690,9 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      *
      * Another options available to hasOne is 'dependent'. You can define if the associated
      * object is dependent on this object existing. This can be one of two options,
-     *  1. destroy (the default)
-     *  2. nullify
+     *  1. destroy 
+     *  2. nullify (the default)
+     *  3. none
      *
      * A metadata Icon can't exist without it's associated metadata. Because of this, we
      * can tell metadata to destroy all metadata icons before
@@ -1717,6 +1719,12 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * class name. The association name however can be defined as any name you wish
      * by specifying 'className' option similar to belongsTo()
      *
+     * Another options available to hasMany is 'dependent'. You can define if the associated
+     * object is dependent on this object existing. This can be one of two options,
+     *  1. destroy 
+     *  2. nullify (the default)
+     *  3. none
+     *  
      * For Folder model with multiple documents
      * <code>
      * <?php
@@ -2964,7 +2972,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * @param   string  $sql
      * @param   array   $options
      */
-    private function _addConditions($sql, $conditions)
+    protected function _addConditions($sql, $conditions)
     {
         $segments = array();
         if (!empty($conditions)) $segments[] = $conditions;
@@ -3469,5 +3477,10 @@ abstract class Mad_Model_Base extends Mad_Support_Object
             }
         }
     }
-
+    
+    public function setThrow($thow = false)
+    {
+    	$this->_throw = $thow;
+    	return $this;
+    }
 }
