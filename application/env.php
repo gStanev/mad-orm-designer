@@ -44,3 +44,28 @@ $application = new Zend_Application(
     APP_ENV,
     APP_PATH . '/configs/application.ini'
 );
+
+Mad_Model_Base::establishConnection(
+	$application->getOption('database')
+//	+ array('cache' => Mattro_Cache_Object::getInstance())	
+);
+////////////////////////////////////////////////////////////
+// INIT MAD
+////////////////////////////////////////////////////////
+// initialization required by framework
+
+
+// initialize the default loger. writers and filters are specified in the environment files.
+$GLOBALS['MAD_DEFAULT_LOGGER'] = null;
+if(in_array(APP_ENV, array('development', 'staging'))) {
+	$GLOBALS['MAD_DEFAULT_LOGGER'] = new Zend_Log(new Zend_Log_Writer_Firebug());
+}
+
+Zend_Registry::set('app', $application);
+
+			
+			
+//$GLOBALS['MAD_DEFAULT_LOGGER']->addHandler($writer);
+
+/* @var $config Mad_Madness_Configuration */
+// priority filters
