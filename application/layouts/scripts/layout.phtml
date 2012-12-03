@@ -1,0 +1,57 @@
+<?php 
+$moduleName = Zend_Controller_Front::getInstance()->getRequest()->getModuleName();
+$controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+$actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="http://mmg.fb/" />
+<?php echo $this->meta()->title();?>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<?php echo $this->meta()->keywords();?>
+<?php echo $this->meta()->description();?>
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
+<script type="text/javascript">//<![CDATA[
+	!window.jQuery && document.write('\x3Cscript src="/js/jquery.1.7.1-min.js" type="text/javascript">\x3C\/script>')
+//]]></script>
+<script type="text/javascript" src="/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
+</head>
+<body>
+<div class="main">
+  <div class="header">
+    <div class="header_resize">
+      <div class="logo">
+        <h1><a href="/"><?php echo $this->translate('content.logo')?></a> <small><?php echo $this->translate('content.logo.desc')?></small></h1>
+      </div>
+      <div class="clr"></div>
+      <div class="menu_nav">
+        <ul>
+          <li <?php if($actionName == 'index' && $controllerName == 'index') echo 'class="active"'; ?>><a href="/"><?php echo $this->translate('Generated Models')?></a></li>
+          <li <?php if($actionName == 'index' && $controllerName == 'products') echo 'class="active"'; ?>><a href="/" ><?php echo $this->translate('Still not generated models')?></a></li>
+          <li <?php if($actionName == 'location' && $controllerName == 'index') echo 'class="active"'; ?>><a href="/" ><?php echo $this->translate('Models for update')?></a></li>
+        </ul>
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+  <div class="content">
+    <div id="content_resize">
+      <div class="clr"></div>
+
+      <div class="clr"></div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer_resize">
+      <p class="lf">&copy; <?php echo $this->translate('Copyright ')?> Georgi Stanev</a>.</p>
+      <p class="rf"><?php echo $this->translate('Developed by')?><a href="mailto:g.d.stanev@gmail.com"> <?php echo $this->translate('content.authorName')?></a></p>
+      <div class="clr"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

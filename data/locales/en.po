@@ -1,0 +1,862 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Mad Model Generator\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-03 22:31+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Georgi Stanev <g.d.stanev@gmail.com>\n"
+"Language-Team: Single developer <g.d.stanev@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: /var/www/madModelGenerator\n"
+"X-Poedit-Language: Bulgarian\n"
+"X-Poedit-Country: BULGARIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: /var/www/madModelGenerator/application\n"
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:24
+msgid "is not included in the list"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:25
+#, fuzzy
+msgid "is reserved"
+msgstr "All rights reserved."
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:26
+msgid "is invalid"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:27
+msgid "doesn't match confirmation"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:28
+msgid "must be accepted"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:29
+#, fuzzy
+msgid "can't be empty"
+msgstr "Your cart is empty."
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:30
+msgid "can't be blank"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:31
+#, php-format
+msgid "is too long (maximum is %d characters)"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:32
+#, php-format
+msgid "is too short (minimum is %d characters)"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:33
+#, php-format
+msgid "is the wrong length (should be %d characters)"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:34
+msgid "has already been taken"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:35
+msgid "is not a number"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:36
+#, php-format
+msgid "must be greater than %d"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:37
+#, php-format
+msgid "must be greater than or equal to %d"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:38
+#, php-format
+msgid "must be equal to %d"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:39
+#, php-format
+msgid "must be less than %d"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:40
+#, php-format
+msgid "must be less than or equal to %d"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:41
+msgid "must be odd"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:42
+msgid "must be even"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:46
+#, fuzzy
+msgid "title"
+msgstr "Title"
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:47
+msgid "body"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/Bootstrap.php:48
+#, fuzzy
+msgid "author_name"
+msgstr "Lastname"
+
+#: /var/www/madModelGenerator/application/views/helpers/MenuTree.php:90
+#, fuzzy
+msgid "Own Products"
+msgstr "Products"
+
+#: /var/www/madModelGenerator/application/views/helpers/Meta.php:14
+#: /var/www/madModelGenerator/application/views/helpers/Meta.php:15
+#, fuzzy
+msgid "content.meta.keywords"
+msgstr "mattro, маттро, матраци, матраци тед, матраци блян, матраци нани, матраци линеа, подматрачни системи, легла, спални, английски легла, скандинавски легла, възглавници, завивки, изделия от гъши пух, аксесоари за спалня, табли, пружинни матраци, мемори матраци, двулицеви матраци, еднолицеви матраци, детски матраци, матраци по поръчка, дивани, мебели, мека мебел, основи, смесители, смесители видима, смесители грое, смесители GROHE, идеал стандарт, рока, зенит груп, адел бг, илвидиха, водомери, метални мрежи, метални тъкани, акасесоари за баня, вани, душ кабини, мабели за баня, секции, латексови матраци, матраци латекс, матраци екон, екон матраци, латекс екон, еко латекс, еколатекс, латекс бяла, матраци бяла, безплатна доставка на матраци, magniflex, магнифлекс, италиански матраци"
+
+#: /var/www/madModelGenerator/application/views/helpers/Meta.php:24
+#, fuzzy
+msgid "content.meta.description"
+msgstr "Meta description"
+
+#: /var/www/madModelGenerator/application/views/helpers/Meta.php:25
+#, fuzzy
+msgid "content.meta.shortDesc"
+msgstr "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички населени места на територията на Република България на матраци Тед, матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални мрежи и тъкани на фирма Илвидиха"
+
+#: /var/www/madModelGenerator/application/views/helpers/Meta.php:31
+msgid "content.meta.titlePrefix"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:28
+#, fuzzy
+msgid "content.logo"
+msgstr "mattro, маттро, матраци, матраци тед, матраци блян, матраци нани, матраци линеа, подматрачни системи, легла, спални, английски легла, скандинавски легла, възглавници, завивки, изделия от гъши пух, аксесоари за спалня, табли, пружинни матраци, мемори матраци, двулицеви матраци, еднолицеви матраци, детски матраци, матраци по поръчка, дивани, мебели, мека мебел, основи, смесители, смесители видима, смесители грое, смесители GROHE, идеал стандарт, рока, зенит груп, адел бг, илвидиха, водомери, метални мрежи, метални тъкани, акасесоари за баня, вани, душ кабини, мабели за баня, секции, латексови матраци, матраци латекс, матраци екон, екон матраци, латекс екон, еко латекс, еколатекс, латекс бяла, матраци бяла, безплатна доставка на матраци, magniflex, магнифлекс, италиански матраци"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:28
+#, fuzzy
+msgid "content.logo.desc"
+msgstr "mattro, маттро, матраци, матраци тед, матраци блян, матраци нани, матраци линеа, подматрачни системи, легла, спални, английски легла, скандинавски легла, възглавници, завивки, изделия от гъши пух, аксесоари за спалня, табли, пружинни матраци, мемори матраци, двулицеви матраци, еднолицеви матраци, детски матраци, матраци по поръчка, дивани, мебели, мека мебел, основи, смесители, смесители видима, смесители грое, смесители GROHE, идеал стандарт, рока, зенит груп, адел бг, илвидиха, водомери, метални мрежи, метални тъкани, акасесоари за баня, вани, душ кабини, мабели за баня, секции, латексови матраци, матраци латекс, матраци екон, екон матраци, латекс екон, еко латекс, еколатекс, латекс бяла, матраци бяла, безплатна доставка на матраци, magniflex, магнифлекс, италиански матраци"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:33
+msgid "Home"
+msgstr "Home"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:34
+msgid "Products"
+msgstr "Products"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:35
+#, fuzzy
+msgid "Location"
+msgstr "Position"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:36
+#, fuzzy
+msgid "Contacts"
+msgstr "Contacts"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:37
+msgid "Blog"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:53
+msgid "Image Gallery"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:56
+msgid "content.ownPhilosophy"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:57
+msgid "content.ownPhilosophy.desc"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:60
+#, fuzzy
+msgid "Contact"
+msgstr "Contacts"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:61
+#, fuzzy
+msgid "content.footer.contact"
+msgstr "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички населени места на територията на Република България на матраци Тед, матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални мрежи и тъкани на фирма Илвидиха"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:62
+#, fuzzy
+msgid "content.footer.phones"
+msgstr "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички населени места на територията на Република България на матраци Тед, матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални мрежи и тъкани на фирма Илвидиха"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:63
+#, fuzzy
+msgid "content.footer.email"
+msgstr "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички населени места на територията на Република България на матраци Тед, матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални мрежи и тъкани на фирма Илвидиха"
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:70
+msgid "Copyright "
+msgstr ""
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:71
+msgid "Developed by"
+msgstr ""
+
+#: /var/www/madModelGenerator/application/layouts/scripts/layout.phtml:71
+#, fuzzy
+msgid "content.authorName"
+msgstr "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички населени места на територията на Република България на матраци Тед, матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални мрежи и тъкани на фирма Илвидиха"
+
+#: /var/www/madModelGenerator/application/views/scripts/index/index.phtml:12
+#, fuzzy
+msgid "content.home.snippet"
+msgstr "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички населени места на територията на Република България на матраци Тед, матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални мрежи и тъкани на фирма Илвидиха"
+
+#, fuzzy
+#~ msgid "content.products.meta.keywords"
+#~ msgstr ""
+#~ "mattro, маттро, матраци, матраци тед, матраци блян, матраци нани, матраци "
+#~ "линеа, подматрачни системи, легла, спални, английски легла, скандинавски "
+#~ "легла, възглавници, завивки, изделия от гъши пух, аксесоари за спалня, "
+#~ "табли, пружинни матраци, мемори матраци, двулицеви матраци, еднолицеви "
+#~ "матраци, детски матраци, матраци по поръчка, дивани, мебели, мека мебел, "
+#~ "основи, смесители, смесители видима, смесители грое, смесители GROHE, "
+#~ "идеал стандарт, рока, зенит груп, адел бг, илвидиха, водомери, метални "
+#~ "мрежи, метални тъкани, акасесоари за баня, вани, душ кабини, мабели за "
+#~ "баня, секции, латексови матраци, матраци латекс, матраци екон, екон "
+#~ "матраци, латекс екон, еко латекс, еколатекс, латекс бяла, матраци бяла, "
+#~ "безплатна доставка на матраци, magniflex, магнифлекс, италиански матраци"
+
+#, fuzzy
+#~ msgid "content.products-search.meta.keywords(%s)"
+#~ msgstr ""
+#~ "mattro, маттро, матраци, матраци тед, матраци блян, матраци нани, матраци "
+#~ "линеа, подматрачни системи, легла, спални, английски легла, скандинавски "
+#~ "легла, възглавници, завивки, изделия от гъши пух, аксесоари за спалня, "
+#~ "табли, пружинни матраци, мемори матраци, двулицеви матраци, еднолицеви "
+#~ "матраци, детски матраци, матраци по поръчка, дивани, мебели, мека мебел, "
+#~ "основи, смесители, смесители видима, смесители грое, смесители GROHE, "
+#~ "идеал стандарт, рока, зенит груп, адел бг, илвидиха, водомери, метални "
+#~ "мрежи, метални тъкани, акасесоари за баня, вани, душ кабини, мабели за "
+#~ "баня, секции, латексови матраци, матраци латекс, матраци екон, екон "
+#~ "матраци, латекс екон, еко латекс, еколатекс, латекс бяла, матраци бяла, "
+#~ "безплатна доставка на матраци, magniflex, магнифлекс, италиански матраци"
+
+#, fuzzy
+#~ msgid "name"
+#~ msgstr "Username"
+
+#, fuzzy
+#~ msgid "email"
+#~ msgstr "Email"
+
+#, fuzzy
+#~ msgid "message"
+#~ msgstr "Your message"
+
+#, fuzzy
+#~ msgid "content.home.meta.desc"
+#~ msgstr ""
+#~ "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички "
+#~ "населени места на територията на Република България на матраци Тед, "
+#~ "матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци "
+#~ "Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци "
+#~ "Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, "
+#~ "матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, "
+#~ "подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари "
+#~ "за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални "
+#~ "мрежи и тъкани на фирма Илвидиха"
+
+#, fuzzy
+#~ msgid "content.home.meta.keywords"
+#~ msgstr ""
+#~ "mattro, маттро, матраци, матраци тед, матраци блян, матраци нани, матраци "
+#~ "линеа, подматрачни системи, легла, спални, английски легла, скандинавски "
+#~ "легла, възглавници, завивки, изделия от гъши пух, аксесоари за спалня, "
+#~ "табли, пружинни матраци, мемори матраци, двулицеви матраци, еднолицеви "
+#~ "матраци, детски матраци, матраци по поръчка, дивани, мебели, мека мебел, "
+#~ "основи, смесители, смесители видима, смесители грое, смесители GROHE, "
+#~ "идеал стандарт, рока, зенит груп, адел бг, илвидиха, водомери, метални "
+#~ "мрежи, метални тъкани, акасесоари за баня, вани, душ кабини, мабели за "
+#~ "баня, секции, латексови матраци, матраци латекс, матраци екон, екон "
+#~ "матраци, латекс екон, еко латекс, еколатекс, латекс бяла, матраци бяла, "
+#~ "безплатна доставка на матраци, magniflex, магнифлекс, италиански матраци"
+
+#, fuzzy
+#~ msgid "content.home.meta.title"
+#~ msgstr ""
+#~ "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички "
+#~ "населени места на територията на Република България на матраци Тед, "
+#~ "матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци "
+#~ "Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци "
+#~ "Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, "
+#~ "матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, "
+#~ "подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари "
+#~ "за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални "
+#~ "мрежи и тъкани на фирма Илвидиха"
+
+#, fuzzy
+#~ msgid "content.location.meta.keywords"
+#~ msgstr ""
+#~ "mattro, маттро, матраци, матраци тед, матраци блян, матраци нани, матраци "
+#~ "линеа, подматрачни системи, легла, спални, английски легла, скандинавски "
+#~ "легла, възглавници, завивки, изделия от гъши пух, аксесоари за спалня, "
+#~ "табли, пружинни матраци, мемори матраци, двулицеви матраци, еднолицеви "
+#~ "матраци, детски матраци, матраци по поръчка, дивани, мебели, мека мебел, "
+#~ "основи, смесители, смесители видима, смесители грое, смесители GROHE, "
+#~ "идеал стандарт, рока, зенит груп, адел бг, илвидиха, водомери, метални "
+#~ "мрежи, метални тъкани, акасесоари за баня, вани, душ кабини, мабели за "
+#~ "баня, секции, латексови матраци, матраци латекс, матраци екон, екон "
+#~ "матраци, латекс екон, еко латекс, еколатекс, латекс бяла, матраци бяла, "
+#~ "безплатна доставка на матраци, magniflex, магнифлекс, италиански матраци"
+
+#, fuzzy
+#~ msgid "content.contacts.meta.keywords"
+#~ msgstr ""
+#~ "mattro, маттро, матраци, матраци тед, матраци блян, матраци нани, матраци "
+#~ "линеа, подматрачни системи, легла, спални, английски легла, скандинавски "
+#~ "легла, възглавници, завивки, изделия от гъши пух, аксесоари за спалня, "
+#~ "табли, пружинни матраци, мемори матраци, двулицеви матраци, еднолицеви "
+#~ "матраци, детски матраци, матраци по поръчка, дивани, мебели, мека мебел, "
+#~ "основи, смесители, смесители видима, смесители грое, смесители GROHE, "
+#~ "идеал стандарт, рока, зенит груп, адел бг, илвидиха, водомери, метални "
+#~ "мрежи, метални тъкани, акасесоари за баня, вани, душ кабини, мабели за "
+#~ "баня, секции, латексови матраци, матраци латекс, матраци екон, екон "
+#~ "матраци, латекс екон, еко латекс, еколатекс, латекс бяла, матраци бяла, "
+#~ "безплатна доставка на матраци, magniflex, магнифлекс, италиански матраци"
+
+#, fuzzy
+#~ msgid "content.blog.meta.desc"
+#~ msgstr ""
+#~ "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички "
+#~ "населени места на територията на Република България на матраци Тед, "
+#~ "матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци "
+#~ "Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци "
+#~ "Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, "
+#~ "матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, "
+#~ "подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари "
+#~ "за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални "
+#~ "мрежи и тъкани на фирма Илвидиха"
+
+#, fuzzy
+#~ msgid "content.blog.meta.keywords"
+#~ msgstr ""
+#~ "mattro, маттро, матраци, матраци тед, матраци блян, матраци нани, матраци "
+#~ "линеа, подматрачни системи, легла, спални, английски легла, скандинавски "
+#~ "легла, възглавници, завивки, изделия от гъши пух, аксесоари за спалня, "
+#~ "табли, пружинни матраци, мемори матраци, двулицеви матраци, еднолицеви "
+#~ "матраци, детски матраци, матраци по поръчка, дивани, мебели, мека мебел, "
+#~ "основи, смесители, смесители видима, смесители грое, смесители GROHE, "
+#~ "идеал стандарт, рока, зенит груп, адел бг, илвидиха, водомери, метални "
+#~ "мрежи, метални тъкани, акасесоари за баня, вани, душ кабини, мабели за "
+#~ "баня, секции, латексови матраци, матраци латекс, матраци екон, екон "
+#~ "матраци, латекс екон, еко латекс, еколатекс, латекс бяла, матраци бяла, "
+#~ "безплатна доставка на матраци, magniflex, магнифлекс, италиански матраци"
+
+#, fuzzy
+#~ msgid "content.blog.meta.title"
+#~ msgstr ""
+#~ "Mattro.net - Онлайн магазин за матраци с безплатна доставка до всички "
+#~ "населени места на територията на Република България на матраци Тед, "
+#~ "матраци Блян, матраци Нани, матраци Magniflex, матраци Латекс, матраци "
+#~ "Линеа и матраци Дон Алмахадон! При нас ще откриете голям избор от матраци "
+#~ "Tед, матраци Блян, матраци Нани, матраци Линеа, матраци Латекс Екон, "
+#~ "матраци Magniflex, матраци Латекс Еко и матраци Дон Алмахадон, "
+#~ "подматрачни системи, изделия от гъши пух, аксесоари за спалня, аксесоари "
+#~ "за баня, смесители на фирмите Видима, Форма вита,смесители Grohe, метални "
+#~ "мрежи и тъкани на фирма Илвидиха"
+
+#, fuzzy
+#~ msgid "Add new product."
+#~ msgstr "New product"
+
+#~ msgid "Title"
+#~ msgstr "Title"
+
+#~ msgid "Categories"
+#~ msgstr "Categories"
+
+#~ msgid "Created at"
+#~ msgstr "Created at"
+
+#, fuzzy
+#~ msgid "Controlls"
+#~ msgstr "Controls"
+
+#, fuzzy
+#~ msgid "delete"
+#~ msgstr "Delete"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Meta description"
+
+#, fuzzy
+#~ msgid "Send us"
+#~ msgstr "Send"
+
+#, fuzzy
+#~ msgid "mail"
+#~ msgstr "Email"
+
+#, fuzzy
+#~ msgid "Your Message"
+#~ msgstr "Your message"
+
+#, fuzzy
+#~ msgid "Current category: "
+#~ msgstr "Current category"
+
+#~ msgid "Read more"
+#~ msgstr "Read more"
+
+#~ msgid "Learn more"
+#~ msgstr "Learn more"
+
+#~ msgid "Main"
+#~ msgstr "Main"
+
+#~ msgid "Your request failed for some reason. Please try again."
+#~ msgstr "Your request failed for some reason. Please try again."
+
+#~ msgid "Your changes were successfully saved"
+#~ msgstr "Your changes were successfully saved"
+
+#~ msgid "Something went wrong. Please try again."
+#~ msgstr "Something went wrong. Please try again."
+
+#~ msgid "New password requested"
+#~ msgstr "New password requested"
+
+#~ msgid ""
+#~ "<p>You have requested a new password for your account at www.mattro.net</"
+#~ "p>"
+#~ msgstr ""
+#~ "<p>You have requested a new password for your account at www.mattro.net</"
+#~ "p>"
+
+#~ msgid "<p>You can change your password by following this link</p>"
+#~ msgstr "<p>You can change your password by following this link</p>"
+
+#~ msgid ""
+#~ "<p>This temporary login link can be used only once and will expire in 1 "
+#~ "hour."
+#~ msgstr ""
+#~ "<p>This temporary login link can be used only once and will expire in 1 "
+#~ "hour."
+
+#~ msgid ""
+#~ "Your request to change your password failed for some reason. Please "
+#~ "contact the site administrator."
+#~ msgstr ""
+#~ "Your request to change your password failed for some reason. Please "
+#~ "contact the site administrator."
+
+#~ msgid "View all"
+#~ msgstr "View all"
+
+#~ msgid "Amount to pay"
+#~ msgstr "Amount to pay"
+
+#~ msgid ""
+#~ "View our <a href='products' style='color:white;text-decoration:"
+#~ "underline'>products</a>."
+#~ msgstr ""
+#~ "View our <a href='products' style='color:white;text-decoration:"
+#~ "underline'>products</a>."
+
+#~ msgid "Search"
+#~ msgstr "Search"
+
+#~ msgid "Password"
+#~ msgstr "Password"
+
+#~ msgid "Login"
+#~ msgstr "Login"
+
+#~ msgid "Forgotten password?"
+#~ msgstr "Forgotten password?"
+
+#~ msgid "Register"
+#~ msgstr "Register"
+
+#~ msgid "Edit profile"
+#~ msgstr "Edit profile"
+
+#~ msgid "All prices including VAT."
+#~ msgstr "All prices including VAT."
+
+#~ msgid "Menu"
+#~ msgstr "Menu"
+
+#~ msgid "Pages"
+#~ msgstr "Pages"
+
+#~ msgid "Users"
+#~ msgstr "Users"
+
+#~ msgid "Carts"
+#~ msgstr "Carts"
+
+#~ msgid "Banners"
+#~ msgstr "Banners"
+
+#~ msgid "Online shop for mattresses, furniture and accessories."
+#~ msgstr "Online shop for mattresses, furniture and accessories."
+
+#~ msgid "Search results"
+#~ msgstr "Search results"
+
+#~ msgid "Promotional products"
+#~ msgstr "Promotional products"
+
+#~ msgid "You save"
+#~ msgstr "You save"
+
+#~ msgid "Add to cart"
+#~ msgstr "Add to cart"
+
+#~ msgid "Last added products"
+#~ msgstr "Last added products"
+
+#~ msgid "From"
+#~ msgstr "From"
+
+#~ msgid "Sitemap"
+#~ msgstr "Sitemap"
+
+#~ msgid "Address"
+#~ msgstr "Address"
+
+#~ msgid "\"Intershop\" Ltd."
+#~ msgstr "\"Intershop\" Ltd."
+
+#~ msgid "Bulgaria"
+#~ msgstr "Bulgaria"
+
+#~ msgid "Plovdiv"
+#~ msgstr "Plovdiv"
+
+#~ msgid "Phone"
+#~ msgstr "Phone"
+
+#~ msgid "Your name"
+#~ msgstr "Your name"
+
+#~ msgid "E-mail"
+#~ msgstr "E-mail"
+
+#~ msgid "Subject"
+#~ msgstr "Subject"
+
+#~ msgid "Submit"
+#~ msgstr "Submit"
+
+#~ msgid "Company"
+#~ msgstr "Company"
+
+#~ msgid "Category"
+#~ msgstr "Category"
+
+#~ msgid "Size"
+#~ msgstr "Size"
+
+#~ msgid "Max price"
+#~ msgstr "Max price"
+
+#~ msgid "Filter"
+#~ msgstr "Filter"
+
+#~ msgid "cm."
+#~ msgstr "cm."
+
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgid "Price"
+#~ msgstr "Price"
+
+#~ msgid "Image"
+#~ msgstr "Image"
+
+#~ msgid "Edit"
+#~ msgstr "Edit"
+
+#~ msgid "Your cart"
+#~ msgstr "Your cart"
+
+#~ msgid "Quantity"
+#~ msgstr "Quantity"
+
+#~ msgid "To pay"
+#~ msgstr "To pay"
+
+#~ msgid "Change quantity"
+#~ msgstr "Change quantity"
+
+#~ msgid "Remove from cart"
+#~ msgstr "Remove from cart"
+
+#~ msgid "Total"
+#~ msgstr "Total"
+
+#~ msgid "Proceed"
+#~ msgstr "Proceed"
+
+#~ msgid "Please choose payment method"
+#~ msgstr "Please choose payment method"
+
+#~ msgid "On delivery"
+#~ msgstr "On delivery"
+
+#~ msgid "Change payment method"
+#~ msgstr "Change payment method"
+
+#~ msgid "Pay"
+#~ msgstr "Pay"
+
+#~ msgid "Send order"
+#~ msgstr "Send order"
+
+#~ msgid "Request new password"
+#~ msgstr "Request new password"
+
+#~ msgid "Enter your email"
+#~ msgstr "Enter your email"
+
+#~ msgid "Edit user information"
+#~ msgstr "Edit user information"
+
+#~ msgid "Registration"
+#~ msgstr "Registration"
+
+#~ msgid "E-Mail"
+#~ msgstr "E-Mail"
+
+#~ msgid "Confirm Password"
+#~ msgstr "Confirm Password"
+
+#~ msgid "Firstname"
+#~ msgstr "Firstname"
+
+#~ msgid "City"
+#~ msgstr "City"
+
+#~ msgid "Region"
+#~ msgstr "Region"
+
+#~ msgid "Country"
+#~ msgstr "Country"
+
+#~ msgid "Save"
+#~ msgstr "Save"
+
+#~ msgid "Carts overview"
+#~ msgstr "Carts overview"
+
+#~ msgid "User"
+#~ msgstr "User"
+
+#~ msgid "Amount"
+#~ msgstr "Amount"
+
+#~ msgid "Updated at"
+#~ msgstr "Updated at"
+
+#~ msgid "Paid at"
+#~ msgstr "Paid at"
+
+#~ msgid "Products overview"
+#~ msgstr "Products overview"
+
+#~ msgid "Create new product"
+#~ msgstr "Create new product"
+
+#~ msgid "Alias"
+#~ msgstr "Alias"
+
+#~ msgid "Body"
+#~ msgstr "Body"
+
+#~ msgid "Keywords"
+#~ msgstr "Keywords"
+
+#~ msgid "Discount"
+#~ msgstr "Discount"
+
+#~ msgid "and"
+#~ msgstr "and"
+
+#~ msgid "Promotional"
+#~ msgstr "Promotional"
+
+#~ msgid "Choose image"
+#~ msgstr "Choose image"
+
+#~ msgid "Pages overview"
+#~ msgstr "Pages overview"
+
+#~ msgid "Create new page"
+#~ msgstr "Create new page"
+
+#~ msgid "Choose category"
+#~ msgstr "Choose category"
+
+#~ msgid "State"
+#~ msgstr "State"
+
+#~ msgid "New page"
+#~ msgstr "New page"
+
+#~ msgid "Introtext"
+#~ msgstr "Introtext"
+
+#~ msgid "Fulltext"
+#~ msgstr "Fulltext"
+
+#~ msgid "Teaser image"
+#~ msgstr "Teaser image"
+
+#~ msgid "Published"
+#~ msgstr "Published"
+
+#~ msgid "Not published"
+#~ msgstr "Not published"
+
+#~ msgid "Meta keywords"
+#~ msgstr "Meta keywords"
+
+#~ msgid "Clear current changes"
+#~ msgstr "Clear current changes"
+
+#~ msgid "Users overview"
+#~ msgstr "Users overview"
+
+#~ msgid "Add new user"
+#~ msgstr "Add new user"
+
+#~ msgid "Create new user"
+#~ msgstr "Create new user"
+
+#~ msgid "Role"
+#~ msgstr "Role"
+
+#~ msgid "Last visit"
+#~ msgstr "Last visit"
+
+#~ msgid "New user"
+#~ msgstr "New user"
+
+#~ msgid "Language"
+#~ msgstr "Language"
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgarian"
+
+#~ msgid "English"
+#~ msgstr "English"
+
+#~ msgid "Greek"
+#~ msgstr "Greek"
+
+#~ msgid "Guest"
+#~ msgstr "Guest"
+
+#~ msgid "Admin"
+#~ msgstr "Admin"
+
+#~ msgid "Menu overview"
+#~ msgstr "Menu overview"
+
+#~ msgid "Build Main tree"
+#~ msgstr "Build Main tree"
+
+#~ msgid "Children"
+#~ msgstr "Children"
+
+#~ msgid "Banners overview"
+#~ msgstr "Banners overview"
+
+#~ msgid "Create new banner"
+#~ msgstr "Create new banner"
+
+#~ msgid "Images"
+#~ msgstr "Images"
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "New banner"
+#~ msgstr "New banner"
+
+#~ msgid "Banner title"
+#~ msgstr "Banner title"
+
+#~ msgid "Banner link"
+#~ msgstr "Banner link"
+
+#~ msgid "Status"
+#~ msgstr "Status"
+
+#~ msgid "Categories overview"
+#~ msgstr "Categories overview"
+
+#~ msgid "Create new category"
+#~ msgstr "Create new category"
+
+#~ msgid "New category"
+#~ msgstr "New category"
+
+#~ msgid "Category title"
+#~ msgstr "Category title"
+
+#~ msgid "Category alias"
+#~ msgstr "Category alias"
+
+#~ msgid "Category body"
+#~ msgstr "Category body"
+
+#~ msgid "msgiddd"
+#~ msgstr "msgiddd"
+
+#~ msgid "How to order"
+#~ msgstr "How to order"
+
+#~ msgid "For us"
+#~ msgstr "For us"
+
+#~ msgid "Payment Methods"
+#~ msgstr "Payment Methods"
+
+#~ msgid "Partners"
+#~ msgstr "Partners"
+
+#~ msgid "Personal data protection"
+#~ msgstr "Personal data protection"
+
+#~ msgid "Warranty"
+#~ msgstr "Warranty"
+
+#~ msgid "Advertising"
+#~ msgstr "Advertising"
+
+#~ msgid "Cart"
+#~ msgstr "Cart"
+
+#~ msgid "Rejected at"
+#~ msgstr "Rejected at"
+
+#~ msgid "test"
+#~ msgstr "test"

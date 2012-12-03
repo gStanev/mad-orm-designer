@@ -1,0 +1,13 @@
+<?php
+/* @var $title */
+/* @var $assocs array <Mad_Script_Generator_Association_Abstract> */
+if(count($this->assocs) < 1) return '';
+?>
+<h3><?php echo $this->title?></h3>
+<ul>
+<?php foreach ($this->assocs as $assoc) { 
+	/* @var $assoc Mad_Script_Generator_Association_Abstract */
+	echo $this->partial('index/_assoc.phtml', array('assoc' => $assoc));	
+}
+?>
+</ul>
