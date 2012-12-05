@@ -3,13 +3,14 @@
 <div class="ddsmoothmenu-v" id="smoothmenu">
 <h3>Нашите Продукти</h3>
 <ul class="level-1">
-	<li><a href=""></a></li>
+<?php foreach ($this->models as $model) { /* @var $model Mad_Script_Generator_Model */?>
+	<li><a href="<?php echo $this->url(array('tableName' => $model->tableName))?>"><?php echo $model->modelName;?></a></li>
+<?php } ?>
 </ul>
 </div>
 </div>
 </div>
 <div id="mainbar">
-<div class="article"><?php echo $this->translate('content.home.snippet');?>
-</div>
+<canvas id="viewport" width="100px" height="100px"></canvas>
 </div>
 
