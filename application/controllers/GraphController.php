@@ -61,22 +61,37 @@ class GraphController extends Mmg_Controller_Action
 		foreach ($models as $model) {
 			/* @var $model Mad_Script_Generator_Model */
 			$nodes[$model->modelName] = array(
-					'prop' 	=> $model->getFields(),
-					'prop2' => 2
+					'fields' 	=> $model->getFields(),
+					'options' 		=> 2,
+					'tableName'		=> $model->tableName
 			);
 	
 			foreach ($model->getAssocs() as $assoc) {
 				/* @var $assoc Mad_Script_Generator_Association_Abstract */
 	
 				$nodes[$assoc->assocModel->modelName] = array(
-						'prop' 	=> $assoc->assocModel->getFields(),
+						'fields' 	=> $assoc->assocModel->getFields(),
 						'prop2' => 2
 				);
 				
-				
 				$edges[$model->modelName][$assoc->assocModel->modelName] = array(
-						'type' => $assoc->getType()
+						'type' 			=> $assoc->getType(),
+						'masterModel'	=> array(
+							'modelName'	=> $assoc->masterModel->modelName,
+							'tableName'	=> $assoc->masterModel->tableName,
+						),
+						'assocModel'	=> array(
+							'modelName'	=> $assoc->assocModel->modelName,
+							'tableName'	=> $assoc->assocModel->tableName		
+						)
 				);
+				
+				if ($assoc instanceof Mad_Script_Generator_Association_HasManyThrough) {
+					$edges[$model->modelName][$assoc->assocModel->modelName]['middleModel'] = array(
+						'modelName'	=> $assoc->middleModel->modelName,
+						'tableName'	=> $assoc->middleModel->tableName
+					);
+				}
 			}
 		}
 	

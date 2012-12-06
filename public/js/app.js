@@ -1,5 +1,6 @@
 (function(){
-
+  var GraphData = {};
+  
   Renderer = function(canvas){
     canvas = $(canvas).get(0);
     var ctx = canvas.getContext("2d");
@@ -191,6 +192,7 @@
     
     
     $.getJSON("/graph/not-generated?tables[]=" + Graph.currentTable, function(data) {
+    	GraphData = data;
         // load the raw data into the particle system as is (since it's already formatted correctly for .merge)
         var nodes = data.nodes;
         $.each(nodes, function(name, info){
@@ -204,8 +206,10 @@
   
   
   $(document).ready(function(){
-
-    var mcp = Maps();
+	  Maps();
+	  $('#save-model').click(function() {
+		  $.post('model-manage/save', GraphData, function() {});
+	  });
   });
 })();
 
