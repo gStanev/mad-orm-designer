@@ -130,4 +130,24 @@ abstract class Mad_Script_Generator_Association_Abstract
 	{
 		return "<br /><br />Example:<br /> <code>" . $code . "</code>";
 	}
+	
+	/**
+	 * 
+	 * @return array
+	 */
+	public function toArray()
+	{
+		return array(
+			'name'	=> $this->getName(),
+			'type' 	=> $this->getType(),
+			'masterModel'	=> array(
+				'modelName'	=> $this->masterModel->modelName,
+				'tableName'	=> $this->masterModel->tableName,
+			),
+			'assocModel'	=> array(
+				'modelName'	=> $this->assocModel->modelName,
+				'tableName'	=> $this->assocModel->tableName
+			)
+		);
+	}
 }

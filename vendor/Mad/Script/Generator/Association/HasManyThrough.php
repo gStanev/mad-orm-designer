@@ -111,4 +111,20 @@ class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generat
        
         return $output;
 	}
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see Mad_Script_Generator_Association_Abstract::toArray()
+	 * @return array
+	 */
+	public function toArray()
+	{
+		$toArray = parent::toArray();
+		$toArray['middleModel'] = array(
+			'modelName'	=> $this->middleModel->modelName,
+			'tableName'	=> $this->middleModel->tableName
+		);
+		
+		return $toArray;
+	}
 }

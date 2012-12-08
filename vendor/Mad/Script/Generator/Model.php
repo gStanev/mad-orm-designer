@@ -132,4 +132,17 @@ class Mad_Script_Generator_Model
          
         return $output;
     }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+    	return array(
+    		'modelName' => $this->modelName,
+    		'tableName'	=> $this->tableName,
+    		'fields'	=> $this->getFields()
+    	);
+    }
 }
