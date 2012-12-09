@@ -111,7 +111,7 @@ abstract class Mad_Script_Generator_Association_Abstract
 	protected function _generateDefinitionOpts()
 	{
 		$output = '';
-		if(count($options)) {
+		if(count($this->getOptions())) {
             $dump = var_export($this->getOptions(), true);
             $dump = str_replace("\n", "\n\t\t\t", $dump);
             $output .= ', ' . PHP_EOL . "\t\t\t";
@@ -155,6 +155,29 @@ abstract class Mad_Script_Generator_Association_Abstract
 	
 	/**
 	 * 
+	 * @param array $data
+	 * @return Mad_Script_Generator_Association_Abstract
+	 */
+	public static function fromArray(array $data)
+	{
+		$middleModel = 
+			(isset($data['middleModel'])) ? 
+				(new Mad_Script_Generator_Model($data['middleModel']['tableName'], $data['middleModel']['modelName'])) : 
+					(null);
+		
+		$options = (isset($data['options']) && is_array($data['options'])) ? ($data['options']) : (array());
+		
+		return self::factory(
+			$data['type'], 
+			new Mad_Script_Generator_Model($data['masterModel']['tableName'], $data['masterModel']['modelName']), 
+			new Mad_Script_Generator_Model($data['assocModel']['tableName'], $data['assocModel']['modelName']),
+			$middleModel,
+			$options
+		);
+	}
+	
+	/**
+	 * 
 	 * @param string $type
 	 * @param Mad_Script_Generator_Model $masterModel
 	 * @param Mad_Script_Generator_Model $assocModel
@@ -170,20 +193,24 @@ abstract class Mad_Script_Generator_Association_Abstract
 		array $options = array()
 	) {
 		if($type == Mad_Model_Association_Base::TYPE_BELONGS_TO) {
-			return new Mad_Script_Generator_Association_BelongsTo($masterModel, $assocModel);
+			$assoc = new Mad_Script_Generator_Association_BelongsTo($masterModel, $assocModel);
 		}
 		
 		if($type == Mad_Model_Association_Base::TYPE_HAS_MANY) {
-			return new Mad_Script_Generator_Association_HasMany($masterModel, $assocModel);
+			$assoc = new Mad_Script_Generator_Association_HasMany($masterModel, $assocModel);
+			
 		}
 		
 		if($type == Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH) {
-			return new Mad_Script_Generator_Association_HasManyThrough($masterModel, $assocModel, $middleModel);
+			$assoc = new Mad_Script_Generator_Association_HasManyThrough($masterModel, $assocModel, $middleModel);
 		}
 		
 		if($type == Mad_Model_Association_Base::TYPE_HAS_ONE) {
-			return new Mad_Script_Generator_Association_HasOne($masterModel, $assocModel);
+			$assoc = new Mad_Script_Generator_Association_HasOne($masterModel, $assocModel);
 		}
+		
+		$assoc->addOptions($options);
+		return $assoc;
 	}
 	
 
@@ -211,6 +238,21 @@ abstract class Mad_Script_Generator_Association_Abstract
 		}
 		
 		$this->_options[$optionKey] = $optionValue;
+		
+		return $this;
+	}
+	
+	/**
+	 * 
+	 * @param array $options array($optionKey => $optionValue)
+	 * 
+	 * @return Mad_Script_Generator_Association_Abstract
+	 */
+	public function addOptions(array $options)
+	{
+		foreach ($options as $optionKey => $optionValue) {
+			$this->addOption($optionKey, $optionValue);
+		}
 		
 		return $this;
 	}

@@ -145,4 +145,21 @@ class Mad_Script_Generator_Model
     		'fields'	=> $this->getFields()
     	);
     }
+    
+    /**
+     * 
+     * @param array $data
+     * @return Mad_Script_Generator_Model
+     */
+    public static function fromArray(array $data)
+    {
+    	$model = new self($data['tableName'], $data['modelName']);
+    	foreach ($data['fields'] as $fieldData) {
+    		$model->addField(
+    			new Mad_Script_Generator_Field($fieldData['fieldName'], $fieldData['fieldType'])
+    		);
+    	}
+    	
+    	return $model;
+    }
 }
