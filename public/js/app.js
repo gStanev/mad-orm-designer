@@ -1,6 +1,9 @@
 (function() {
 	var GraphData = {};
-
+	var fancyBoxSettings = {
+		hideOnOverlayClick: false
+	};
+	
 	Renderer = function(canvas) {
 		canvas = $(canvas).get(0);
 		var ctx = canvas.getContext("2d");
@@ -160,10 +163,8 @@
 										//delete GraphData.nodes[selected.node.data.label];
 										//delete GraphData.edges['Branch'][selected.node.data.label];
 										
-										console.log(selected.node.data);
-										
 										$.get('/assoc-manage/form', {assoc: selected.node.data}, function(data) {
-											$.fancybox(data);
+											$.fancybox(data, fancyBoxSettings);
 										});
 										
 
@@ -265,12 +266,28 @@
 			});
 		});
 		
+		$('.remove-assoc-opt').live('click', function() {
+			$(this).closest('tr').remove();
+			
+			return false;
+		});
+		
 		$('#add-assoc-opts').live('click', function() {
 			
 			$('#allowed-option-keys').attr('name', 'assoc[options][' + $('#allowed-option-keys option:selected').text() + ']');
 			$.get('/assoc-manage/form', $('#assoc-data').serialize(), function(data) {
-				$.fancybox(data);
+				$.fancybox(data, fancyBoxSettings);
 			});
+			return false;
+		});
+		
+		$('#assoc-options-save').live('click', function() {
+			var newNodeData = $('#assoc-data').formToJson().assoc;
+			var nodeName = newNodeData.type + newNodeData.name;
+			GraphData.nodes[nodeName] = newNodeData;
+			//console.log(newNodeData);
+			sys.getNode(nodeName).data = newNodeData;
+			$.fancybox.close();
 			return false;
 		});
 	});

@@ -1,17 +1,11 @@
 <?php
 /* @var $assoc Mad_Script_Generator_Association_Abstract */
 $assoc = $this->assoc;
+/* @var $assocHelper Zend_View_Helper_Assoc */
+$assocHelper = $this->assoc($assoc);
 ?>
 <form id="assoc-data">
-	<?php foreach ($assoc->toArray() as $key => $val) {
-		if(is_string($val)) {
-			echo "<input type=\"hidden\" name=\"assoc[{$key}]\" value=\"{$val}\">";
-		} else if(is_array($val)) {
-			foreach ($val as $subKey => $subVal) {
-				echo "<input type=\"hidden\" name=\"assoc[{$key}][{$subKey}]\" value=\"{$subVal}\">";
-			}
-		} 
-	}?>
+	<?php echo $assocHelper->toInputs(array('options'));?>
 	<label>
 		Name:
 		<input name="assoc[name]" value="<?php echo $assoc->getName();?>" >
@@ -21,18 +15,40 @@ $assoc = $this->assoc;
 		<label>
 			Option:
 			<select id="allowed-option-keys">
-				<?php foreach ($assoc->getAllowedOptionKeys() as $optionKey) { ?>
-				<option value="">
-					<?php echo $optionKey?>
-				</option>
-				<?php }?>
+				<?php 
+				foreach ($assoc->getAllowedOptionKeys() as $optionKey) { 
+					if(array_key_exists($optionKey, $assoc->getOptions())) continue;
+					echo "<option value=\"\">{$optionKey}</option>";
+				}
+				?>
 			</select>
 		</label>
 	</div>
-	<?php foreach ($assoc->getOptions() as $optionKey => $optionValue) {?>
-	<label>
-		<?php echo $optionKey;?>
-		<input type="text" name="assoc[options][<?php echo $optionKey;?>]" value="<?php echo $optionValue;?>">
-	</label>
+	<?php if(count($assoc->getOptions())) {?>
+	<h3>Association options</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>name</th>
+				<th>value</th>
+				<th>prefill</th>
+				<th>action</th>
+			</tr>
+		</thead>
+		<?php foreach ($assoc->getOptions() as $optionKey => $optionValue) {?>
+		<tr>
+			<td><?php echo $optionKey;?></td>
+			<td><input type="text" name="assoc[options][<?php echo $optionKey;?>]" value="<?php echo $optionValue;?>"></td>
+			<td>prefill</td>
+			<td>
+				<a href="javascript:;">Prefil</a>
+				<a class="remove-assoc-opt" href="javascript:;">Remove</a>
+			</td>
+		</tr>
+		<?php }?>
+		<thead>
+		</thead>
+	</table>
 	<?php }?>
+	<a id="assoc-options-save" href="javascript:;">Save Options</a>
 </form>

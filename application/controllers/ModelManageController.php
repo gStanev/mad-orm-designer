@@ -10,26 +10,16 @@ class ModelManageController extends Mmg_Controller_Action
     {
     	$this->_disableView();
     	$writer = new Mad_Script_Generator_Model_Writer(ROOT_PATH . '/application/models');
+    	$assocsData = $this->_getParam('nodes');
+    	$modelData  = array_shift($assocsData);
     	
-    	$nodes = $this->_getParam('nodes');
-    	
-    	foreach ($this->_getParam('edges') as $modelName => $assocs) {
-    		$model = new Mad_Script_Generator_Model($nodes[$modelName]['tableName'], $modelName);
-    		
-    		//Add fields to model
-    		foreach ($nodes[$modelName]['fields'] as $field) {
-    			$model->addField(
-    				new Mad_Script_Generator_Field($field['fieldName'], $field['fieldType'])		
-    			);
-    		}
-    		
-    		//Add assocs to model
-    		foreach ($assocs as $assocModelName => $assocOpt ) {
-    			$model->addAssoc($this->_buildAssoc($assocModelName, $assocOpt));
-    		}
-    		
-    		$writer->writeModel($model);
+    	/* @var $model  Mad_Script_Generator_Model */
+    	$model = Mad_Script_Generator_Model::fromArray($modelData);
+    	foreach ($assocsData as $assocData) {
+			$model->addAssoc(Mad_Script_Generator_Association_Abstract::fromArray($assocData));
     	}
+    	
+    	$writer->writeModel($model);
     }
     
 	/**
