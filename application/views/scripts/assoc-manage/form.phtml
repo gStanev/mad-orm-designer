@@ -1,0 +1,38 @@
+<?php
+/* @var $assoc Mad_Script_Generator_Association_Abstract */
+$assoc = $this->assoc;
+?>
+<form id="assoc-data">
+	<?php foreach ($assoc->toArray() as $key => $val) {
+		if(is_string($val)) {
+			echo "<input type=\"hidden\" name=\"assoc[{$key}]\" value=\"{$val}\">";
+		} else if(is_array($val)) {
+			foreach ($val as $subKey => $subVal) {
+				echo "<input type=\"hidden\" name=\"assoc[{$key}][{$subKey}]\" value=\"{$subVal}\">";
+			}
+		} 
+	}?>
+	<label>
+		Name:
+		<input name="assoc[name]" value="<?php echo $assoc->getName();?>" >
+	</label>
+	<a id="add-assoc-opts" href="javascript:;" title="<?php echo $this->translate('Add option')?>"><?php echo $this->translate('Add option')?></a>
+	<div class="opt-wrapper">
+		<label>
+			Option:
+			<select id="allowed-option-keys">
+				<?php foreach ($assoc->getAllowedOptionKeys() as $optionKey) { ?>
+				<option value="">
+					<?php echo $optionKey?>
+				</option>
+				<?php }?>
+			</select>
+		</label>
+	</div>
+	<?php foreach ($assoc->getOptions() as $optionKey => $optionValue) {?>
+	<label>
+		<?php echo $optionKey;?>
+		<input type="text" name="assoc[options][<?php echo $optionKey;?>]" value="<?php echo $optionValue;?>">
+	</label>
+	<?php }?>
+</form>
