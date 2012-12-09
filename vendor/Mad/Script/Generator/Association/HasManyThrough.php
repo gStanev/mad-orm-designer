@@ -33,6 +33,14 @@ class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generat
 	}
 	
 	/**
+	 * @return array
+	 */
+	public function getAllowedOptionKeys()
+	{
+		return Mad_Model_Association_HasManyThrough::$validOptions;
+	}
+	
+	/**
 	 * @return string
 	 */
 	public function getName()
@@ -53,16 +61,16 @@ class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generat
 	 * @param array $options
 	 * @return string
 	 */
-	public function generateDefinition($options = array())
+	public function generateDefinition()
 	{
-		if(!$this->_isStandartAssocName() && !isset($options['dependent'])) {
-			$options['dependent'] = 'none';
+		if(!$this->_isStandartAssocName() && !$this->issetOption('dependent')) {
+			$this->addOption('dependent', 'none');
 		}
 		
-		$options['through'] = $this->middleModel->modelName;
+		$this->addOption('through', $this->middleModel->modelName);
 		
 		$output = "\t\t" . '$this->' . Mad_Model_Association_Base::TYPE_HAS_MANY . '("' . $this->getName() . '"';
-		$output .= $this->_generateDefinitionOpts($options);
+		$output .= $this->_generateDefinitionOpts();
         $output .= ');' . PHP_EOL;
        
         return $output;

@@ -18,6 +18,14 @@ class Mad_Script_Generator_Association_HasMany extends Mad_Script_Generator_Asso
 		return Mad_Support_Inflector::pluralize($this->assocModel->modelName);
 	}
 	
+	/**
+	 * @return array
+	 */
+	public function getAllowedOptionKeys()
+	{
+		return Mad_Model_Association_HasMany::$validOptions;
+	}
+	
 	public function generateComments()
 	{        
         $output = PHP_EOL . PHP_EOL . ' * Has Many Association' . PHP_EOL;

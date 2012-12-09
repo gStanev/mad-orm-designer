@@ -19,6 +19,14 @@ class Mad_Script_Generator_Association_BelongsTo extends Mad_Script_Generator_As
 	}	
 	
 	/**
+	 * @return array
+	 */
+	public function getAllowedOptionKeys()
+	{
+		return Mad_Model_Association_BelongsTo::$validOptions;
+	}
+	
+	/**
 	 * @return string
 	 */
 	public function generateComments()

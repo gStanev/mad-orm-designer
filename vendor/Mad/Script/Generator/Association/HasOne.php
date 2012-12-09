@@ -17,6 +17,14 @@ class Mad_Script_Generator_Association_HasOne extends Mad_Script_Generator_Assoc
 	{
 		return $this->assocModel->modelName;
 	}
+	
+	/**
+	 * @return array
+	 */
+	public function getAllowedOptionKeys()
+	{
+		return Mad_Model_Association_HasOne::$validOptions;
+	}
 
 	public function generateComments()
 	{

@@ -22,6 +22,12 @@ abstract class Mad_Script_Generator_Association_Abstract
 	 */
 	public $assocModel;
 	
+	/**
+	 * 
+	 * @var array 
+	 */
+	protected $_options = array();
+	
 	
 	/**
 	 * 
@@ -43,6 +49,11 @@ abstract class Mad_Script_Generator_Association_Abstract
 	 * @return string
 	 */
 	abstract public function generateComments();
+	
+	/**
+	 * @return array
+	 */
+	abstract public function getAllowedOptionKeys();
 	
 	/**
 	 * @return string
@@ -82,12 +93,12 @@ abstract class Mad_Script_Generator_Association_Abstract
 	
 	/**
 	 * 
-	 * @param array $options
+	 * @return string
 	 */
-	public function generateDefinition(array $options = array())
+	public function generateDefinition()
 	{
         $output = "\t\t" . '$this->' . $this->getType() . '("' . $this->getName() . '"';
-		$output .= $this->_generateDefinitionOpts($options);
+		$output .= $this->_generateDefinitionOpts();
         $output .= ');' . PHP_EOL;
        
         return $output;
@@ -95,14 +106,13 @@ abstract class Mad_Script_Generator_Association_Abstract
 	
 	/**
 	 * 
-	 * @param array $options
 	 * @return string
 	 */
-	protected function _generateDefinitionOpts(array $options)
+	protected function _generateDefinitionOpts()
 	{
 		$output = '';
 		if(count($options)) {
-            $dump = var_export($options, true);
+            $dump = var_export($this->getOptions(), true);
             $dump = str_replace("\n", "\n\t\t\t", $dump);
             $output .= ', ' . PHP_EOL . "\t\t\t";
             $output .= str_replace('0 => ', '', $dump);   
@@ -120,9 +130,65 @@ abstract class Mad_Script_Generator_Association_Abstract
 		$classPieces = explode('_', get_class($this));
 		return lcfirst(array_pop($classPieces));
 	}
+
 	
 	/**
 	 * 
+	 * @return array
+	 */
+	public function toArray()
+	{
+		return array(
+			'name'		=> $this->getName(),
+			'type' 		=> $this->getType(),
+			'options'	=> $this->getOptions(),
+			'masterModel'	=> array(
+				'modelName'	=> $this->masterModel->modelName,
+				'tableName'	=> $this->masterModel->tableName,
+			),
+			'assocModel'	=> array(
+				'modelName'	=> $this->assocModel->modelName,
+				'tableName'	=> $this->assocModel->tableName
+			)
+		);
+	}
+	
+	/**
+	 * 
+	 * @param string $type
+	 * @param Mad_Script_Generator_Model $masterModel
+	 * @param Mad_Script_Generator_Model $assocModel
+	 * @param Mad_Script_Generator_Model $assocModel
+	 * @param array $options
+	 * @return Mad_Script_Generator_Association_Abstract
+	 */
+	public static function factory(
+		$type, 
+		Mad_Script_Generator_Model $masterModel, 
+		Mad_Script_Generator_Model $assocModel,
+		Mad_Script_Generator_Model $middleModel = null,
+		array $options = array()
+	) {
+		if($type == Mad_Model_Association_Base::TYPE_BELONGS_TO) {
+			return new Mad_Script_Generator_Association_BelongsTo($masterModel, $assocModel);
+		}
+		
+		if($type == Mad_Model_Association_Base::TYPE_HAS_MANY) {
+			return new Mad_Script_Generator_Association_HasMany($masterModel, $assocModel);
+		}
+		
+		if($type == Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH) {
+			return new Mad_Script_Generator_Association_HasManyThrough($masterModel, $assocModel, $middleModel);
+		}
+		
+		if($type == Mad_Model_Association_Base::TYPE_HAS_ONE) {
+			return new Mad_Script_Generator_Association_HasOne($masterModel, $assocModel);
+		}
+	}
+	
+
+	/**
+	 *
 	 * @param string $code
 	 * @return string
 	 */
@@ -133,21 +199,38 @@ abstract class Mad_Script_Generator_Association_Abstract
 	
 	/**
 	 * 
+	 * @param string $optionKey
+	 * @param string $optionValue
+	 * @throws Exception
+	 * @return Mad_Script_Generator_Association_Abstract
+	 */
+	public function addOption($optionKey, $optionValue) 
+	{
+		if(!in_array($optionKey, $this->getAllowedOptionKeys())) {
+			throw new Exception("$optionKey is not allowed option key.");
+		}
+		
+		$this->_options[$optionKey] = $optionValue;
+		
+		return $this;
+	}
+	
+	/**
+	 * 
 	 * @return array
 	 */
-	public function toArray()
+	public function getOptions()
 	{
-		return array(
-			'name'	=> $this->getName(),
-			'type' 	=> $this->getType(),
-			'masterModel'	=> array(
-				'modelName'	=> $this->masterModel->modelName,
-				'tableName'	=> $this->masterModel->tableName,
-			),
-			'assocModel'	=> array(
-				'modelName'	=> $this->assocModel->modelName,
-				'tableName'	=> $this->assocModel->tableName
-			)
-		);
+		return $this->_options;
+	}
+	
+	/**
+	 * 
+	 * @param string $optionKey
+	 * @return bool
+	 */
+	public function issetOption($optionKey)
+	{
+		return isset($this->_options[$optionKey]);
 	}
 }
