@@ -36,7 +36,7 @@ class Mad_Model_Association_HasManyThrough extends Mad_Model_Association_Collect
 			'className', 'foreignKey', 'associationForeignKey', 
 			'primaryKey', 'associationPrimaryKey', 'include', 
 			'select', 'conditions', 'order', 'finderSql',
-			'through', 'dependent' => 'nullify'
+			'through', 'dependent'
 	);
 
     /*##########################################################################

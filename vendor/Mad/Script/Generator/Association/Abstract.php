@@ -130,6 +130,15 @@ abstract class Mad_Script_Generator_Association_Abstract
 		$classPieces = explode('_', get_class($this));
 		return lcfirst(array_pop($classPieces));
 	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
+	public function getNodeName()
+	{
+		return $this->getType() . $this->getName();
+	}
 
 	
 	/**
