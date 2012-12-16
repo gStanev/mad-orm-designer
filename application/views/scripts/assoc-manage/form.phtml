@@ -8,12 +8,14 @@ $assocHelper = $this->assoc($assoc);
 	<?php echo $assocHelper->toInputs(array('options'));?>
 	<label>
 		Name:
-		<input name="assoc[name]" value="<?php echo $assoc->getName();?>" >
+		<input size="<?php echo strlen($assoc->getName());?>" name="assoc[name]" value="<?php echo $assoc->getName();?>" >
 	</label>
-	<a id="add-assoc-opts" href="javascript:;" title="<?php echo $this->translate('Add option')?>"><?php echo $this->translate('Add option')?></a>
+	<h3><?php echo "{$assoc->masterModel->modelName}->{$assoc->getType()}({$assoc->assocModel->modelName})"?></h3>
+	<?php if(count($assoc->getAllowedOptionKeys()) > count($assoc->getOptions())) {?>
 	<div class="opt-wrapper">
 		<label>
-			Option:
+			<a id="add-assoc-opts" href="javascript:;" title="<?php echo $this->translate('Add option')?>"><?php echo $this->translate('Add option')?></a>	
+			type: 
 			<select id="allowed-option-keys">
 				<?php 
 				foreach ($assoc->getAllowedOptionKeys() as $optionKey) { 
@@ -24,6 +26,7 @@ $assocHelper = $this->assoc($assoc);
 			</select>
 		</label>
 	</div>
+	<?php }?>
 	<?php if(count($assoc->getOptions())) {?>
 	<h3>Association options</h3>
 	<table>

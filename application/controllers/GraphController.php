@@ -44,7 +44,7 @@ class GraphController extends Mmg_Controller_Action
 		}
 		
 		foreach ($this->_getModelBuilder()->suggestionsHasOne($model) as $assoc) {
-			$model->addAssoc($assoc);
+			//$model->addAssoc($assoc); Skip this relations because is duplicate with hasMany
 		}
 	}
 	

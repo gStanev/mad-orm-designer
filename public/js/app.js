@@ -224,7 +224,7 @@
 	};
 
 	var Maps = function() {
-		var sys = arbor.ParticleSystem({
+		window.sys = arbor.ParticleSystem({
 
 		});
 
@@ -269,6 +269,10 @@
 		$('.remove-assoc-opt').live('click', function() {
 			$(this).closest('tr').remove();
 			
+			$.get('/assoc-manage/form', $('#assoc-data').serialize(), function(data) {
+				$.fancybox(data, fancyBoxSettings);
+			});
+			
 			return false;
 		});
 		
@@ -284,9 +288,10 @@
 		$('#assoc-options-save').live('click', function() {
 			var newNodeData = $('#assoc-data').formToJson().assoc;
 			var nodeName = newNodeData.type + newNodeData.name;
-			GraphData.nodes[nodeName] = newNodeData;
-			//console.log(newNodeData);
-			sys.getNode(nodeName).data = newNodeData;
+			
+			
+			sys.getNode(nodeName).data = GraphData.nodes[nodeName] = newNodeData;
+			
 			$.fancybox.close();
 			return false;
 		});
