@@ -19,4 +19,9 @@ abstract class Mad_Script_Generator_Parser_Abstract
 	 * @return array
 	 */
 	abstract public function getTableNames();
+	
+	/**
+	 * @return array
+	 */
+	abstract public function getModelNames();
 }

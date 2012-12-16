@@ -11,6 +11,19 @@
 class Mad_Script_Generator_Model_Writer
 {
 	/**
+	 * 
+	 * @var string
+	 */
+	const PROPERTIES_START = " * ----- Properties Start -------------- \n";
+	
+	/**
+	 * 
+	 * @var string
+	 */
+	const PROPERTIES_END = " * ------ Properties End -------------- \n";
+	
+	
+	/**
 	 * Absolute path to models folder
 	 * @var string
 	 */
@@ -90,11 +103,13 @@ class Mad_Script_Generator_Model_Writer
 		$output .= '/**
 					*' . PHP_EOL;
 		
+		$output .= self::PROPERTIES_START;
 		foreach ($model->getFields() as $field) {
 			/* @var $field Mad_Script_Generator_Field */
 			
 			$output .= " * @property {$field->fieldType} \${$field->fieldName} \n";
 		}
+		$output .= self::PROPERTIES_END;
 		
 		foreach ($model->getAssocs() as $assoc) {
 			/* @var $assoc Mad_Script_Generator_Association_Abstract */
@@ -104,7 +119,7 @@ class Mad_Script_Generator_Model_Writer
 		$output .= '*/' . PHP_EOL;
 		
 		$output .= "class {$model->modelName} extends Mad_Model_Base { \n";
-		$output .= "\n\n\tpublic function __construct() {" . PHP_EOL;
+		$output .= "\n\n\tpublic function _initialize() {" . PHP_EOL;
 		
 		foreach ($model->getAssocs() as $assoc) {
 			/* @var $assoc Mad_Script_Generator_Association_Abstract */
