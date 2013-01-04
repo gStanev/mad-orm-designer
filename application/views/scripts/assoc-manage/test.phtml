@@ -1,0 +1,38 @@
+<?php
+/* @var $assoc Mad_Script_Generator_Association_Abstract */
+$assoc = $this->assoc;
+/* @var $assocHelper Zend_View_Helper_Assoc */
+$assocHelper = $this->assoc($assoc);
+
+
+/* @var $associations Mad_Model_Collection */
+$associations = $this->associations;
+?>
+<form id="assoc-test-form">
+	<?php echo $assocHelper->toInputs();?>
+	<h3><?php echo $assoc->masterModel->modelName;?></h3>
+	<select id="master-model-ids" name="masterModel[id]">
+<?php foreach ($this->models as $model) { 
+	/* @var $model Mad_Model_Base */
+	/* @var $modelHelper Zend_View_Helper_Model */
+	$modelHelper = $this->model($model);
+	echo "<option value=\"{$model->id}\">{$modelHelper->getLabel()}</option>";
+}
+?>
+	</select>
+	<a href="javascript:;" id="select-master-model">Select model</a>
+	<h3><?php echo $assoc->getNodeName();?></h3>
+	<?php foreach ($associations as $association) { 
+		/* @var $association Mad_Model_Base */ 
+		/* @var $modelHelper Zend_View_Helper_Model */
+		$modelHelper = $this->model($association);
+		echo "<p>{$modelHelper->getLabel()}</p>";
+	}
+	?>
+	<a href="javascript:;" class="sql-queries-trigger">Show SQL</a>
+	<div class="sql-queries">
+		<?php foreach ($this->sqlQueries as $sqlQeury) {?>
+			<pre><?php echo $sqlQeury;?></pre>
+		<?php }?>
+	</div>
+</form>

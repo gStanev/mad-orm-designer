@@ -24,6 +24,7 @@ defined('PUBLIC_PATH')
 set_include_path(implode(PATH_SEPARATOR, array(
 	ROOT_PATH . '/lib',	
 	ROOT_PATH . '/vendor',
+	ROOT_PATH . '/application/models' //@TODO: do this with config value
 )));
 
 /**
@@ -47,7 +48,7 @@ $application = new Zend_Application(
 
 Mad_Model_Base::establishConnection(
 	$application->getOption('database')
-//	+ array('cache' => Mattro_Cache_Object::getInstance())	
+	+ array('cache' => Mmg_Cache_Object::getInstance())	
 );
 ////////////////////////////////////////////////////////////
 // INIT MAD
@@ -58,7 +59,7 @@ Mad_Model_Base::establishConnection(
 // initialize the default loger. writers and filters are specified in the environment files.
 $GLOBALS['MAD_DEFAULT_LOGGER'] = null;
 if(in_array(APP_ENV, array('development', 'staging'))) {
-	$GLOBALS['MAD_DEFAULT_LOGGER'] = new Zend_Log(new Zend_Log_Writer_Firebug());
+	$GLOBALS['MAD_DEFAULT_LOGGER'] = new Zend_Log(new Zend_Log_Writer_Stack());
 }
 
 Zend_Registry::set('app', $application);
