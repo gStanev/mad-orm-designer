@@ -119,6 +119,7 @@ class Mad_Script_Generator_Model_Writer
 		$output .= '*/' . PHP_EOL;
 		
 		$output .= "class {$model->modelName} extends Mad_Model_Base { \n";
+		$output .= "\n\n protected \$_tableName = '{$model->tableName}';" . PHP_EOL;
 		$output .= "\n\n\tpublic function _initialize() {" . PHP_EOL;
 		
 		foreach ($model->getAssocs() as $assoc) {

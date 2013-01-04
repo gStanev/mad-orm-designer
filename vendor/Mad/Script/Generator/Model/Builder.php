@@ -161,8 +161,12 @@ class Mad_Script_Generator_Model_Builder
 				try {
 					$assocModel = $this->factoryModel($tableName);	
 				} catch (Exception $e) {continue;}
-
-				$assocs[] = new Mad_Script_Generator_Association_HasManyThrough($model, $assocModel, $hasMany->assocModel);
+				
+				/* @var $assoc Mad_Script_Generator_Association_HasManyThrough */
+				$assoc = new Mad_Script_Generator_Association_HasManyThrough($model, $assocModel, $hasMany->assocModel);;
+				$assoc->addOption('className', $hasMany->assocModel->modelName);
+				
+				$assocs[] = $assoc;
 			}
 		}
 		
