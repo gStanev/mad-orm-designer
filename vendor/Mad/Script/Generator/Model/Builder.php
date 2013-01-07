@@ -37,6 +37,19 @@ class Mad_Script_Generator_Model_Builder
 	 */
 	public function factoryModel($tableName)
 	{
+		$assignAttributes = 
+			function(
+				Mad_Script_Generator_Parser_Abstract $parser, 
+				Mad_Script_Generator_Model $model
+			) {
+				foreach ($parser->getProperties($model->tableName) as $fieldName => $fieldType) {
+					$model->addField(
+						new Mad_Script_Generator_Field($fieldName, $fieldType)
+					);
+				}
+			};
+		
+		
 		if($this->_parser instanceof Mad_Script_Generator_Parser_Db) {
 		
 			$model = new Mad_Script_Generator_Model(
@@ -44,12 +57,53 @@ class Mad_Script_Generator_Model_Builder
 				Mad_Support_Inflector::classify($tableName)
 			);
 
-			foreach ($this->_parser->getProperties($tableName) as $fieldName => $fieldType) {
-				$model->addField(
-					new Mad_Script_Generator_Field($fieldName, $fieldType)
-				);				
-			}
+			$assignAttributes($this->_parser, $model);
 
+			return $model;
+		}
+		
+		
+		if($this->_parser instanceof Mad_Script_Generator_Parser_File) {
+			/* @var $realModel Mad_Model_Base */
+			$model = new Mad_Script_Generator_Model(
+				$tableName, 
+				get_class($realModel = $this->_parser->getModelByTableName($tableName))
+			);
+			
+			//Add associations to current model
+			foreach ($realModel->getAssociationList() as $assocName => $realAssoc) {
+				//describing real variables
+				$assocType 		= $assoc[0];
+				$assocOptions 	= $assoc[1];
+				
+				$realAssocModelName = (isset($assocOptions['className'])) ?
+										 ($assocOptions['className']) :
+											 (Mad_Support_Inflector::singularize($assocName));
+
+				/* @var $realAssocModel Mad_Model_Base */
+				$realAssocModel = new $realAssocModelName();
+				$assocModel = new Mad_Script_Generator_Model($realAssocModel->tableName(), $realAssocModelName);
+				
+				//extract middle model if exists
+				if($assocType === Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH || isset($assocOptions['through'])) {
+					$middleModelName = $assocOptions['through'];
+					/* @var $realMidleModel Mad_Model_Base */
+					$realMidleModel = new $middleModelName();
+					$middleModel = new Mad_Script_Generator_Model($realMidleModel->tableName(), $middleModelName);
+				} else {
+					$middleModel = null;
+				}
+				
+				//add assoc to model
+				$model->addAssoc(
+					Mad_Script_Generator_Association_Abstract::factory(
+						$assocType, $model, $assocModel,$middleModel, $assoc[0]
+					)
+				);
+			}
+			
+			$assignAttributes($this->_parser, $model);
+			
 			return $model;
 		}
 		

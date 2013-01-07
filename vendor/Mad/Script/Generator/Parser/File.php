@@ -35,7 +35,7 @@ class Mad_Script_Generator_Parser_File extends Mad_Script_Generator_Parser_Abstr
 		$properties = array();
 		$content = 
 			$this->_getContentByModelName(
-				get_class($this->_getModelByTableName($tableName))
+				get_class($this->getModelByTableName($tableName))
 			);
 
 		$propertySnippet = 
@@ -141,7 +141,7 @@ class Mad_Script_Generator_Parser_File extends Mad_Script_Generator_Parser_Abstr
 	 * @param string $tableName
 	 * @return Mad_Model_Base
 	 */
-	protected function _getModelByTableName($tableName)
+	public function getModelByTableName($tableName)
 	{
 		foreach ($this->getModels() as $model) {
 			/* @var $model Mad_Model_Base */
@@ -160,10 +160,14 @@ class Mad_Script_Generator_Parser_File extends Mad_Script_Generator_Parser_Abstr
 	protected function _factoryObj($fileContent, $modelName)
 	{
 		//prepare evaluation string
-		$fileContent = str_replace('<?php', '', $fileContent);
-		$fileContent .= "; \$obj = new {$modelName}();";
+		$toEval = '';
+		if(!class_exists($modelName)) {
+			$toEval .= str_replace('<?php', '', $fileContent);
+		}
 		
-		eval($fileContent);
+		$toEval .= " \$obj = new {$modelName}();";
+		
+		eval($toEval);
 		return $obj;
 	}
 }
