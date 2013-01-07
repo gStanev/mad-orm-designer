@@ -30,22 +30,45 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 	}
 	
 	/**
+	 * @param string $parserType 'db', 'file'
 	 * @return Mad_Script_Generator_Model_Builder
 	 */
-	protected function _getModelBuilder()
+	protected function _getModelBuilder($parserType = 'db')
 	{
-		if(!($this->_modelBuilder instanceof Mad_Script_Generator_Model_Builder)) {
-			$this->_modelBuilder =
-				new Mad_Script_Generator_Model_Builder(
-					new Mad_Script_Generator_Parser_Db(
-						new Horde_Db_Adapter_Mysqli(
-							$this->_getApplication()->getOption('database')
-						)
-					)
-				);
+		if(
+			!($this->_modelBuilder instanceof Mad_Script_Generator_Model_Builder) ||
+			(
+				($this->_modelBuilder instanceof Mad_Script_Generator_Parser_Db && $parserType == 'file') ||
+				($this->_modelBuilder instanceof Mad_Script_Generator_Parser_File && $parserType == 'db')
+			)
+		) {
+			$this->_loadModelBuilder($parserType);		
 		}
 	
 		return $this->_modelBuilder;
+	}
+	
+	/**
+	 * @param string $parserType 'db', 'file'
+	 * @return 
+	 */
+	private function _loadModelBuilder($parserType)
+	{
+		if($parserType === 'db') {
+			$parser = new Mad_Script_Generator_Parser_Db(
+					new Horde_Db_Adapter_Mysqli(
+							$this->_getApplication()->getOption('database')
+					)
+			);
+		} else if($parserType === 'file') {
+			$parser = new Mad_Script_Generator_Parser_File(
+				$this->_getApplication()->getOption('modelsPath')
+			);
+		} else {
+			throw new Exception('Parser type must be "db" or "file"');
+		}
+		
+		$this->_modelBuilder = new Mad_Script_Generator_Model_Builder($parser);
 	}
 	
 	/**
