@@ -36,8 +36,8 @@ var Graph = {currentTable: <?php echo json_encode($tableName)?>};
       <div class="clr"></div>
       <div class="menu_nav">
         <ul>
-          <li <?php if($actionName == 'index' && $controllerName == 'index') echo 'class="active"'; ?>><a href="/"><?php echo $this->translate('Generated Models')?></a></li>
-          <li <?php if($actionName == 'index' && $controllerName == 'products') echo 'class="active"'; ?>><a href="/" ><?php echo $this->translate('Still not generated models')?></a></li>
+          <li <?php if($actionName == 'index' && $controllerName == 'index') echo 'class="active"'; ?>><a href="/index"><?php echo $this->translate('Still not generated models')?></a></li>
+          <li <?php if($actionName == 'generated' && $controllerName == 'products') echo 'class="active"'; ?>><a href="/index/generated" ><?php echo $this->translate('Generated Models')?></a></li>
           <li <?php if($actionName == 'location' && $controllerName == 'index') echo 'class="active"'; ?>><a href="/" ><?php echo $this->translate('Models for update')?></a></li>
         </ul>
         <div class="clr"></div>
