@@ -47,22 +47,6 @@ var Graph = {currentTable: <?php echo json_encode($tableName)?>};
         <ul>
           <li><a id="save-model" href="javascript:;"><?php echo $this->translate('Save Model')?></a></li>
           <li><a id="add-assoc" href="javascript:;" ><?php echo $this->translate('Add Association')?></a></li>
-          <li>
-          	<?php echo $this->translate('Highlight assoc type:')?>
-			<form action="" id="highlight-type">
-				<?php foreach (array(
-						'All types',
-						Mad_Model_Association_Base::TYPE_BELONGS_TO, 
-						Mad_Model_Association_Base::TYPE_HAS_MANY, 
-						Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH, 
-						Mad_Model_Association_Base::TYPE_HAS_ONE) as $assocType) {?>
-				<label>
-					<?php echo $assocType;?>
-					<input type="radio" name="assoc-type" value="<?php echo $assocType?>" />
-				</label>
-				<?php }?>
-			</form>	
-          </li>
         </ul>
         <div class="clr"></div>
       </div>

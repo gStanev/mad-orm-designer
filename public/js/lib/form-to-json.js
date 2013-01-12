@@ -64,4 +64,18 @@ jQuery.fn.formToJson = function(options) {
 
 
     return json;
-}
+};
+
+$.extend($.expr[":"],
+
+		{
+
+		"contains-ci": function(elem, i, match, array)
+
+		{
+
+		return (elem.textContent || elem.innerText || $(elem).text() || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+
+		}
+
+		});

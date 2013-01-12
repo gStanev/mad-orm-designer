@@ -335,6 +335,16 @@
 			sys.renderer.redraw($(this).val());
 		});
 		
+		$('#model_filter').keyup(function(){
+			var val = $(this).val();
+			if(val) {
+				$('#smoothmenu ul li a').show();
+				$('#smoothmenu ul li a:not(:contains-ci("' + val + '"))').hide();
+			}else {
+				$('#smoothmenu ul li a').show();
+			}
+		});
+		
 		$('#loader-locker')
 			.ajaxStart(function(){$(this).show();})
 			.ajaxStop(function(){$(this).hide();});

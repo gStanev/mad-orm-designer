@@ -58,11 +58,12 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 	 */
 	protected function _getModelBuilder($parserType = 'db')
 	{
+
 		if(
 			!($this->_modelBuilder instanceof Mad_Script_Generator_Model_Builder) ||
 			(
-				($this->_modelBuilder instanceof Mad_Script_Generator_Parser_Db && $parserType == 'file') ||
-				($this->_modelBuilder instanceof Mad_Script_Generator_Parser_File && $parserType == 'db')
+				($this->_modelBuilder->getParser() instanceof Mad_Script_Generator_Parser_Db && $parserType == 'file') ||
+				($this->_modelBuilder->getParser() instanceof Mad_Script_Generator_Parser_File && $parserType == 'db')
 			)
 		) {
 			$this->_loadModelBuilder($parserType);		
@@ -77,7 +78,7 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 	 */
 	private function _loadModelBuilder($parserType)
 	{
-		if($parserType === 'db') {
+		if($parserType === 'db') { 
 			$parser = new Mad_Script_Generator_Parser_Db(
 					new Horde_Db_Adapter_Mysqli(
 							$this->_getApplication()->getOption('database')

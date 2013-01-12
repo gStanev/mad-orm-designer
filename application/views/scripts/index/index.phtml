@@ -2,6 +2,27 @@
 <div class="gadget">
 <div class="ddsmoothmenu-v" id="smoothmenu">
 <h3>Нашите Продукти</h3>
+<div>
+<?php echo $this->translate('Highlight assoc type:')?>
+	<form action="" id="highlight-type">
+<?php foreach (array(
+					'All types',
+					Mad_Model_Association_Base::TYPE_BELONGS_TO, 
+					Mad_Model_Association_Base::TYPE_HAS_MANY, 
+					Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH, 
+					Mad_Model_Association_Base::TYPE_HAS_ONE) as $assocType) {?>
+		<label>
+		<?php echo $assocType;?>
+			<input type="radio" name="assoc-type" value="<?php echo $assocType?>" />
+		</label>
+		<br />
+<?php }?>
+	<label>
+		<?php echo $this->translate('Model Filter')?>
+		<input name="model_filter" type="text" id="model_filter" >
+	</label>
+	</form>	
+</div>
 <ul class="level-1">
 <?php foreach ($this->models as $model) { /* @var $model Mad_Script_Generator_Model */?>
 	<li><a href="<?php echo $this->url(array('tableName' => $model->tableName))?>"><?php echo $model->modelName;?></a></li>

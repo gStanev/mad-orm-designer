@@ -9,7 +9,7 @@ class IndexController extends Mmg_Controller_Action
 	public function indexAction()
 	{
 		$this->_helper->viewRenderer->setScriptAction('index');
-		$this->view->models = $this->_getModelBuilder('file')->factoryModels();
+		$this->view->models = $this->_getModelBuilder('file')->factoryModels(false);
 	}
 	
     public function assocSuggestionsAction()
