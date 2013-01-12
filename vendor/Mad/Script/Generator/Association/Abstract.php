@@ -205,12 +205,12 @@ abstract class Mad_Script_Generator_Association_Abstract
 			$assoc = new Mad_Script_Generator_Association_BelongsTo($masterModel, $assocModel);
 		}
 		
-		if($type == Mad_Model_Association_Base::TYPE_HAS_MANY) {
+		if($type == Mad_Model_Association_Base::TYPE_HAS_MANY) { 
 			$assoc = new Mad_Script_Generator_Association_HasMany($masterModel, $assocModel);
 			
 		}
 		
-		if($type == Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH) {
+		if($type == Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH) { 
 			$assoc = new Mad_Script_Generator_Association_HasManyThrough($masterModel, $assocModel, $middleModel);
 		}
 		
@@ -237,16 +237,17 @@ abstract class Mad_Script_Generator_Association_Abstract
 	 * 
 	 * @param string $optionKey
 	 * @param string $optionValue
-	 * @throws Exception
+	 * @throws InvalidArgumentException
 	 * @return Mad_Script_Generator_Association_Abstract
 	 */
 	public function addOption($optionKey, $optionValue) 
 	{
-		if(!in_array($optionKey, $this->getAllowedOptionKeys())) {
-			throw new Exception("$optionKey is not allowed option key.");
-		}
-		
 		$this->_options[$optionKey] = $optionValue;
+		
+		//skip validation for special word for hasManyThrough assoc
+		if($optionKey !== 'through'){
+			Mad_Support_Base::assertValidKeys($this->_options, $this->getAllowedOptionKeys());
+		}
 		
 		return $this;
 	}

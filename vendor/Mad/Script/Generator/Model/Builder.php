@@ -71,21 +71,25 @@ class Mad_Script_Generator_Model_Builder
 			);
 			
 			//Add associations to current model
+			
 			foreach ($realModel->getAssociationList() as $assocName => $realAssoc) {
 				//describing real variables
-				$assocType 		= $assoc[0];
-				$assocOptions 	= $assoc[1];
+				$assocType 		= $realAssoc[0];
+				$assocOptions 	= $realAssoc[1];
 				
 				$realAssocModelName = (isset($assocOptions['className'])) ?
 										 ($assocOptions['className']) :
 											 (Mad_Support_Inflector::singularize($assocName));
 
+				if(!class_exists($realAssocModelName)) 
+					continue;
+				
 				/* @var $realAssocModel Mad_Model_Base */
 				$realAssocModel = new $realAssocModelName();
 				$assocModel = new Mad_Script_Generator_Model($realAssocModel->tableName(), $realAssocModelName);
 				
 				//extract middle model if exists
-				if($assocType === Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH || isset($assocOptions['through'])) {
+				if(isset($assocOptions['through'])) {
 					$middleModelName = $assocOptions['through'];
 					/* @var $realMidleModel Mad_Model_Base */
 					$realMidleModel = new $middleModelName();
@@ -97,7 +101,7 @@ class Mad_Script_Generator_Model_Builder
 				//add assoc to model
 				$model->addAssoc(
 					Mad_Script_Generator_Association_Abstract::factory(
-						$assocType, $model, $assocModel,$middleModel, $assoc[0]
+						$assocType, $model, $assocModel,$middleModel, $assocOptions
 					)
 				);
 			}
