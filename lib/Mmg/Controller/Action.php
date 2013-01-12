@@ -11,11 +11,34 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 	 */
 	protected $_modelBuilder;
 	
+	public function init()
+	{
+		parent::init();
+		$this->_generateAllModels();
+	}
+	
 	protected function _disableView()
 	{
 		$this->_helper->layout()->disableLayout();
 		$this->_helper->viewRenderer->setNoRender();
 	}
+	
+	/**
+	 * Generate models which doesn't exists 
+	 * 
+	 * @return void
+	 */
+	protected function _generateAllModels()
+	{
+		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->getOption('modelsPath'));
+		
+		foreach ($this->_getModelBuilder('db')->factoryModels() as $model) {
+			/* @var $model Mad_Script_Generator_Model  */
+			if(class_exists($model->modelName)) continue;
+		
+			$writer->writeModel($model);
+		}
+	}	
 	
 	/**
 	 * 
