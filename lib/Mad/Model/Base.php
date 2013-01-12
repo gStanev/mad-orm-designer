@@ -107,7 +107,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * Has subclasses through a types table with class_name column
      * @var boolean
      */
-    protected $_inheritanceColumn = 'type';
+    protected $_inheritanceColumn = 'typeInferitance';
 
     /**
      * @var array

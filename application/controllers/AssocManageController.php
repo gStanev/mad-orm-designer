@@ -36,6 +36,13 @@ class AssocManageController extends Mmg_Controller_Action
     	$this->_helper->layout()->disableLayout();
     	
     	$this->view->sqlQueries = Mad_Model_Base::logger()->getFirstWritter()->getStack();
+    	$this->view->sqlQueries = array_filter($this->view->sqlQueries, function($item) {
+    		if(strpos($item, 'SHOW FIELDS') === false){
+    			return true;
+    		}
+    	});
+    	
+    	array_shift($this->view->sqlQueries);
     }
     
 
