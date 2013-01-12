@@ -50,6 +50,9 @@ class Mad_Script_Generator_Parser_File extends Mad_Script_Generator_Parser_Abstr
 		foreach (explode("\n", $propertySnippet) as $propRow) {
 			$propRowList = explode(" ", $propRow);
 			
+			if(!isset($propRowList[4]) || !isset($propRowList[3]))
+				continue;
+			
 			$properties[str_replace('$', '', $propRowList[4])] = $propRowList[3];
 		}
 		

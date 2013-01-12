@@ -32,10 +32,11 @@ class Mad_Script_Generator_Model_Builder
 	
 	/**
 	 * 
-	 * @param string $tableName
+	 * @param string	$tableName
+	 * @param bool		$addAssocs 	
 	 * @return Mad_Script_Generator_Model
 	 */
-	public function factoryModel($tableName)
+	public function factoryModel($tableName, $addAssocs = true)
 	{
 		$assignAttributes = 
 			function(
@@ -61,49 +62,55 @@ class Mad_Script_Generator_Model_Builder
 
 			return $model;
 		}
-		
-		
+				
 		if($this->_parser instanceof Mad_Script_Generator_Parser_File) {
+
 			/* @var $realModel Mad_Model_Base */
 			$model = new Mad_Script_Generator_Model(
 				$tableName, 
 				get_class($realModel = $this->_parser->getModelByTableName($tableName))
 			);
-			
-			//Add associations to current model
-			
-			foreach ($realModel->getAssociationList() as $assocName => $realAssoc) {
-				//describing real variables
-				$assocType 		= $realAssoc[0];
-				$assocOptions 	= $realAssoc[1];
-				
-				$realAssocModelName = (isset($assocOptions['className'])) ?
-										 ($assocOptions['className']) :
-											 (Mad_Support_Inflector::singularize($assocName));
 
-				if(!class_exists($realAssocModelName)) 
-					continue;
-				
-				/* @var $realAssocModel Mad_Model_Base */
-				$realAssocModel = new $realAssocModelName();
-				$assocModel = new Mad_Script_Generator_Model($realAssocModel->tableName(), $realAssocModelName);
-				
-				//extract middle model if exists
-				if(isset($assocOptions['through'])) {
-					$middleModelName = $assocOptions['through'];
-					/* @var $realMidleModel Mad_Model_Base */
-					$realMidleModel = new $middleModelName();
-					$middleModel = new Mad_Script_Generator_Model($realMidleModel->tableName(), $middleModelName);
-				} else {
-					$middleModel = null;
+			if($addAssocs) {
+				//Add associations to current model
+				foreach (
+					((is_array($realModel->getAssociationList())) ? ($realModel->getAssociationList()) : (array())) 
+					as $assocName => $realAssoc
+				) {
+					//describing real variables
+					$assocType 		= $realAssoc[0];
+					$assocOptions 	= $realAssoc[1];
+					
+					$realAssocModelName = (isset($assocOptions['className'])) ?
+											 ($assocOptions['className']) :
+												 (Mad_Support_Inflector::singularize($assocName));
+	
+					if(!class_exists($realAssocModelName)) 
+						continue;
+					
+					/* @var $realAssocModel Mad_Model_Base */
+					$realAssocModel = new $realAssocModelName();
+					$assocModel = new Mad_Script_Generator_Model($realAssocModel->tableName(), $realAssocModelName);
+					
+					//extract middle model if exists
+					if(isset($assocOptions['through'])) {
+						$middleModelName = $assocOptions['through'];
+						/* @var $realMidleModel Mad_Model_Base */
+						$realMidleModel = new $middleModelName();
+						$middleModel = new Mad_Script_Generator_Model($realMidleModel->tableName(), $middleModelName);
+						$assocType = Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH;
+					} else {
+						$middleModel = null;
+					}
+					
+					//add assoc to model
+					$model->addAssoc(
+						Mad_Script_Generator_Association_Abstract::factory(
+							$assocType, $model, $assocModel,$middleModel, $assocOptions
+						)
+					);
 				}
-				
-				//add assoc to model
-				$model->addAssoc(
-					Mad_Script_Generator_Association_Abstract::factory(
-						$assocType, $model, $assocModel,$middleModel, $assocOptions
-					)
-				);
+			
 			}
 			
 			$assignAttributes($this->_parser, $model);
@@ -115,19 +122,29 @@ class Mad_Script_Generator_Model_Builder
 	}
 	
 	/**
+	 * @param bool $addAssocs
 	 * @return array <Mad_Script_Generator_Model>
 	 */
-	public function factoryModels()
+	public function factoryModels($addAssocs = true)
 	{
 		if(count($this->_models)) {
 			return $this->_models;
 		}
 		
 		foreach ($this->_parser->getTableNames() as $tableName) {	
-			$this->_models[] = $this->factoryModel($tableName);
+			$this->_models[] = $this->factoryModel($tableName, $addAssocs);
 		}
 		
 		return $this->_models;
+	}
+	
+	/**
+	 * 
+	 * @return Mad_Script_Generator_Parser_Abstract
+	 */
+	public function getParser()
+	{
+		return $this->_parser;
 	}
 	
 	/**
