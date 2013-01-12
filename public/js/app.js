@@ -261,11 +261,16 @@
 			fire(GraphData);
 		}
 
-		$.getJSON("/graph/not-generated-assocs/tableName/" + Graph.currentTable,
-				function(data) {
-					GraphData = data;
-					fire(data);
-				});
+
+		$.getJSON(
+			((($('body').hasClass('default-index-assoc-suggestions')) ? 
+				('/graph/not-generated-assocs/tableName/') : 
+					('/graph/generated/tableName/')) + 
+			Graph.currentTable),
+			function(data) {
+				GraphData = data;
+				fire(data);
+			});
 	};
 
 	$(document).ready(function() {

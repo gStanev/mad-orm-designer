@@ -140,8 +140,6 @@ class GraphController extends Mmg_Controller_Action
 	{
 		$model = $this->_getModelBuilder('file')->factoryModel($this->_getParam('tableName'));
 		
-		$this->_populateSuggestionAccosModel($model);
-		
 		$this->_sendJsonAssocsGraphData($model);
 	}
 	

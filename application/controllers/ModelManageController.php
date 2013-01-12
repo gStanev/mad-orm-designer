@@ -9,7 +9,7 @@ class ModelManageController extends Mmg_Controller_Action
     public function saveAction()
     {
     	$this->_disableView();
-    	$writer = new Mad_Script_Generator_Model_Writer(ROOT_PATH . '/application/models');
+    	$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->getOption('modelsPath'));
     	$assocsData = $this->_getParam('nodes');
     	$modelData  = array_shift($assocsData);
     	
