@@ -57,7 +57,7 @@ class AssocManageController extends Mmg_Controller_Action
     	
     	$middleModel =
 	    	(isset($assocData['middleModel'])) ?
-		    	($this->_getModelBuilder()->factoryModel($assocData['masterModel']['tableName'])) :
+		    	($this->_getModelBuilder()->factoryModel($assocData['middleModel']['tableName'])) :
 		    		(null);
     	 
     	return 

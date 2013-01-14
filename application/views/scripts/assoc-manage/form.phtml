@@ -10,12 +10,15 @@ $assocHelper = $this->assoc($assoc);
 		Name:
 		<input size="<?php echo strlen($assoc->getName());?>" name="assoc[name]" value="<?php echo $assoc->getName();?>" >
 	</label>
-	<h3><?php echo "{$assoc->masterModel->modelName}->{$assoc->getType()}({$assoc->assocModel->modelName})"?></h3>
+	<h3>
+		<span title="Master model name"><?php echo $assoc->masterModel->modelName; ?></span> : 
+		<span title="Association type"><?php echo $assoc->getType(); ?></span> :
+		<span title="Association name"><?php echo $assoc->getName(); ?></span>
+	</h3>
 	<?php if(count($assoc->getAllowedOptionKeys()) > count($assoc->getOptions())) {?>
-	<div class="opt-wrapper">
-		<label>
-			<a id="add-assoc-opts" href="javascript:;" title="<?php echo $this->translate('Add option')?>"><?php echo $this->translate('Add option')?></a>	
-			type: 
+	<div class="">
+		<label>	
+			Type:
 			<select id="allowed-option-keys">
 				<?php 
 				foreach ($assoc->getAllowedOptionKeys() as $optionKey) { 
@@ -24,6 +27,7 @@ $assocHelper = $this->assoc($assoc);
 				}
 				?>
 			</select>
+			<a id="add-assoc-opts" href="javascript:;" class="small-button" title="<?php echo $this->translate('Add-option')?>"><?php echo $this->translate('Add-option')?></a>
 		</label>
 	</div>
 	<?php }?>
@@ -44,8 +48,8 @@ $assocHelper = $this->assoc($assoc);
 			<td><input type="text" name="assoc[options][<?php echo $optionKey;?>]" value="<?php echo $optionValue;?>"></td>
 			<td>prefill</td>
 			<td>
-				<a href="javascript:;">Prefil</a>
-				<a class="remove-assoc-opt" href="javascript:;">Remove</a>
+				<a class="small-button" href="javascript:;">Prefil</a>
+				<a class="remove-assoc-opt small-button"  href="javascript:;">Remove</a>
 			</td>
 		</tr>
 		<?php }?>
@@ -53,6 +57,9 @@ $assocHelper = $this->assoc($assoc);
 		</thead>
 	</table>
 	<?php }?>
-	<a id="assoc-options-save" href="javascript:;">Save Options</a>
-	<a id="assoc-test" href="javascript:;">Test Assoication</a>
+	<div class="button-set">
+		<a id="assoc-options-save" class="button" href="javascript:;">Save</a>
+		<a id="assoc-remove" class="button" href="javascript:;">Remove</a>
+		<a id="assoc-test" class="button" href="javascript:;">Test</a>
+	</div>
 </form>

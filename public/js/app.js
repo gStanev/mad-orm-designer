@@ -299,6 +299,26 @@
 			return false;
 		});
 		
+		
+		$('#assoc-remove').live('click', function() {
+			var newNodeData = $('#assoc-data').formToJson().assoc;
+			var nodeName = newNodeData.type + newNodeData.name;
+			
+			var node = sys.getNode(nodeName);
+			var edges = sys.getEdgesFrom(node);
+			
+			for(var i = 0; i < edges.length; i++){
+				sys.pruneEdge(edges[i]);
+			}
+			
+			sys.pruneNode(node);
+			
+			delete GraphData.nodes[nodeName];
+			delete GraphData.edges[Graph.currentModelName][nodeName];
+			
+			$.fancybox.close();
+		});
+		
 		$('#assoc-options-save').live('click', function() {
 			var newNodeData = $('#assoc-data').formToJson().assoc;
 			var nodeName = newNodeData.type + newNodeData.name;
