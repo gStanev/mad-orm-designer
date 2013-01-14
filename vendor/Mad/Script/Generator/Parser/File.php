@@ -12,6 +12,12 @@ class Mad_Script_Generator_Parser_File extends Mad_Script_Generator_Parser_Abstr
 {
 	/**
 	 * 
+	 * @var array <Mad_Model_Base>
+	 */
+	private $_models = array();
+	
+	/**
+	 * 
 	 * @var array like array('User.php' => 'file content ...')
 	 */
 	protected $_filesContent = array();
@@ -125,18 +131,20 @@ class Mad_Script_Generator_Parser_File extends Mad_Script_Generator_Parser_Abstr
 	}
 	
 	/**
+	 * Load/Cache  in RAM models, and after that return array of models
 	 * 
 	 * @return array<Mad_Model_Base>
 	 */
 	public function getModels()
 	{
-		$models = array();
-		foreach ($this->_getFilesContent() as $fileName => $fileContent) {
-			$obj = $this->_factoryObj($fileContent, str_replace('.php', '', $fileName));
-			$models[] = $obj;
+		if(count($this->_models) < 1) {
+			foreach ($this->_getFilesContent() as $fileName => $fileContent) {
+				$obj = $this->_factoryObj($fileContent, str_replace('.php', '', $fileName));
+				$this->_models[] = $obj;
+			}
 		}
 		
-		return $models;
+		return $this->_models;
 	}
 	
 	/**
