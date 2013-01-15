@@ -550,7 +550,7 @@ background: #153363;
 color: white;
 }
 
-.ddsmoothmenu-v ul li a:hover{
+.ddsmoothmenu-v ul li a:hover, .ddsmoothmenu-v ul li a.active{
 background: #153363; /*background of menu items during onmouseover (hover state)*/
 color: white;
 }

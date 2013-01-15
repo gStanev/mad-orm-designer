@@ -37,14 +37,7 @@ Graph.currentModelName = <?php echo json_encode($this->currentModel->modelName);
         <h1><a href="/"><?php echo $this->translate('content.logo')?></a> <small><?php echo $this->translate('content.logo.desc')?></small></h1>
       </div>
       <div class="clr"></div>
-      <div class="menu_nav">
-        <ul>
-          <li <?php if($actionName == 'index' && $controllerName == 'index') echo 'class="active"'; ?>><a href="/index"><?php echo $this->translate('Models')?></a></li>
-          <li <?php if($actionName == 'generated' && $controllerName == 'products') echo 'class="active"'; ?>><a href="/index/assoc-suggestions" ><?php echo $this->translate('Association Suggestions')?></a></li>
-          <li <?php if($actionName == 'location' && $controllerName == 'index') echo 'class="active"'; ?>><a href="/" ><?php echo $this->translate('Models for update')?></a></li>
-        </ul>
-        <div class="clr"></div>
-      </div>
+      <?php echo $this->navi()->main();?>
       <?php if($tableName) {?>
       <div class="menu_nav">
         <ul>

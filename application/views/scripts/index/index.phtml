@@ -23,11 +23,7 @@
 	</label>
 	</form>	
 </div>
-<ul class="level-1">
-<?php foreach ($this->models as $model) { /* @var $model Mad_Script_Generator_Model */?>
-	<li><a href="<?php echo $this->url(array('tableName' => $model->tableName))?>"><?php echo $model->modelName;?></a></li>
-<?php } ?>
-</ul>
+<?php echo $this->navi()->sideBar($this->models);?>
 </div>
 </div>
 </div>
