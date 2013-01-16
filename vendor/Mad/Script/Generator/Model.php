@@ -51,6 +51,10 @@ class Mad_Script_Generator_Model
 	 */
 	public function addAssoc(Mad_Script_Generator_Association_Abstract $assoc)
 	{
+		if($this->issetAssoc($assoc)) {
+			throw new Exception("Assoc with name:\"{$assoc->getName()}\" already exists! It's not possible to add two associations with same name.");
+		}
+		
 		$this->_assocs[] = $assoc;
 		
 		return $this;
@@ -62,6 +66,21 @@ class Mad_Script_Generator_Model
 	public function getAssocs()
 	{
 		return $this->_assocs;
+	}
+	
+	/**
+	 * 
+	 * @param Mad_Script_Generator_Association_Abstract $assocToCheck
+	 */
+	public function issetAssoc(Mad_Script_Generator_Association_Abstract $assocToCheck)
+	{
+		foreach ($this->_assocs as $assoc) {
+			/* @var $assoc Mad_Script_Generator_Association_Abstract */
+			if($assoc->getName() === $assocToCheck->getName())
+				return true;
+		}
+		
+		return false;
 	}
 	
 	/**
