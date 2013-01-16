@@ -102,4 +102,18 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 	{
 		return  Zend_Registry::get('app');
 	}
+	
+	/**
+	 * 
+	 * @return array
+	 */
+	protected function _getAssocTypes()
+	{
+		return  array(
+				Mad_Model_Association_Base::TYPE_BELONGS_TO,
+				Mad_Model_Association_Base::TYPE_HAS_MANY,
+				Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH,
+				Mad_Model_Association_Base::TYPE_HAS_ONE,
+		);
+	}
 }
