@@ -1,0 +1,16 @@
+<?php 
+/* @var $masterModel Mad_Script_Generator_Model */
+$masterModel = $this->masterModel;
+?>
+<form method="post">
+	<label>
+		Choose association type:
+		<select name="assoc[type]">
+			<?php foreach ($this->types as $type) {?>
+			<option value="<?php echo $type;?>"><?php echo $type;?></option>
+			<?php } ?>
+		</select>
+	</label>
+	<input type="hidden" name="assoc[masterModel][tableName]" value="<?php echo $masterModel->tableName?>">
+	<a href="javascript:;" id="assoc-choose-type"  class="button">Next</a>
+</form>

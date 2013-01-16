@@ -1,5 +1,5 @@
 (function() {
-	var GraphData = {};
+	window.GraphData = {};
 	var fancyBoxSettings = {
 		hideOnOverlayClick: false
 	};
@@ -275,9 +275,16 @@
 
 	$(document).ready(function() {
 		Maps();
+		var saveModel = function() {
+				$.post(
+					(($('body').hasClass('default-index-assoc-suggestions')) ? 
+						('/model-manage/add-assoc') : 
+							('/model-manage/save')),
+					GraphData
+				);
+		};
 		$('#save-model').click(function() {
-			$.post('model-manage/save', GraphData, function() {
-			});
+			saveModel();
 		});
 		
 		$('.remove-assoc-opt').live('click', function() {
@@ -290,6 +297,12 @@
 			return false;
 		});
 		
+		$('#add-assoc-init').live('click', function() {
+			$.get('/assoc-manage/form', $(this).closest('form').serialize(), function(data) {
+				$.fancybox(data, fancyBoxSettings);
+			});
+		});
+		
 		$('#add-assoc-opts').live('click', function() {
 			
 			$('#allowed-option-keys').attr('name', 'assoc[options][' + $('#allowed-option-keys option:selected').text() + ']');
@@ -299,12 +312,32 @@
 			return false;
 		});
 		
+		$('#add-assoc').click(function() {
+			$.get('/assoc-manage/new-choose-type?tableName=' + Graph.currentTable , function(resp){
+				$.fancybox(resp);
+			});
+		});
 		
+		var assocInit = function(form) {
+			$.get('/assoc-manage/new-init', form.serialize(), function(resp){
+				$.fancybox(resp);
+			});
+		};
+		
+		$('#assoc-choose-type').live('click', function() {
+			assocInit($(this).closest('form'));
+			return false;	
+		});
+		
+		$('#assoc-model-init').live('change', function() {
+			assocInit($(this).closest('form'));
+		});
+		
+
 		$('#assoc-remove').live('click', function() {
 			var newNodeData = $('#assoc-data').formToJson().assoc;
-			var nodeName = newNodeData.type + newNodeData.name;
 			
-			var node = sys.getNode(nodeName);
+			var node = sys.getNode(newNodeData.label);
 			var edges = sys.getEdgesFrom(node);
 			
 			for(var i = 0; i < edges.length; i++){
@@ -313,20 +346,34 @@
 			
 			sys.pruneNode(node);
 			
-			delete GraphData.nodes[nodeName];
-			delete GraphData.edges[Graph.currentModelName][nodeName];
+			delete GraphData.nodes[newNodeData.label];
+			delete GraphData.edges[Graph.currentModelName][newNodeData.label];
+			
+			if($('body').hasClass('default-index-index')) {
+				saveModel();
+			}
 			
 			$.fancybox.close();
 		});
 		
 		$('#assoc-options-save').live('click', function() {
 			var newNodeData = $('#assoc-data').formToJson().assoc;
-			var nodeName = newNodeData.type + newNodeData.name;
 			
+			if(typeof GraphData.nodes[newNodeData.label] !== 'undefined') {
+				sys.getNode(newNodeData.label).data = GraphData.nodes[newNodeData.label] = newNodeData;
+			} else {
+				sys.addNode(newNodeData.label);
+				sys.getNode(newNodeData.label).data = GraphData.nodes[newNodeData.label] = newNodeData;
+				sys.addEdge(sys.getNode(newNodeData.label), sys.getNode(newNodeData.masterModel.modelName));
+			}
 			
-			sys.getNode(nodeName).data = GraphData.nodes[nodeName] = newNodeData;
+			if($('body').hasClass('default-index-index')) {
+				saveModel();
+			}
+			
 			
 			$.fancybox.close();
+			
 			return false;
 		});
 		
@@ -336,6 +383,7 @@
 				$.fancybox(resp, fancyBoxSettings);
 			});
 		});
+		
 		
 		$('#select-master-model').live('click', function() {
 			$.get('/assoc-manage/test', $('#assoc-test-form').formToJson(), function(resp) {

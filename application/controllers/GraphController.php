@@ -29,22 +29,18 @@ class GraphController extends Mmg_Controller_Action
 	 * @param Mad_Script_Generator_Model $model
 	 * @return void
 	 */
-	protected function _populateSuggestionAccosModel(Mad_Script_Generator_Model $model)
-	{
-		foreach ($this->_getModelBuilder()->suggestionsBelongsTo($model) as $assoc) {
-			$model->addAssoc($assoc);
-		}
-		
-		foreach ($this->_getModelBuilder()->suggestionsHasMany($model) as $assoc) {
-			$model->addAssoc($assoc);
-		}
-		
-		foreach ($this->_getModelBuilder()->suggestionsHasManyThrough($model) as $assoc) {
-			$model->addAssoc($assoc);
-		}
-		
-		foreach ($this->_getModelBuilder()->suggestionsHasOne($model) as $assoc) {
-			//$model->addAssoc($assoc); Skip this relations because is duplicate with hasMany
+	protected function _populateSuggestionAccosModel(
+		Mad_Script_Generator_Model $notGeneratedModel, 
+		Mad_Script_Generator_Model $generatedModel
+	) {
+		//suggestionsHasOne
+		foreach (array('suggestionsBelongsTo', 'suggestionsHasMany', 'suggestionsHasManyThrough') as $method) {
+			foreach ($this->_getModelBuilder()->{$method}($notGeneratedModel) as $assoc) {
+				if($generatedModel->issetAssoc($assoc))
+					continue;
+					
+				$notGeneratedModel->addAssoc($assoc);
+			}	
 		}
 	}
 	
@@ -131,7 +127,10 @@ class GraphController extends Mmg_Controller_Action
 	{
 		$model = $this->_getModelBuilder()->factoryModel($this->_getParam('tableName'));
 		
-		$this->_populateSuggestionAccosModel($model);
+		$this->_populateSuggestionAccosModel(
+			$model,
+			$this->_getModelBuilder('file')->factoryModel($model->tableName)
+		);
 		
 		$this->_sendJsonAssocsGraphData($model);
 	}

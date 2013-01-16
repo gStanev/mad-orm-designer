@@ -23,7 +23,7 @@ $assocHelper = $this->assoc($assoc);
 				<?php 
 				foreach ($assoc->getAllowedOptionKeys() as $optionKey) { 
 					if(array_key_exists($optionKey, $assoc->getOptions())) continue;
-					echo "<option value=\"\">{$optionKey}</option>";
+					echo "<option value=\"\" title=\"dasdsds\">{$optionKey}</option>";
 				}
 				?>
 			</select>

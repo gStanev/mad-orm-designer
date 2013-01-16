@@ -7,6 +7,27 @@
 class AssocManageController extends Mmg_Controller_Action
 {
 
+	public function newChooseTypeAction()
+	{
+		$this->_helper->layout()->disableLayout();
+		$this->view->masterModel = $this->_getModelBuilder('file')->factoryModel($this->_getParam('tableName'));
+		$this->view->types = $this->_getAssocTypes();	
+	}
+	
+	public function newInitAction()
+	{
+		$params = $this->_getAllParams();
+		$this->_helper->layout()->disableLayout();
+		$this->view->masterModel 	= $masterModel 	= $this->_getModelBuilder('file')->factoryModel($params['assoc']['masterModel']['tableName']);
+		$this->view->models 		= $models 		= $this->_getModelBuilder('file')->factoryModels(false);
+		$this->view->assocModel 	= $assocModel 	= (isset($params['assoc']['assocModel'])) ? 
+															($this->_getModelBuilder('file')->factoryModel($params['assoc']['assocModel']['tableName'])) : 
+																(current($models));
+		
+		$this->view->assoc = Mad_Script_Generator_Association_Abstract::factory($params['assoc']['type'], $masterModel, $assocModel);
+	}
+	
+	
     public function formAction() 
     {
     	$this->view->assoc = $this->_factoryAssociation($this->_getParam('assoc'));

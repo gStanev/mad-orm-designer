@@ -1,0 +1,29 @@
+<?php 
+/* @var $masterModel Mad_Script_Generator_Model */
+$masterModel = $this->masterModel;
+
+/* @var $assocModel Mad_Script_Generator_Model */
+$assocModel = $this->assocModel;
+
+/* @var $assoc Mad_Script_Generator_Association_Abstract */
+$assoc = $this->assoc;
+?>
+<form method="post">
+	<?php echo $this->assoc($assoc)->toInputs()?>
+	<label>
+		Association Name:
+		<input name="assoc[name]" value="<?php echo $assoc->getName()?>" >
+	</label>
+	<label>
+		Association Model:
+		<select id="assoc-model-init" name="assoc[assocModel][tableName]">
+			<?php foreach ($this->models as $model) { 
+			/* @var $model Mad_Script_Generator_Model */ 
+			$selected = ($model->tableName === $assocModel->tableName) ? ('selected="selected"') : ('');
+			?>
+			<option value="<?php echo $model->tableName?>" <?php echo $selected?>><?php echo $model->modelName?></option>
+			<?php }?>
+		</select>
+	</label>
+	<a href="javascript:;" class="button" id="add-assoc-init">Next</a>
+</form>
