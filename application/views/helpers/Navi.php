@@ -8,6 +8,7 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 	protected $_mainItems = array(
 		array('controller' => 'index', 		'action' => 'index', 				'label' => 'Models'),
 		array('controller' => 'index', 		'action' => 'assoc-suggestions', 	'label' => 'Association Suggestions'),
+		array('controller' => 'index', 		'action' => 'graph', 				'label' => 'Graph'),
 	);
 	
 	/**

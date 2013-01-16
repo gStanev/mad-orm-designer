@@ -63,6 +63,15 @@ class GraphController extends Mmg_Controller_Action
 				$edges[$model->modelName][$assoc->assocModel->modelName] = $assoc->toArray();
 			}
 		}
+		
+		foreach ($nodes as $nodeName => $nodeData) {
+			if(isset($edges[$nodeName])) continue;
+			foreach ($edges as $edgeName => $edgeData) {
+				if(isset($edgeData[$nodeName])) continue 2;
+			}
+			
+			unset($nodes[$nodeName]);
+		}
 	
 		$this->_sendJson(array(
 				'nodes' => $nodes,
@@ -112,10 +121,7 @@ class GraphController extends Mmg_Controller_Action
 			}
 			
 			return $models;
-		}, $this->_getParam('tables', array()), $this->_getModelBuilder());
-		
-
-		$this->_populateSuggestionAccos($models);
+		}, $this->_getParam('tables', array()), $this->_getModelBuilder('file'));
 		
 		$this->_sendJsonModelGraphData($models);
 	}

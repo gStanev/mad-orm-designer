@@ -265,7 +265,12 @@
 		$.getJSON(
 			((($('body').hasClass('default-index-assoc-suggestions')) ? 
 				('/graph/not-generated-assocs/tableName/') : 
-					('/graph/generated/tableName/')) + 
+					(
+						($('body').hasClass('default-index-index')) ? 
+						('/graph/generated/tableName/') : 
+						('/graph/models/tableName/')
+					)
+				) + 
 			Graph.currentTable),
 			function(data) {
 				GraphData = data;

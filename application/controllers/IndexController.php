@@ -9,37 +9,69 @@ class IndexController extends Mmg_Controller_Action
 	public function indexAction()
 	{
 		$this->_helper->viewRenderer->setScriptAction('index');
-		$this->_assignCurrentModelToView();		
-		$models = $this->_getModelBuilder('file')->factoryModels(false);
-		$this->view->models = array();
-		
-		foreach ($models as $model) {
-			/* @var $model Mad_Script_Generator_Model */
-			$this->view->models[$model->tableName] = $model;
-		}
-
-		ksort($this->view->models);		
+		$this->_assignCurrentModelToView();	
+		$this->_assignModelsToView();
 	}
 	
     public function assocSuggestionsAction()
     {
     	$this->_helper->viewRenderer->setScriptAction('index');
     	$this->_assignCurrentModelToView();
-    	$models = array();
-    	foreach ($this->_getModelBuilder()->factoryModels() as $model) {
-    		/* @var $model Mad_Script_Generator_Model  */
-    		
-    		$models[] = $model;
-    	}
-    	
-    	$this->view->models = $models;
+    	$this->_assignModelsToView('db');
+
     }
     
+    public function graphAction()
+    {
+    	$this->_helper->viewRenderer->setScriptAction('index');
+    	$this->_assignCurrentModelToView();
+    	$this->_assignModelsToView();
+    	$this->view->isVisibleSideBar = false;
+    }
     
     protected function _assignCurrentModelToView()
     {
     	if($this->_getParam('tableName')) {
     		$this->view->currentModel = $this->_getModelBuilder()->factoryModel($this->_getParam('tableName'));
     	}
+    }
+    
+    /**
+     * 
+     * @param string $parserType 'file', 'db'
+     * @return void
+     */
+    protected function _assignModelsToView($parserType = 'file')
+    {
+
+    	if($parserType === 'file') {
+    		$models = $this->_getModelBuilder('file')->factoryModels(false);
+    		$this->view->models = array();
+    		 
+    		foreach ($models as $model) {
+    			/* @var $model Mad_Script_Generator_Model */
+    			$this->view->models[$model->tableName] = $model;
+    		}
+    		 
+    		ksort($this->view->models);
+    		
+    		return;
+    	}
+    	
+    	
+    	if($parserType === 'db') {
+    		$models = array();
+    		foreach ($this->_getModelBuilder()->factoryModels() as $model) {
+    			/* @var $model Mad_Script_Generator_Model  */
+    			 
+    			$models[] = $model;
+    		}
+    		
+    		$this->view->models = $models;
+    		
+    		return;
+    	}
+    	
+    	throw new Exception("Parser type : {$parserType} is not supported.");
     }
 }
