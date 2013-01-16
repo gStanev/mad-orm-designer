@@ -132,10 +132,23 @@ class Mad_Script_Generator_Model_Builder
 		}
 		
 		foreach ($this->_parser->getTableNames() as $tableName) {	
-			$this->_models[] = $this->factoryModel($tableName, $addAssocs);
+			$this->_models[$tableName] = $this->factoryModel($tableName, $addAssocs);
 		}
 		
 		return $this->_models;
+	}
+	
+	/**
+	 * 
+	 * @param unknown $tableName
+	 * @return Mad_Script_Generator_Model|NULL
+	 */
+	public function searchModel($tableName)
+	{
+		if(isset($this->_models[$tableName]))
+			return $this->_models[$tableName];
+		
+		return null;
 	}
 	
 	/**

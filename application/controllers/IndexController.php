@@ -18,7 +18,20 @@ class IndexController extends Mmg_Controller_Action
     	$this->_helper->viewRenderer->setScriptAction('index');
     	$this->_assignCurrentModelToView();
     	$this->_assignModelsToView('db');
-
+    	
+    	//filter models which have association suggestions
+    	$models = array();
+    	$modelBuiler = $this->_getModelBuilder('file');
+    	$modelBuiler->factoryModels();
+    	
+    	foreach ($this->view->models as $model) {
+    		/* @var $model Mad_Script_Generator_Model */    		
+    		$this->_populateSuggestionAccosModel($model, $modelBuiler->searchModel($model->tableName));		
+    		
+    		if(count($model->getAssocs())) $models[] = $model;
+    	}
+    	
+    	$this->view->models = $models;
     }
     
     public function graphAction()

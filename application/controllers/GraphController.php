@@ -24,25 +24,7 @@ class GraphController extends Mmg_Controller_Action
 		}
 	}
 	
-	/**
-	 * 
-	 * @param Mad_Script_Generator_Model $model
-	 * @return void
-	 */
-	protected function _populateSuggestionAccosModel(
-		Mad_Script_Generator_Model $notGeneratedModel, 
-		Mad_Script_Generator_Model $generatedModel
-	) {
-		//suggestionsHasOne
-		foreach (array('suggestionsBelongsTo', 'suggestionsHasMany', 'suggestionsHasManyThrough') as $method) {
-			foreach ($this->_getModelBuilder()->{$method}($notGeneratedModel) as $assoc) {
-				if($generatedModel->issetAssoc($assoc))
-					continue;
-					
-				$notGeneratedModel->addAssoc($assoc);
-			}	
-		}
-	}
+
 	
 	
 	/**
