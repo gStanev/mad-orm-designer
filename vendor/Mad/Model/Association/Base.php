@@ -207,6 +207,13 @@ abstract class Mad_Model_Association_Base
      * @var string
      */
     const TYPE_HAS_MANY_THROUGH = 'hasManyThrough';
+    
+    /**
+     * 
+     * @var string
+     */
+    const TYPE_HAS_AND_BELONGS_TO_MANY = 'hasAndBelongsToMany';
+    
 
 
     /*##########################################################################

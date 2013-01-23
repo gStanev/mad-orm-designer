@@ -74,10 +74,9 @@ class IndexController extends Mmg_Controller_Action
     	
     	if($parserType === 'db') {
     		$models = array();
-    		foreach ($this->_getModelBuilder()->factoryModels() as $model) {
+    		foreach ($this->_getModelBuilder()->factoryModels(true) as $model) {
     			/* @var $model Mad_Script_Generator_Model  */
-    			 
-    			$models[] = $model;
+    			$models[$model->tableName] = $model;
     		}
     		
     		$this->view->models = $models;

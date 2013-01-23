@@ -218,7 +218,12 @@ abstract class Mad_Script_Generator_Association_Abstract
 			$assoc = new Mad_Script_Generator_Association_HasOne($masterModel, $assocModel);
 		}
 		
+		if($type == Mad_Model_Association_Base::TYPE_HAS_AND_BELONGS_TO_MANY) {
+			$assoc = new Mad_Script_Generator_Association_HasAndBelongsToMany($masterModel, $assocModel);
+		}
+		
 		$assoc->addOptions($options);
+		
 		return $assoc;
 	}
 	

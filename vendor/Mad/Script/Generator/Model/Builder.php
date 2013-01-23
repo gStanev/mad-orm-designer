@@ -94,7 +94,7 @@ class Mad_Script_Generator_Model_Builder
 					
 					//extract middle model if exists
 					if(isset($assocOptions['through'])) {
-						$middleModelName = $assocOptions['through'];
+						$middleModelName = Mad_Support_Inflector::singularize($assocOptions['through']);
 						/* @var $realMidleModel Mad_Model_Base */
 						$realMidleModel = new $middleModelName();
 						$middleModel = new Mad_Script_Generator_Model($realMidleModel->tableName(), $middleModelName);
@@ -123,15 +123,18 @@ class Mad_Script_Generator_Model_Builder
 	
 	/**
 	 * @param bool $addAssocs
+	 * @param array $excludeTables
 	 * @return array <Mad_Script_Generator_Model>
 	 */
-	public function factoryModels($addAssocs = true)
+	public function factoryModels($addAssocs = true, array $excludeTables = array())
 	{
 		if(count($this->_models)) {
 			return $this->_models;
 		}
 		
-		foreach ($this->_parser->getTableNames() as $tableName) {	
+		foreach ($this->_parser->getTableNames() as $tableName) {
+			if(in_array($tableName, $excludeTables)) continue;
+				
 			$this->_models[$tableName] = $this->factoryModel($tableName, $addAssocs);
 		}
 		
@@ -145,10 +148,11 @@ class Mad_Script_Generator_Model_Builder
 	 */
 	public function searchModel($tableName)
 	{
-		if(isset($this->_models[$tableName]))
-			return $this->_models[$tableName];
+		if(!isset($this->_models[$tableName])) {
+			$this->_models[$tableName] = $this->factoryModel($tableName);
+		}
 		
-		return null;
+		return $this->_models[$tableName];
 	}
 	
 	/**
