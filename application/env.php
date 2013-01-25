@@ -24,7 +24,6 @@ defined('PUBLIC_PATH')
 set_include_path(implode(PATH_SEPARATOR, array(
 	ROOT_PATH . '/lib',	
 	ROOT_PATH . '/vendor',
-	ROOT_PATH . '/application/models' //@TODO: do this with config value
 )));
 
 /**
@@ -45,6 +44,14 @@ $application = new Zend_Application(
     APP_ENV,
     APP_PATH . '/configs/application.ini'
 );
+
+//Add models path + additional libraries
+$includePaths = get_include_path() . PATH_SEPARATOR . $application->getOption('modelsPath');
+foreach ($application->getOption('externalLibs') as $libPath) {
+	$includePaths .= PATH_SEPARATOR . $libPath;
+}
+
+set_include_path($includePaths);
 
 Mad_Model_Base::establishConnection(
 	$application->getOption('database')
