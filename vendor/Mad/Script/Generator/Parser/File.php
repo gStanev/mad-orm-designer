@@ -47,11 +47,13 @@ class Mad_Script_Generator_Parser_File extends Mad_Script_Generator_Parser_Abstr
 		$propertySnippet = 
 			substr(
 				$content, 
-				($start = (strpos($content, Mad_Script_Generator_Model_Writer::PROPERTIES_START))),
-				($start + strpos($content, Mad_Script_Generator_Model_Writer::PROPERTIES_END) - strlen(Mad_Script_Generator_Model_Writer::PROPERTIES_END))
+				($start = (
+						strpos($content, Mad_Script_Generator_Model_Writer::PROPS_START) + 
+						strlen(Mad_Script_Generator_Model_Writer::PROPS_START)
+					)
+				),
+				(strpos($content, Mad_Script_Generator_Model_Writer::PROPS_END) - $start)
 			);
-		
-		$propertySnippet = str_replace(Mad_Script_Generator_Model_Writer::PROPERTIES_START, '', $propertySnippet);
 		
 		foreach (explode("\n", $propertySnippet) as $propRow) {
 			$propRowList = explode(" ", $propRow);

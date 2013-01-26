@@ -11,17 +11,35 @@
 class Mad_Script_Generator_Model_Writer
 {
 	/**
-	 * 
 	 * @var string
 	 */
-	const PROPERTIES_START = " * ----- Properties Start -------------- \n";
+	const PROPS_START = " * ----- Properties Start -------------- ";
 	
 	/**
-	 * 
 	 * @var string
 	 */
-	const PROPERTIES_END = " * ------ Properties End -------------- \n";
+	const PROPS_END = " * ------ Properties End -------------- ";
 	
+	/**
+	 * @var string
+	 */
+	const ASSOCS_COMMENTS_START = " * --- START ASSOC COMMENTS --- (Association COMMENTS (Don\'t modify lines between Start and End) ";
+	
+	/**
+	 * @var string
+	 */
+	const ASSOCS_COMMENTS_END = " * --- END ASSOC COMMENTS --- (Association COMMENTS (Don\'t modify lines between Start and End) ";
+	
+	/**
+	 * @var string
+	 */
+	const ASSOCS_DEF_START = "/* --- START ASSOC DEFINITIONS --- (Association Definitions (Don\'t modify lines between Start and End) */";
+	
+	/**
+	 * @var string
+	 */
+	const ASSOCS_DEF_END = "/* --- END ASSOC DEFINITIONS --- (Association Definitions (Don\'t modify lines between Start and End) */";
+			
 	
 	/**
 	 * Absolute path to models folder
@@ -44,7 +62,7 @@ class Mad_Script_Generator_Model_Writer
 		$filePath = $this->_getModelFilePath($model);
 		
 		$this->_writeFile(
-			$this->_generateModelContent($model),
+			$this->_generateModelContent($model, $this->_getFileContent($filePath)),
 			$filePath
 		);
 		
@@ -84,6 +102,40 @@ class Mad_Script_Generator_Model_Writer
 	}
 	
 	/**
+	 * @param string $filePath
+	 * @return string
+	 */
+	protected function _getFileContent($filePath)
+	{
+		if(file_exists($filePath)) {
+			return file_get_contents($filePath);
+		}
+		
+		return '';
+	}
+	
+	
+	/**
+	 * @param string $from
+	 * @param string $to
+	 * @param string $subject
+	 * @param string $newContent
+	 * 
+	 * @return string
+	 */
+	protected function _replacePartOfContent($from, $to, $subject, $newContent)
+	{
+		$fromPos	= mb_strpos($subject, $from); 
+		$toPos		= mb_strpos($subject, $to);
+		
+		if($fromPos === false || $toPos === false) {
+			return $subject;
+		}
+		
+		return str_replace(substr($subject, $fromPos, $toPos - $fromPos + strlen($to)), $newContent, $subject);
+	}
+	
+	/**
 	 * 
 	 * @param Mad_Script_Generator_Model $model
 	 * @return string
@@ -94,43 +146,119 @@ class Mad_Script_Generator_Model_Writer
 	}
 	
 	/**
-	 * 
 	 * @param Mad_Script_Generator_Model $model
+	 * @param string $currentContent
 	 */
-	protected function _generateModelContent(Mad_Script_Generator_Model $model)
+	protected function _generateModelContent(Mad_Script_Generator_Model $model, $currentContent)
+	{
+		if(empty($currentContent)) {
+			return $this->_generateNewClass($model);
+		}
+		
+		$currentContent = $this->_replacePartOfContent(
+				self::PROPS_START,
+				self::PROPS_END,
+				$currentContent,
+				$this->_generateProps($model)
+		);
+		
+		$currentContent = $this->_replacePartOfContent(
+				self::ASSOCS_COMMENTS_START,
+				self::ASSOCS_COMMENTS_END,
+				$currentContent,
+				$this->_generateAssocComments($model)
+		);
+		
+		
+		$currentContent = $this->_replacePartOfContent(
+			self::ASSOCS_DEF_START,
+			self::ASSOCS_DEF_END,
+			$currentContent,
+			$this->_generateAssocsDef($model)		
+		);
+		
+		
+		return $currentContent;
+	}
+	
+	/**
+	 * @param Mad_Script_Generator_Model $model
+	 * @return string
+	 */
+	protected function _generateNewClass(Mad_Script_Generator_Model $model)
 	{
 		$output = '<?php' . PHP_EOL;
-		$output .= '/**
-					*' . PHP_EOL;
+		$output .= '/**' . PHP_EOL . ' *' . PHP_EOL;
 		
-		$output .= self::PROPERTIES_START;
-		foreach ($model->getFields() as $field) {
-			/* @var $field Mad_Script_Generator_Field */
-			
-			$output .= " * @property {$field->fieldType} \${$field->fieldName} \n";
-		}
-		$output .= self::PROPERTIES_END;
+		$output .= $this->_generateProps($model) . PHP_EOL . PHP_EOL;
 		
-		foreach ($model->getAssocs() as $assoc) {
-			/* @var $assoc Mad_Script_Generator_Association_Abstract */
-			$output .= "{$assoc->generateComments()} \n";
-		}
+		$output .= $this->_generateAssocComments($model) . PHP_EOL;
 		
 		$output .= '*/' . PHP_EOL;
 		
-		$output .= "class {$model->modelName} extends Mad_Model_Base { \n";
-		$output .= "\n\n protected \$_tableName = '{$model->tableName}';" . PHP_EOL;
-		$output .= "\n\n\tpublic function _initialize() {" . PHP_EOL;
+		$output .= "class {$model->modelName} extends Mad_Model_Base { " . PHP_EOL;
+		$output .= PHP_EOL . "\tprotected \$_tableName = '{$model->tableName}';" . PHP_EOL;
+		$output .= PHP_EOL . PHP_EOL . "\tpublic function _initialize() {" . PHP_EOL . "\t\t";
 		
+		$output .= $this->_generateAssocsDef($model) . PHP_EOL;
+		
+		$output .= "\t}" . PHP_EOL;
+			
+		
+		$output .= "}";
+		
+		return $output;
+	}
+	
+	/**
+	 * 
+	 * @param Mad_Script_Generator_Model $model
+	 * @return string
+	 */
+	protected function _generateProps(Mad_Script_Generator_Model $model)
+	{
+		$output = self::PROPS_START . PHP_EOL;
+		foreach ($model->getFields() as $field) {
+			/* @var $field Mad_Script_Generator_Field */
+				
+			$output .= " * @property {$field->fieldType} \${$field->fieldName}" . PHP_EOL;
+		}
+		$output .= self::PROPS_END;
+		
+		return $output;
+	}
+	
+	/**
+	 * 
+	 * @param Mad_Script_Generator_Model $model
+	 * @return string
+	 */
+	protected function _generateAssocsDef(Mad_Script_Generator_Model $model)
+	{
+		$output =  self::ASSOCS_DEF_START . PHP_EOL;
 		foreach ($model->getAssocs() as $assoc) {
 			/* @var $assoc Mad_Script_Generator_Association_Abstract */
 			$output .= $assoc->generateDefinition();
 		}
+		$output .= "\t\t" . self::ASSOCS_DEF_END ;
 		
-		$output .= "\n\n\t}" . PHP_EOL;
-			
+		return $output;
+	}
+	
+	/**
+	 * 
+	 * @param Mad_Script_Generator_Model $model
+	 * @return string
+	 */
+	protected function _generateAssocComments(Mad_Script_Generator_Model $model)
+	{
+		$output = self::ASSOCS_COMMENTS_START . PHP_EOL;
+		foreach ($model->getAssocs() as $assoc) {
+			/* @var $assoc Mad_Script_Generator_Association_Abstract */
+			$output .= "{$assoc->generateComments()}";
+		}
 		
-		$output .= "}";
+		$output .= self::ASSOCS_COMMENTS_END;
 		
 		return $output;
 	}

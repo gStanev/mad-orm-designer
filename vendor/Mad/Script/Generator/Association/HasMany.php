@@ -40,7 +40,7 @@ class Mad_Script_Generator_Association_HasMany extends Mad_Script_Generator_Asso
         	$output .= $this->{$commentsBuilder}();
         }
          
-        $output .= PHP_EOL . PHP_EOL;
+        $output .= PHP_EOL;
        
         return $output;       
 	}
