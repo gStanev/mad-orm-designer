@@ -173,6 +173,9 @@ class Mad_Script_Generator_Model
     public static function fromArray(array $data)
     {
     	$model = new self($data['tableName'], $data['modelName']);
+    	
+    	if(!isset($data['fields']) || !is_array($data['fields'])) return $model;
+    	
     	foreach ($data['fields'] as $fieldData) {
     		$model->addField(
     			new Mad_Script_Generator_Field($fieldData['fieldName'], $fieldData['fieldType'])

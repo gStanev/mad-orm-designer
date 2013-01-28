@@ -79,7 +79,7 @@ class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generat
 	/**
 	 * @return bool
 	 */
-	protected function _isStandartAssocName()
+	public function _isStandartAssocName()
 	{
 		return in_array(
 			$this->middleModel->modelName,

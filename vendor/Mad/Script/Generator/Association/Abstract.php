@@ -84,9 +84,10 @@ abstract class Mad_Script_Generator_Association_Abstract
 	}
 	
 	/**
+	 * @param string $firstLetter 'lower', 'upper'
 	 * @return string
 	 */
-	public function getMethodName()
+	public function getMethodName($firstLetter='lower')
 	{
 		return Mad_Support_Inflector::camelize($this->getName(), 'lower');
 	}
@@ -236,6 +237,25 @@ abstract class Mad_Script_Generator_Association_Abstract
 	protected function _codeFormatter($code)
 	{
 		return "<br /><br />Example:<br /> <code>" . $code . "</code>";
+	}
+	
+	/**
+	 * 
+	 * @param array $methodNames of current class which should generate comments
+	 * @param string $header
+	 * @return string
+	 */
+	public function _generateComments($methodNames, $header)
+	{
+		$output = PHP_EOL . PHP_EOL . ' * ' . $header . PHP_EOL;
+		 
+		foreach ($methodNames as $commentsBuilder) {
+			$output .= $this->{$commentsBuilder}();
+		}
+		 
+		$output .= PHP_EOL;
+		 
+		return $output;
 	}
 	
 	/**

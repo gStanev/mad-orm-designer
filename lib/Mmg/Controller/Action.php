@@ -113,6 +113,7 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 				Mad_Model_Association_Base::TYPE_BELONGS_TO,
 				Mad_Model_Association_Base::TYPE_HAS_MANY,
 				Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH,
+				Mad_Model_Association_Base::TYPE_HAS_AND_BELONGS_TO_MANY,
 				Mad_Model_Association_Base::TYPE_HAS_ONE,
 		);
 	}
