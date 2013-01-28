@@ -8,7 +8,7 @@
  * @license    http://opensource.org/licenses/bsd-license.php BSD
  * @author 		g.d.stanev@gmail.com <Georgi Stanev>
  */
-class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generator_Association_Abstract
+class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generator_Association_HasMany_Abstract
 {
 	/**
 	 * 
@@ -93,31 +93,11 @@ class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generat
 	
 	public function generateComments()
 	{
-		$mmcTabs        = $this->getTabsCollection();
-        $nullTabs       = $this->getTabsNull();
-        $toMethodTabs   = $this->getTabsMethodName();
-        $toClassTabs    = Mad_Script_Generator_Model_Writer::computeTabs($this->assocModel->modelName);
-       	$toClass		= $this->assocModel->modelName;
-        $toMethod		= $this->getMethodName(); 
-       	
-        $output = PHP_EOL . PHP_EOL;
-        $output .= ' * Has Many Through Association' . PHP_EOL;
-        $output .= " * @property\tMad_Model_Collection" . Mad_Script_Generator_Model_Writer::computeTabs('Mad_Model_Collection') . "\${$toMethod} \n";
-        $output .= PHP_EOL;
-        $output .= " * @property\tarray" .   Mad_Script_Generator_Model_Writer::computeTabs('array') .	"\${$toMethod}Ids \n";
-        $output .= " * @property\tint" .     Mad_Script_Generator_Model_Writer::computeTabs('int') .	"\${$toMethod}Count \n";
-         
-        $output .= " * @method\t\t{$toClass}{$toClassTabs}add{$toClass}() \n";
-        $output .= " * @method\t\tNULL{$nullTabs}deleteObjects{$toClass}() \n";
-        $output .= " * @method\t\t{$toClass}{$toClassTabs}create{$toClass}() \n";
-         
-        $output .= " * @method\t\tMad_Model_Collection{$mmcTabs}" . Mad_Support_Inflector::pluralize('replace'.$toClass) . "() \n";
-        $output .= " * @method\t\tMad_Model_Collection{$mmcTabs}" . Mad_Support_Inflector::pluralize('delete'.$toClass) . "() \n";
-        $output .= " * @method\t\tMad_Model_Collection{$mmcTabs}" . Mad_Support_Inflector::pluralize('clear'.$toClass) . "() \n";
-        $output .= " * @method\t\tMad_Model_Collection{$mmcTabs}" . Mad_Support_Inflector::pluralize('find'.$toClass) . "() \n";
-        $output .= PHP_EOL . PHP_EOL;
-       
-        return $output;
+		return $this->_generateComments(array(
+			'_commentsAccessor', '_commentsAccessorIds', '_commentsAccessorCount',
+			'_commentsMethodAdd', '_commentsMethodBuild', '_commentsMethodCreate',
+			'_commentsMethodReplace', '_commentsMethodDelete', '_commentsMethodClear', '_commentsMethodFind'
+		), 'Has Many Through Association');
 	}
 	
 	/**

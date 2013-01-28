@@ -29,9 +29,14 @@ class ModelManageController extends Mmg_Controller_Action
     	try {
     		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->getOption('modelsPath'));
     	
-    	
     		foreach ($assocsData as $assocData) {
-    			$model->addAssoc(Mad_Script_Generator_Association_Abstract::fromArray($assocData));
+    			
+    			$assoc = Mad_Script_Generator_Association_Abstract::fromArray($assocData);
+    			foreach ($this->_getModelBuilder('db')->getParser()->getProperties($assoc->assocModel->tableName) as $fieldName => $fieldType) {
+    				$assoc->assocModel->addField(new Mad_Script_Generator_Field($fieldName, $fieldType));
+    			}
+    			
+    			$model->addAssoc($assoc);
     		}
     	
     		$writer->writeModel($model);
