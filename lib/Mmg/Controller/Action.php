@@ -14,7 +14,20 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 	public function init()
 	{
 		parent::init();
+		$this->_configSetup();
 		$this->_generateAllModels();
+	}
+	
+	protected function _configSetup()
+	{	
+		try {
+			$this->_getApplication()->confDbSettings();
+			$this->_getApplication()->confModelsPath();
+		} catch (Mmg_Exception_Conf_ModelsPath $e) {
+			$this->_redirect('/config/models');
+		} catch (Mmg_Exception_Conf_DB $e) {
+			$this->_redirect('/config/db');
+		}
 	}
 	
 	protected function _disableView()
@@ -30,11 +43,17 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 	 */
 	protected function _generateAllModels()
 	{
-		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->getOption('modelsPath'));
+		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->confModelsPath());
+		
+		$parser = new Mad_Script_Generator_Parser_File($this->_getApplication()->confModelsPath());
 		
 		foreach ($this->_getModelBuilder('db')->factoryModels() as $model) {
 			/* @var $model Mad_Script_Generator_Model  */
-			if(class_exists($model->modelName)) continue;
+			try {
+				$parser->getModelByTableName($model->tableName);
+				continue;
+			} catch (Exception $e) { }
+			
 		
 			$writer->writeModel($model);
 		}
@@ -81,12 +100,12 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 		if($parserType === 'db') { 
 			$parser = new Mad_Script_Generator_Parser_Db(
 					new Horde_Db_Adapter_Mysqli(
-							$this->_getApplication()->getOption('database')
+							$this->_getApplication()->confDbSettings()
 					)
 			);
 		} else if($parserType === 'file') {
 			$parser = new Mad_Script_Generator_Parser_File(
-				$this->_getApplication()->getOption('modelsPath')
+				$this->_getApplication()->confModelsPath()
 			);
 		} else {
 			throw new Exception('Parser type must be "db" or "file"');
@@ -96,7 +115,7 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 	}
 	
 	/**
-	 * @return Zend_Application
+	 * @return Mmg_Application
 	 */
 	protected function _getApplication()
 	{
@@ -136,5 +155,13 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 				$notGeneratedModel->addAssoc($assoc);
 			}
 		}
+	}
+	
+	/**
+	 * @return Zend_Session_Namespace
+	 */
+	protected function _getSession()
+	{
+		return $this->_getApplication()->getSession();
 	}
 }

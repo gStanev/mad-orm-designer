@@ -1,0 +1,15 @@
+<?php echo $this->message;?>
+<form method="post">
+<?php foreach (array(
+		'host' 		=> $this->translate('Host'), 
+		'username' 	=> $this->translate('User Name'), 
+		'password' 	=> $this->translate('Password'), 
+		'dbname' 	=> $this->translate('Database schema')
+) as $fieldName => $label) { ?>
+	<label>
+		<?php echo $label?>
+		<input name="settings[<?php echo $fieldName?>]" type="text">
+	</label>
+<?php }?>
+	<input type="submit" value="Submit">
+</form>

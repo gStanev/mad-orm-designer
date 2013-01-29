@@ -1,0 +1,18 @@
+<?php 
+/* @var $currentModel Mad_Script_Generator_Model  */
+$currentModel = $this->currentModel;
+
+echo $this->message;
+?>
+<ul>
+	<?php foreach ($currentModel->getFields() as $field) { /* @var $field Mad_Script_Generator_Field */?>
+	<li><?php echo "{$field->fieldName} (type: {$field->fieldType})" ?></li>
+	<?php }?>
+</ul>
+<form method="post">
+	<label>
+		Model Name
+		<input name="modelName" value="<?php echo $currentModel->modelName;?>">
+	</label>
+	<input type="submit" value="Submit">
+</form>

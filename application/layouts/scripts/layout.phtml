@@ -43,6 +43,7 @@ Graph.currentModelName = <?php echo json_encode($this->currentModel->modelName);
         <ul>
           <li><a id="save-model" href="javascript:;"><?php echo $this->translate('Save Model')?></a></li>
           <li><a id="add-assoc" href="javascript:;" ><?php echo $this->translate('Add Association')?></a></li>
+          <li><a href="<?php echo $this->url(array('controller' => 'model-manage', 'action' => 'change-name', 'tableName' => $tableName ));?>" ><?php echo $this->translate('Change Model Name')?></a></li>
         </ul>
         <div class="clr"></div>
       </div>

@@ -6,6 +6,24 @@
  */
 class ModelManageController extends Mmg_Controller_Action
 {
+	public function changeNameAction()
+	{
+		$this->view->currentModel  = $currentModel = $this->_getModelBuilder('file')->factoryModel($this->_getParam('tableName'), false);
+		
+		if($this->_request->isPost()) {
+
+			$newModel = clone $currentModel;
+			$newModel->modelName = $this->_getParam('modelName');
+			
+			$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->confModelsPath());
+			if($writer->updateModelName($currentModel, $newModel)) {
+				$this->view->currentModel  = $newModel;
+				$this->view->message = 'Succeeees.';	
+			}
+		}
+	}
+	
+	
     public function saveAction()
     {
     	$assocsData = $this->_getParam('nodes');
@@ -27,7 +45,7 @@ class ModelManageController extends Mmg_Controller_Action
     {
     	$this->_disableView();
     	try {
-    		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->getOption('modelsPath'));
+    		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->confModelsPath());
     	
     		foreach ($this->_getModelBuilder('db')->getParser()->getProperties($model->tableName) as $fieldName => $fieldType) {
     			$model->addField(new Mad_Script_Generator_Field($fieldName, $fieldType));

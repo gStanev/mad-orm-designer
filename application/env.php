@@ -40,7 +40,7 @@ spl_autoload_register(function($className){
 require_once 'Zend/Application.php';
 
 // Create application, bootstrap, and run
-$application = new Zend_Application(
+$application = new Mmg_Application(
     APP_ENV,
     APP_PATH . '/configs/application.ini'
 );
@@ -53,10 +53,13 @@ foreach ($application->getOption('externalLibs') as $libPath) {
 
 set_include_path($includePaths);
 
-Mad_Model_Base::establishConnection(
-	$application->getOption('database')
-	+ array('cache' => Mmg_Cache_Object::getInstance())	
-);
+try {
+	Mad_Model_Base::establishConnection(
+			$application->confDbSettings()
+			+ array('cache' => Mmg_Cache_Object::getInstance())
+	);	
+} catch (Exception $e) {}
+
 ////////////////////////////////////////////////////////////
 // INIT MAD
 ////////////////////////////////////////////////////////
