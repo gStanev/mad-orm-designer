@@ -71,6 +71,28 @@ class Mad_Script_Generator_Model_Writer
 	
 	/**
 	 * 
+	 * @param Mad_Script_Generator_Model $oldModel
+	 * @param Mad_Script_Generator_Model $newModel
+	 * @return boolean
+	 */
+	public function updateModelName(Mad_Script_Generator_Model $oldModel, Mad_Script_Generator_Model $newModel)
+	{
+		$filePath = $this->_getModelFilePath($oldModel);
+		
+		$this->_writeFile(
+			str_replace("class {$oldModel->modelName}", "class {$newModel->modelName}", $this->_getFileContent($filePath)),
+			$filePath
+		);
+		
+		if(rename($filePath, $this->_getModelFilePath($newModel))) {
+			return true;	
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * 
 	 * @param array $models <Mad_Script_Generator_Model>
 	 */
 	public function writeModels(array $models)
