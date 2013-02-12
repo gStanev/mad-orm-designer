@@ -354,8 +354,8 @@ if (typeof Object.create !== 'function') {
 			easing: 'swing',
 			speed: 500
 		},
-		timeout: false,
-		force: false,
+		timeout: 7000,
+		force: true,
 		modal: false,
 		closeWith: ['click'],
 		callback: {
