@@ -285,7 +285,10 @@
 					(($('body').hasClass('default-index-assoc-suggestions')) ? 
 						('/model-manage/add-assoc') : 
 							('/model-manage/save')),
-					GraphData
+					GraphData, 
+					function(resp){
+						noty({text: ((resp.result) ? (resp.result) : (resp.error))});
+					}
 				);
 		};
 		$('#save-model').click(function() {

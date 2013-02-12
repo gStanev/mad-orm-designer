@@ -258,6 +258,9 @@ class Mad_Script_Generator_Model_Builder
 				$assoc = new Mad_Script_Generator_Association_HasManyThrough($model, $assocModel, $hasMany->assocModel);
 				$assoc->addOption('className', $assocModel->modelName);
 				$assoc->addOption('through', Mad_Support_Inflector::pluralize($hasMany->assocModel->modelName));
+				
+				if(!$assoc->_isStandartAssocName()) continue;
+				
 				$assocs[] = $assoc;
 			}
 		}

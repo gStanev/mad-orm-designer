@@ -47,6 +47,8 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 		
 		$parser = new Mad_Script_Generator_Parser_File($this->_getApplication()->confModelsPath());
 		
+		$generatedModelNames = array();
+		
 		foreach ($this->_getModelBuilder('db')->factoryModels() as $model) {
 			/* @var $model Mad_Script_Generator_Model  */
 			try {
@@ -56,6 +58,11 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 			
 		
 			$writer->writeModel($model);
+			$generatedModelNames[] = $model->modelName;
+		}
+		
+		if(count($generatedModelNames)) {
+			$this->view->notyMessage = 'Models: ' . implode(', ', $generatedModelNames) . ' have been generated in path:' . $writer->modelsFolderPath;
 		}
 	}	
 	
