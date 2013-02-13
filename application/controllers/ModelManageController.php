@@ -23,6 +23,27 @@ class ModelManageController extends Mmg_Controller_Action
 		}
 	}
 	
+	public function saveAllSuggestionsAction()
+	{
+		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->confModelsPath());
+		
+		$generatedModelNames = array();
+		foreach ($this->_getModelBuilder()->factoryModels() as $model) {
+			/* @var $model Mad_Script_Generator_Model */
+			
+			$this->_populateSuggestionAccosModel($model, $this->_getModelBuilder('file')->factoryModel($model->tableName));
+			
+			$writer->writeModel($model);
+			$generatedModelNames[] = $this->_generateSuccessMsg($model);
+		}
+		
+		if(count($generatedModelNames)) {
+			$this->view->notyMessage = implode(', ', $generatedModelNames) . ' have been generated in path:' . $writer->modelsFolderPath;
+		}
+		
+		$this->_forward('index', 'index');
+	}
+	
 	
     public function saveAction()
     {
