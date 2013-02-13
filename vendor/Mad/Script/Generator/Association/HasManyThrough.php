@@ -95,7 +95,7 @@ class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generat
 	{
 		return $this->_generateComments(array(
 			'_commentsAccessor', '_commentsAccessorIds', '_commentsAccessorCount',
-			'_commentsMethodAdd', '_commentsMethodBuild', '_commentsMethodCreate',
+			'_commentsMethodAdd', '_commentsMethodCreate',
 			'_commentsMethodReplace', '_commentsMethodDelete', '_commentsMethodClear', '_commentsMethodFind'
 		), 'Has Many Through Association');
 	}
@@ -114,5 +114,51 @@ class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generat
 		);
 		
 		return $toArray;
+	}
+	
+	/**
+	 * @return string
+	 */
+	protected function _commentsMethodReplace()
+	{
+		
+		$examples = '   Manage MIDDLE (through) table of relations
+				      
+				      The manage actions are 
+				      - Add row in middle table if doesn\'t exists in DB but i passed in @param $assocFKs
+				      - Delete row in middle table if exists in DB but it\'s not passed in @param $assocFKs
+				      - Update row in middle table if exists in DB AND is passed in parameter
+				      
+				      Example: (Tables: users - users_addresses - addresses) => Relation $user->hasMany(\'Addresses\', array(\'through\' => \'UsersAddresses\'))
+				      
+				      - Add (If there is no rows with user_id = 1 and address_id = 1 || 2 || 3, new three rows will be added)
+				        / @var $user User /
+				       ' . $this->_codeFormatter('$user = User:find(1);
+				        
+				        $user->replaceAddresses(array(1, 2, 3), function($addressId){
+				        	return(\'fieldFromUsersAddress\' => $value);
+				        });') .' 
+				        
+				       - Delete (If there is rows with user_id = 1 and address_id = 1 and 2 and 3 ), the row with user_id = 1 and address_id = 3 will be removed
+				        ' . $this->_codeFormatter('$user->replaceAddresses(array(1, 2), function($addressId){
+				        	return(\'fieldFromUsersAddress\' => $value);
+				        });') . '
+				        
+				        
+				       - Update Every row from intersection between existing rows and ids from @param $assocFKs';
+		
+		$examples = str_replace(PHP_EOL, '<br />', $examples);
+		
+		$methodName = Mad_Support_Inflector::pluralize('replace' . $this->getName());
+		 
+		return (
+				" * @method\t\tNULL{$this->getTabsNull()}{$methodName}()" .
+				Mad_Script_Generator_Model_Writer::computeTabs("$methodName()", 2) .
+				$methodName . '(array $array)' .
+				Mad_Script_Generator_Model_Writer::computeTabs($methodName . 'array(array $array)').
+				"Replace the associated collection with the given list. Will only perform update/inserts when necessary "  .
+				$examples  .
+				PHP_EOL
+		);
 	}
 }
