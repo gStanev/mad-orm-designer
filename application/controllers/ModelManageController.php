@@ -33,6 +33,8 @@ class ModelManageController extends Mmg_Controller_Action
 			
 			$this->_populateSuggestionAccosModel($model, $this->_getModelBuilder('file')->factoryModel($model->tableName));
 			
+			if(!count($model->getAssocs())) continue; 
+			
 			$writer->writeModel($model);
 			$generatedModelNames[] = $this->_generateSuccessMsg($model);
 		}
@@ -49,7 +51,7 @@ class ModelManageController extends Mmg_Controller_Action
     {
     	$assocsData = $this->_getParam('nodes');
     	$model = Mad_Script_Generator_Model::fromArray(array_shift($assocsData));
-    	
+
     	$this->_saveModel($model, $assocsData);
     }
     
@@ -68,6 +70,7 @@ class ModelManageController extends Mmg_Controller_Action
     	try {
     		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->confModelsPath());
     	
+    		$model->resetFields();
     		foreach ($this->_getModelBuilder('db')->getParser()->getProperties($model->tableName) as $fieldName => $fieldType) {
     			$model->addField(new Mad_Script_Generator_Field($fieldName, $fieldType));
     		}

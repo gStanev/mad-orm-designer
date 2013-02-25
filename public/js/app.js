@@ -287,7 +287,11 @@
 							('/model-manage/save')),
 					GraphData, 
 					function(resp){
-						noty({text: ((resp.result) ? (resp.result) : (resp.error))});
+						if(resp.result) {
+							noty({text: resp.result, force: true, dismissQueue: true, type: 'success'});
+						} else {
+							noty({text: resp.error, force: true, dismissQueue: true, type: 'error'});
+						}
 					}
 				);
 		};

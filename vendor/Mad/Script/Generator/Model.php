@@ -87,9 +87,14 @@ class Mad_Script_Generator_Model
 	 * 
 	 * @param Mad_Script_Generator_Field $field
 	 * @return Mad_Script_Generator_Model
+	 * @throws Exception
 	 */
 	public function addField(Mad_Script_Generator_Field $field)
 	{
+		if($this->getFieldByName($field->fieldName) instanceof Mad_Script_Generator_Field) {
+			throw new Exception('You can not add field with name: ' . $field->fieldName .' because already exists.');
+		}
+		
 		$this->_fields[] = $field;
 		
 		return $this;
@@ -119,6 +124,15 @@ class Mad_Script_Generator_Model
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * @return Mad_Script_Generator_Model
+	 */
+	public function resetFields()
+	{
+		$this->_fields = array();
+		return $this;
 	}
 	
 	/**
