@@ -92,7 +92,7 @@ class Mad_Script_Generator_Model
 	public function addField(Mad_Script_Generator_Field $field)
 	{
 		if($this->getFieldByName($field->fieldName) instanceof Mad_Script_Generator_Field) {
-			throw new Exception('You can not add field with name: ' . $field->fieldName .' because already exists.');
+			throw new Exception('You can not add field with name: "(' . $field->fieldType . ') ' . $field->fieldName .'" in model: "' . $this->modelName	 . '"because already exists.');
 		}
 		
 		$this->_fields[] = $field;

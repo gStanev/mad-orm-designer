@@ -30,6 +30,6 @@ class Mad_Script_Generator_Field
 	public function __construct($fieldName, $fieldType)
 	{
 		$this->fieldName = $fieldName;
-		$this->fieldType = $fieldType;
+		$this->fieldType = str_replace(' ', '-', $fieldType);
 	}
 }
