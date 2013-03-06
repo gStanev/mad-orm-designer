@@ -19,21 +19,12 @@ class ModelManageController extends Mmg_Controller_Action
 		//Update model properties
 		foreach ($models as $model) {
 			/* @var $model Mad_Script_Generator_Model */
-			$model->resetFields();
-			
-			foreach ($parser->getProperties($model->tableName) as $filedName => $fieldType) {
-				$model->addField(new Mad_Script_Generator_Field($filedName, $fieldType));
-			}
+			$model->resetFields($parser);
 			
 			foreach ($model->getAssocs() as $assoc) {
 				/* @var $assoc Mad_Script_Generator_Association_Abstract */
-				$assoc->assocModel->resetFields();
-				
-				foreach ($parser->getProperties($assoc->assocModel->tableName) as $filedName => $fieldType) {
-					$assoc->assocModel->addField(new Mad_Script_Generator_Field($filedName, $fieldType));
-				}
+				$assoc->assocModel->resetFields($parser);
 			}
-			
 		}
 		
 		$writer->writeModels($models);
@@ -84,7 +75,7 @@ class ModelManageController extends Mmg_Controller_Action
 			$this->view->notyMessage = implode(', ', $generatedModelNames) . ' have been generated in path:' . $writer->modelsFolderPath;
 		}
 		
-		$this->_forward('index', 'index');
+		$this->_forward('graph', 'index');
 	}
 	
 	
@@ -110,18 +101,14 @@ class ModelManageController extends Mmg_Controller_Action
     	$this->_disableView();
     	try {
     		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->confModelsPath());
-    	
-    		$model->resetFields();
-    		foreach ($this->_getModelBuilder('db')->getParser()->getProperties($model->tableName) as $fieldName => $fieldType) {
-    			$model->addField(new Mad_Script_Generator_Field($fieldName, $fieldType));
-    		}
+    		
+    		$model->resetFields($this->_getModelBuilder('db')->getParser());
     		
     		foreach ($assocsData as $assocData) {
     			
     			$assoc = Mad_Script_Generator_Association_Abstract::fromArray($assocData);
-    			foreach ($this->_getModelBuilder('db')->getParser()->getProperties($assoc->assocModel->tableName) as $fieldName => $fieldType) {
-    				$assoc->assocModel->addField(new Mad_Script_Generator_Field($fieldName, $fieldType));
-    			}
+    			
+    			$assoc->assocModel->resetFields($this->_getModelBuilder('db')->getParser());
     			
     			$model->addAssoc($assoc);
     		}
@@ -139,39 +126,6 @@ class ModelManageController extends Mmg_Controller_Action
     				'error' 	=> $e->getMessage(),
     				'result'	=> null
     		));
-    	}
-    }
-    
-	/**
-	 * 
-	 * @param string $modelName
-	 * @param array $assocOpt
-	 * @return Mad_Script_Generator_Association_Abstract
-	 */
-    protected function _buildAssoc($modelName, array $assocOpt)
-    {	
-    	$masterModel = new Mad_Script_Generator_Model($assocOpt['masterModel']['tableName'], $assocOpt['masterModel']['modelName']);
-    	$assocModel  = new Mad_Script_Generator_Model($assocOpt['assocModel']['tableName'], $assocOpt['assocModel']['modelName']);
-    	
-    	if($assocOpt['type'] == Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH) {
-    		return 
-    			new Mad_Script_Generator_Association_HasManyThrough(
-    				$masterModel,
-    				$assocModel,
-    				new Mad_Script_Generator_Model($tableName, $modelName, $assocOpt['middleModel'])
-    			);
-    	}
-    	
-    	if($assocOpt['type'] == Mad_Model_Association_Base::TYPE_HAS_MANY) {
-    		return new Mad_Script_Generator_Association_HasMany($masterModel, $assocModel);
-    	}
-    	
-    	if($assocOpt['type'] == Mad_Model_Association_Base::TYPE_HAS_ONE) {
-    		return new Mad_Script_Generator_Association_HasOne($masterModel, $assocModel);
-    	}
-    	
-    	if($assocOpt['type'] == Mad_Model_Association_Base::TYPE_BELONGS_TO) {
-    		return new Mad_Script_Generator_Association_BelongsTo($masterModel, $assocModel);
     	}
     }
     

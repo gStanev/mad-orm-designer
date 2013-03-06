@@ -129,10 +129,5 @@ class GraphController extends Mmg_Controller_Action
 		
 		$this->_sendJsonAssocsGraphData($model);
 	}
-	
-	public function forUpdateAction()
-	{
-	
-	}
 }
 

@@ -127,11 +127,20 @@ class Mad_Script_Generator_Model
 	}
 	
 	/**
+	 * 
+	 * @param Mad_Script_Generator_Parser_Abstract $parser
 	 * @return Mad_Script_Generator_Model
 	 */
-	public function resetFields()
+	public function resetFields(Mad_Script_Generator_Parser_Abstract $parser = null)
 	{
 		$this->_fields = array();
+		
+		if($parser !== null) {
+			foreach ($parser->getProperties($this->tableName) as $filedName => $fieldType) {
+				$this->addField(new Mad_Script_Generator_Field($filedName, $fieldType));
+			}
+		}
+		
 		return $this;
 	}
 	

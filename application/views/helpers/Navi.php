@@ -13,15 +13,6 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 	);
 	
 	/**
-	 *
-	 * @var array
-	 */
-	protected $_mainSubItems = array(
-			array('controller' => 'model-manage', 	'action' => 'change-name', 				'label' => 'Change Model Name'),
-			array('controller' => 'model-manage', 	'action' => 'update-comments', 			'label' => 'Update Comments'),
-	);
-	
-	/**
 	 * 
 	 * @return Zend_View_Helper_Navi
 	 */
@@ -64,11 +55,16 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 		
 		ob_start();
 		echo '<div class="menu_nav">
-		        <ul>
-		          <li><a id="save-model" href="javascript:;">' . $this->view->translate('Save Model') . '</a></li>
-		          <li><a id="add-assoc" href="javascript:;" >' . $this->view->translate('Add Association') . '</a></li>';
+		        <ul>';
 		
-		if($controllerName === 'index' && $actionName === 'index') {
+		if($tableName) {
+			echo '
+				<li><a id="save-model" href="javascript:;">' . $this->view->translate('Save Model') . '</a></li>
+				<li><a id="add-assoc" href="javascript:;" >' . $this->view->translate('Add Association') . '</a></li>';
+		}
+		
+
+		if($controllerName === 'index' && $actionName === 'index' && $tableName) {
 			echo '<li><a href="' . 
 						$this->view->url(array('controller' => 'model-manage', 'action' => 'change-name', 'tableName' => $tableName )) . '" >' . 
 							$this->view->translate('Change Model Name') .'
