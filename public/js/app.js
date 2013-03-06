@@ -49,13 +49,9 @@
 			default_index_model_assocs: function() {
 				var self = this;
 				self._onGraphClick = function(selected) {
-					
 
-					
 					$.get('/graph/models?tables[]=' + encodeURIComponent(selected.node.data.tableName), function(resp) {
-						
-						
-						
+												
 						for(var modelName in resp['nodes']) {
 							
 							resp['nodes'][modelName].label = resp['nodes'][modelName].modelName;

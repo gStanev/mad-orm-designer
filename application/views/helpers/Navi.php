@@ -52,12 +52,14 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 		$tableName 		= Zend_Controller_Front::getInstance()->getRequest()->getParam('tableName');
 		$controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 		$actionName 	= Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+		$consistItems = false;
 		
 		ob_start();
 		echo '<div class="menu_nav">
 		        <ul>';
 		
 		if($tableName) {
+			$consistItems = true;
 			echo '
 				<li><a id="save-model" href="javascript:;">' . $this->view->translate('Save Model') . '</a></li>
 				<li><a id="add-assoc" href="javascript:;" >' . $this->view->translate('Add Association') . '</a></li>';
@@ -65,6 +67,7 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 		
 
 		if($controllerName === 'index' && $actionName === 'index' && $tableName) {
+			$consistItems = true;
 			echo '<li><a href="' . 
 						$this->view->url(array('controller' => 'model-manage', 'action' => 'change-name', 'tableName' => $tableName )) . '" >' . 
 							$this->view->translate('Change Model Name') .'
@@ -81,6 +84,7 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 		//array('controller' => 'model-manage',	'action' => 'save-all-suggestions', 	'label' => 'Save All Association Suggestions')
 		
 		if($controllerName === 'index' && $actionName === 'assoc-suggestions' && count($this->view->models)) {
+			$consistItems = true;
 			echo '<li><a href="' .
 					$this->view->url(array('controller' => 'model-manage',	'action' => 'save-all-suggestions' )) . '" >' .
 						$this->view->translate('Save All Association Suggestions') .'
@@ -90,14 +94,14 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 		
 		
 		
-	/**
-	 *  
+		echo '
+	 
 		          
 		        </ul>
 		        <div class="clr"></div>
-		      </div>
-	 */
-	     
+		      </div>';
+		
+		return ($consistItems) ? (ob_get_clean()) : (ob_clean());
 	}
 	
 
