@@ -60,10 +60,13 @@
 							
 							resp['nodes'][modelName].label = resp['nodes'][modelName].modelName;
 							
-							var newNode = self._getParticleSystem().addNode(
-									resp['nodes'][modelName].tableName, 
-									resp['nodes'][modelName]
-								);
+							var newNode = 
+								(self._getParticleSystem().getNode(resp['nodes'][modelName].modelName)) ? 
+									(self._getParticleSystem().getNode(resp['nodes'][modelName].modelName)) : 
+										(self._getParticleSystem().addNode(
+												resp['nodes'][modelName].modelName, 
+												resp['nodes'][modelName]
+										));
 							
 							self._getParticleSystem().addEdge(
 								selected.node,
