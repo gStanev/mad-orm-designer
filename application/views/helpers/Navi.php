@@ -16,7 +16,8 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 	 * @var array
 	 */
 	protected $_mainSubItems = array(
-			array('controller' => 'model-manage', 	'action' => 'change-name', 				'label' => 'Change Model Name')
+			array('controller' => 'model-manage', 	'action' => 'change-name', 				'label' => 'Change Model Name'),
+			array('controller' => 'model-manage', 	'action' => 'update-comments', 			'label' => 'Update Comments'),
 	);
 	
 	/**
@@ -70,6 +71,12 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 			echo '<li><a href="' . 
 						$this->view->url(array('controller' => 'model-manage', 'action' => 'change-name', 'tableName' => $tableName )) . '" >' . 
 							$this->view->translate('Change Model Name') .'
+					  </a>
+				</li>';
+			
+			echo '<li><a href="' .
+					$this->view->url(array('controller' => 'model-manage', 'action' => 'update-comments', 'tableName' => $tableName )) . '" >' .
+					$this->view->translate('Update comments') .'
 					  </a>
 				</li>';
 		}

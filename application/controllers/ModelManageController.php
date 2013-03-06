@@ -6,6 +6,47 @@
  */
 class ModelManageController extends Mmg_Controller_Action
 {
+	public function updateCommentsAction()
+	{
+		$this->_disableView();
+		
+		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->confModelsPath());
+		$models = $this->_getModelBuilder('file')->factoryModels();
+		
+		$parser = $this->_getModelBuilder('db')->getParser();
+		
+		
+		//Update model properties
+		foreach ($models as $model) {
+			/* @var $model Mad_Script_Generator_Model */
+			$model->resetFields();
+			
+			foreach ($parser->getProperties($model->tableName) as $filedName => $fieldType) {
+				$model->addField(new Mad_Script_Generator_Field($filedName, $fieldType));
+			}
+			
+			foreach ($model->getAssocs() as $assoc) {
+				/* @var $assoc Mad_Script_Generator_Association_Abstract */
+				$assoc->assocModel->resetFields();
+				
+				foreach ($parser->getProperties($assoc->assocModel->tableName) as $filedName => $fieldType) {
+					$assoc->assocModel->addField(new Mad_Script_Generator_Field($filedName, $fieldType));
+				}
+			}
+			
+		}
+		
+		$writer->writeModels($models);
+		
+		$this->_sendJson(array(
+				'id' 		=> uniqid(),
+				'error' 	=> null,
+				'result'	=> 'Success'
+		));
+
+		
+	}
+	
 	public function changeNameAction()
 	{
 		$this->view->currentModel  = $currentModel = $this->_getModelBuilder('file')->factoryModel($this->_getParam('tableName'), false);
