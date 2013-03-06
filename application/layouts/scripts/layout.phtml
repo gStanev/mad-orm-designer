@@ -22,6 +22,8 @@ $tableName = Zend_Controller_Front::getInstance()->getRequest()->getParam('table
 <script src="/js/lib/arbor.js"></script>
 <script src="/js/lib/form-to-json.js"></script>
 
+<script type="text/javascript" src="js/lib/util.js"></script>
+
 <script type="text/javascript" src="js/lib/noty/jquery.noty.js"></script>
 
 <script type="text/javascript" src="js/lib/noty/layouts/top.js"></script>
@@ -32,7 +34,7 @@ $tableName = Zend_Controller_Front::getInstance()->getRequest()->getParam('table
 <script type="text/javascript" src="js/lib/noty/themes/default.js"></script>
 
 <script type="text/javascript">
-var Graph = {currentTable: <?php echo json_encode($tableName)?>};
+var Graph = {currentTable: <?php echo json_encode(@$this->currentModel->tableName)?>};
 <?php if($this->currentModel){?>
 Graph.currentModelName = <?php echo json_encode($this->currentModel->modelName);?>;
 <?php }?>

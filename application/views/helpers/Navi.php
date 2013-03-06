@@ -9,6 +9,7 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 		array('controller' => 'index', 			'action' => 'index', 					'label' => 'Models'),
 		array('controller' => 'index', 			'action' => 'assoc-suggestions', 		'label' => 'Association Suggestions'),
 		array('controller' => 'index', 			'action' => 'graph', 					'label' => 'Graph'),
+		array('controller' => 'index', 			'action' => 'model-assocs', 			'label' => 'Entity Relations'),
 	);
 	
 	/**
@@ -116,7 +117,7 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 				
 		foreach ($models as $model) { /* @var $model Mad_Script_Generator_Model */
 			$class = 
-				($model->tableName === Zend_Controller_Front::getInstance()->getRequest()->getParam('tableName')) ? 
+				($model->tableName === (($this->view->currentModel instanceof Mad_Script_Generator_Model) ? ($this->view->currentModel->tableName) : (Zend_Controller_Front::getInstance()->getRequest()->getParam('tableName')))) ? 
 					('active') : 
 						('');	
 			

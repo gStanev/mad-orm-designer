@@ -103,7 +103,7 @@ class GraphController extends Mmg_Controller_Action
 			}
 			
 			return $models;
-		}, $this->_getParam('tables', array()), $this->_getModelBuilder('file'));
+		}, (array) $this->_getParam('tables', array()), $this->_getModelBuilder('file'));
 		
 		$this->_sendJsonModelGraphData($models);
 	}
