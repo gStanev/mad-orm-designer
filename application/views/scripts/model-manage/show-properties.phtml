@@ -2,6 +2,7 @@
 /* @var $currentModel Mad_Script_Generator_Model */
 $currentModel = $this->currentModel;
 ?>
+<p>Model Name: <strong><?php echo $this->escape($currentModel->modelName);?></strong>, Table Name: <strong><?php echo $this->escape($currentModel->tableName);?></strong></p>
 <table>
 	<thead>
 		<tr>
@@ -14,7 +15,7 @@ $currentModel = $this->currentModel;
 foreach ($currentModel->getFields() as $field) {
 	/* @var $field Mad_Script_Generator_Field */
 ?>
-		<tr>
+		<tr <?php if(strpos($field->fieldName, '_id') !== false xor $field->fieldName !== 'id') echo 'style="color:blue;"'?>>
 			<td><?php echo $this->escape($field->fieldName) ?></td>
 			<td><?php echo $this->escape($field->fieldType) ?></td>
 		</tr>
