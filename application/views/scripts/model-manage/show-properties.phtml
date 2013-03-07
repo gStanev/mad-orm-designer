@@ -1,0 +1,25 @@
+<?php
+/* @var $currentModel Mad_Script_Generator_Model */
+$currentModel = $this->currentModel;
+?>
+<table>
+	<thead>
+		<tr>
+			<th>Property</th>
+			<th>Type</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php 
+foreach ($currentModel->getFields() as $field) {
+	/* @var $field Mad_Script_Generator_Field */
+?>
+		<tr>
+			<td><?php echo $this->escape($field->fieldName) ?></td>
+			<td><?php echo $this->escape($field->fieldType) ?></td>
+		</tr>
+<?php
+}
+?>	
+	</tbody>
+</table>

@@ -3,10 +3,11 @@
 	
 	$(document).ready(function() {
 		(new Util.Router({
-			_particleSystem: null,
-			_Renderer: null,
-			_onGraphClick: function(selected){},
-			_canvasContext: null,
+			_particleSystem: 	null,
+			_Renderer: 			null,
+			_onGraphClick: 		function(selected){},
+			_onGraphRightClick: function(selected) {},
+			_canvasContext: 	null,
 			
 			_fancyBoxSettings : {
 				hideOnOverlayClick: false
@@ -50,6 +51,13 @@
 			
 			default_index_model_assocs: function() {
 				var self = this;
+				
+				self._onGraphRightClick = function(selected) {
+					$.get('/model-manage/show-properties/tableName/' + encodeURIComponent(selected.node.data.tableName), function(resp){
+						$.fancybox(resp);
+					});
+				};
+				
 				self._onGraphClick = function(selected) {
 
 					self._getCanvasContext().removeHighLight();
@@ -525,6 +533,19 @@
 												}
 												return false;
 											});
+							
+							
+							$(canvas).rightClick( function(e) {
+								// Do something
+								var pos = $(this).offset();
+								var p = {
+									x : e.pageX - pos.left,
+									y : e.pageY - pos.top
+								}
+								var selected = self._getParticleSystem().nearest(p);
+								
+								self._onGraphRightClick(selected);
+							});
 
 							$(canvas).mousemove(function(e) {
 								var old_nearest = nearest && nearest.node._id;

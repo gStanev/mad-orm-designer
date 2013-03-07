@@ -54,18 +54,6 @@ class IndexController extends Mmg_Controller_Action
     	$this->_assignCurrentModelToView();
     }
     
-    protected function _assignCurrentModelToView()
-    {
-    	if($this->_getParam('tableName')) {
-    		$this->view->currentModel = $this->_getModelBuilder()->factoryModel($this->_getParam('tableName'));
-    		return;
-    	}
-    	
-    	if(is_array($this->view->models) && count($this->view->models)) {
-    		$this->view->currentModel = current($this->view->models);
-    	}
-    }
-    
     /**
      * 
      * @param string $parserType 'file', 'db'

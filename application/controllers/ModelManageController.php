@@ -55,6 +55,12 @@ class ModelManageController extends Mmg_Controller_Action
 		}
 	}
 	
+	public function showPropertiesAction()
+	{
+		$this->_helper->layout()->disableLayout();
+		$this->_assignCurrentModelToView();
+	}
+	
 	public function saveAllSuggestionsAction()
 	{
 		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->confModelsPath());
