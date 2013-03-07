@@ -6,6 +6,7 @@
 			_particleSystem: null,
 			_Renderer: null,
 			_onGraphClick: function(selected){},
+			_canvasContext: null,
 			
 			_fancyBoxSettings : {
 				hideOnOverlayClick: false
@@ -44,33 +45,49 @@
 				var self = this;
 				
 				self._initGraph(Graph, '/graph/models/tableName');
+				
 			},
 			
 			default_index_model_assocs: function() {
 				var self = this;
 				self._onGraphClick = function(selected) {
 
+					self._getCanvasContext().removeHighLight();
+					
+					self._getParticleSystem().eachEdge(function(edge){
+						edge.data.highLighted = false;
+					})
+					
 					$.get('/graph/models?tables[]=' + encodeURIComponent(selected.node.data.tableName), function(resp) {
-												
-						for(var modelName in resp['nodes']) {
+									
+						for(var modelName in resp['edges'][selected.node.data.modelName]) {
+							var edgeData = resp['edges'][selected.node.data.modelName][modelName];
 							
-							resp['nodes'][modelName].label = resp['nodes'][modelName].modelName;
+							edgeData.assocModel.label = edgeData.assocModel.modelName;
+							edgeData.highLighted = true;
 							
 							var newNode = 
-								(self._getParticleSystem().getNode(resp['nodes'][modelName].modelName)) ? 
-									(self._getParticleSystem().getNode(resp['nodes'][modelName].modelName)) : 
-										(self._getParticleSystem().addNode(
-												resp['nodes'][modelName].modelName, 
-												resp['nodes'][modelName]
-										));
+								(self._getParticleSystem().getNode(edgeData.assocModel.label)) ? 
+									(self._getParticleSystem().getNode(edgeData.assocModel.label)) : 
+										(self._getParticleSystem().addNode(edgeData.assocModel.label, edgeData.assocModel));
 							
-							self._getParticleSystem().addEdge(
-								selected.node,
-								newNode
-							);
-							
-							self._getRenderer().redraw();
+							if(self._getParticleSystem().getEdges(selected.node, newNode).length > 0) {
+								$.each(self._getParticleSystem().getEdges(selected.node, newNode), function(key, edge) {
+									edge.data.highLighted = true;
+								});
+								
+								continue;
+							}
+									
+							self._getParticleSystem().addEdge(selected.node, newNode).data = edgeData;
 						}
+						
+						self._getParticleSystem().eachEdge(function(edge) {
+							
+							//if(edge.data.highLighted) console.log(edge.data);
+							
+							
+						});
 					});
 				};
 				self._initGraph(Graph, '/graph/models/tables');
@@ -151,6 +168,33 @@
 					nodes : nodes,
 					edges : data.edges
 				});
+			},
+			
+			/**
+			 * @return CanvasContext
+			 */
+			_getCanvasContext: function() {
+				if(this._canvasContext === null){
+					this._canvasContext = $('#viewport').get(0).getContext("2d");
+					
+					this._canvasContext.highLight = function() {
+						this.shadowColor = '#00FFFF';
+						this.shadowStyle = '#00FFFF';
+						this.shadowBlur = 3;
+						this.shadowOffsetX = 4;
+						this.shadowOffsetY = 3;	
+					};
+					
+					this._canvasContext.removeHighLight = function() {
+						this.shadowColor = '#000000';
+						this.shadowStyle = '#000000';
+						this.shadowBlur = 0;
+						this.shadowOffsetX = 0;
+						this.shadowOffsetY = 0;
+					};
+				}
+				
+				return this._canvasContext;
 			},
 			
 			_applyLoadingLocker: function() {
@@ -280,6 +324,8 @@
 						self._getParticleSystem().addNode(newNodeData.label);
 						self._getParticleSystem().getNode(newNodeData.label).data = GraphData.nodes[newNodeData.label] = newNodeData;
 						self._getParticleSystem().addEdge(self._getParticleSystem().getNode(newNodeData.label), self._getParticleSystem().getNode(newNodeData.masterModel.modelName));
+						
+						self._getRenderer().update();
 					}
 					
 					if($('body').hasClass('default-index-index')) {
@@ -304,14 +350,11 @@
 				var self = this;
 				if(this._Renderer === null) {
 					canvas = $('#viewport').get(0);
-					var ctx = canvas.getContext("2d");
-					var particleSystem = null;
 
 					var that = {
 						highLightByType: 'all',
 						init : function(system) {
-							particleSystem = system;
-							particleSystem.screen({
+							self._getParticleSystem().screen({
 								padding : [ 100, 330, 100, 100 ], // leave some space at
 																	// the bottom for the
 																	// param sliders
@@ -322,25 +365,25 @@
 							that.resize();
 
 							that.initMouseHandling();
+														
 						},
-						redraw : function(highLightByType) {
+						
+						update: function() {
+							self._getParticleSystem().eachEdge(function(edge, pt1, pt2) {
 								
-							
-							var self = this;
-							if(typeof highLightByType !== 'undefined') {
-								self.highLightByType = highLightByType;
-							}
-							
-							if (particleSystem === null)
-								return					
-							
-
-							ctx.clearRect(0, 0, canvas.width, canvas.height);
-							ctx.strokeStyle = "#d3d3d3";
-							ctx.lineWidth = 1;
-							ctx.beginPath();
-							particleSystem
+							});
+						},
+						
+						redraw : function() {
+									
+							self._getCanvasContext().clearRect(0, 0, canvas.width, canvas.height);
+							//self._getCanvasContext().strokeStyle = "#d3d3d3";
+							self._getCanvasContext().lineWidth = 1;
+							self._getCanvasContext().beginPath();
+							self._getParticleSystem()
 									.eachEdge(function(edge, pt1, pt2) {
+										(edge.data.highLighted) ? (self._getCanvasContext().highLight()) : (self._getCanvasContext().removeHighLight());
+										
 										// edge: {source:Node, target:Node, length:#,
 										// data:{}}
 										// pt1: {x:#, y:#} source position in screen coords
@@ -352,36 +395,37 @@
 										// = null;
 
 										if (color !== undefined || weight !== undefined) {
-											ctx.save();
-											ctx.beginPath();
+											self._getCanvasContext().save();
+											self._getCanvasContext().beginPath();
 
 											if (!isNaN(weight))
-												ctx.lineWidth = weight;
+												self._getCanvasContext().lineWidth = weight;
 
 											if (edge.source.data.region == edge.target.data.region) {
-												// ctx.strokeStyle =
+												// self._getCanvasContext().strokeStyle =
 												// palette[edge.source.data.region];
 											}
 
-											// if (color) ctx.strokeStyle = color
-											// ctx.fillStyle = null;
+											// if (color) self._getCanvasContext().strokeStyle = color
+											// self._getCanvasContext().fillStyle = null;
 
-											ctx.moveTo(pt1.x, pt1.y);
-											ctx.lineTo(pt2.x, pt2.y);
-											ctx.stroke();
-											ctx.restore();
-											ctx.fillStyle = color;
-											ctx.strokeStyle = color;
-											// console.log(ctx); return;
+											self._getCanvasContext().moveTo(pt1.x, pt1.y);
+											self._getCanvasContext().lineTo(pt2.x, pt2.y);
+											self._getCanvasContext().stroke();
+											self._getCanvasContext().restore();
+											//self._getCanvasContext().fillStyle = color;
+											//self._getCanvasContext().strokeStyle = color;
+											// console.log(self._getCanvasContext()); return;
 										} else {
 											// draw a line from pt1 to pt2
-											ctx.moveTo(pt1.x, pt1.y);
-											ctx.lineTo(pt2.x, pt2.y);
+											self._getCanvasContext().moveTo(pt1.x, pt1.y);
+											self._getCanvasContext().lineTo(pt2.x, pt2.y);
 										}
 									});
-							ctx.stroke();
+							self._getCanvasContext().stroke();
 
-							particleSystem.eachNode(function(node, pt) {
+							self._getParticleSystem().eachNode(function(node, pt) {
+								self._getCanvasContext().removeHighLight();
 								// node: {mass:#, p:{x,y}, name:"", data:{}}
 								// pt: {x:#, y:#} node position in screen coords
 
@@ -389,7 +433,7 @@
 								// be
 								// drawing a text label (awful alignment jitter
 								// otherwise...)
-								var w = ctx.measureText(node.data.label || "").width + 6;
+								var w = self._getCanvasContext().measureText(node.data.label || "").width + 6;
 								var label = node.data.label;
 								if (!(label || "").match(/^[ \t]*$/)) {
 									pt.x = Math.floor(pt.x);
@@ -400,26 +444,26 @@
 
 								// clear any edges below the text label
 
-								ctx.fillStyle = 'rgba(255,255,255,.6)'
-								// ctx.fillRect(pt.x-w/2, pt.y-7, w,14)
+								//self._getCanvasContext().fillStyle = 'rgba(255,255,255,.6)'
+								// self._getCanvasContext().fillRect(pt.x-w/2, pt.y-7, w,14)
 
-								ctx.clearRect(pt.x - w / 2, pt.y - 7, w, 14);
+								self._getCanvasContext().clearRect(pt.x - w / 2, pt.y - 7, w, 14);
 
 								// draw the text
 
 								if (label) {
-									ctx.font = "bold 11px Arial";
-									ctx.textAlign = "center";
+									self._getCanvasContext().font = "bold 11px Arial";
+									self._getCanvasContext().textAlign = "center";
 
-									// if (node.data.region) ctx.fillStyle =
+									// if (node.data.region) self._getCanvasContext().fillStyle =
 									// palette[node.data.region]
-									// else ctx.fillStyle = "#888888"
+									// else self._getCanvasContext().fillStyle = "#888888"
 									
-									ctx.fillStyle  = (node.data.type === self.highLightByType) ? ('red') : ("#888888");
+									//self._getCanvasContext().fillStyle  = (node.data.type === self.highLightByType) ? ('red') : ("#888888");
 									
 
-									// ctx.fillText(label||"", pt.x, pt.y+4)
-									ctx.fillText(label || "", pt.x, pt.y + 4);
+									// self._getCanvasContext().fillText(label||"", pt.x, pt.y+4)
+									self._getCanvasContext().fillText(label || "", pt.x, pt.y + 4);
 								}
 							});
 						},
@@ -429,7 +473,7 @@
 							canvas.width = w;
 							canvas.height = h; // resize the canvas element to fill the
 												// screen
-							particleSystem.screenSize(w, h); // inform the system so it
+							self._getParticleSystem().screenSize(w, h); // inform the system so it
 																// can map coords for us
 							that.redraw();
 						},
@@ -447,7 +491,7 @@
 									x : e.pageX - pos.left,
 									y : e.pageY - pos.top
 								}
-								selected = nearest = dragged = particleSystem.nearest(p);
+								selected = nearest = dragged = self._getParticleSystem().nearest(p);
 
 								if (selected.node !== null) {
 									dragged.node.tempMass = 50;
@@ -465,7 +509,7 @@
 													x : e.pageX - pos.left,
 													y : e.pageY - pos.top
 												}
-												var selected = particleSystem.nearest(p);
+												var selected = self._getParticleSystem().nearest(p);
 
 												if (selected.node !== null) {
 													//delete GraphData.nodes[selected.node.data.label];
@@ -473,7 +517,7 @@
 													self._onGraphClick(selected);
 													
 													//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-													// $.each(particleSystem.getEdgesFrom(selected.node),
+													// $.each(self._getParticleSystem().getEdgesFrom(selected.node),
 													// function(edge) {
 
 													// });
@@ -490,14 +534,14 @@
 									y : e.pageY - pos.top
 								};
 
-								nearest = particleSystem.nearest(s);
+								nearest = self._getParticleSystem().nearest(s);
 								if (!nearest)
 									return
 
 								
 
 								if (dragged !== null && dragged.node !== null) {
-									var p = particleSystem.fromScreen(s);
+									var p = self._getParticleSystem().fromScreen(s);
 									dragged.node.p = {
 										x : p.x,
 										y : p.y

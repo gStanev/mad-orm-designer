@@ -58,15 +58,14 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 		echo '<div class="menu_nav">
 		        <ul>';
 		
-		if($tableName) {
+		if($controllerName === 'index' && in_array($actionName, array('index', 'assoc-suggestions')) && $this->view->currentModel instanceof Mad_Script_Generator_Model) {
 			$consistItems = true;
 			echo '
 				<li><a id="save-model" href="javascript:;">' . $this->view->translate('Save Model') . '</a></li>
 				<li><a id="add-assoc" href="javascript:;" >' . $this->view->translate('Add Association') . '</a></li>';
 		}
-		
 
-		if($controllerName === 'index' && $actionName === 'index' && $tableName) {
+		if($controllerName === 'index' && $actionName === 'index' && $this->view->currentModel instanceof Mad_Script_Generator_Model) {
 			$consistItems = true;
 			echo '<li><a href="' . 
 						$this->view->url(array('controller' => 'model-manage', 'action' => 'change-name', 'tableName' => $tableName )) . '" >' . 
