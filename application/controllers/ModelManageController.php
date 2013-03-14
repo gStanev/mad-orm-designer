@@ -7,14 +7,14 @@
 class ModelManageController extends Mmg_Controller_Action
 {
 	public function updateCommentsAction()
-	{
-		$this->_disableView();
-		
+	{	
 		$writer = new Mad_Script_Generator_Model_Writer($this->_getApplication()->confModelsPath());
 		$models = $this->_getModelBuilder('file')->factoryModels();
 		
 		$parser = $this->_getModelBuilder('db')->getParser();
 		
+		$this->view->updatedModels 		= array();
+		$this->view->notUpdatedModels	= array();
 		
 		//Update model properties
 		foreach ($models as $model) {
@@ -25,17 +25,19 @@ class ModelManageController extends Mmg_Controller_Action
 				/* @var $assoc Mad_Script_Generator_Association_Abstract */
 				$assoc->assocModel->resetFields($parser);
 			}
+			
+			try {
+				$oldModelContent = $writer->getModelContent($model);
+				$writer->writeModel($model);
+				
+				if(strcmp($oldModelContent, $writer->getModelContent($model)) !== 0) {
+					$this->view->updatedModels[] = $model->modelName;
+				}
+				
+			} catch (Exception $e) {
+				$this->view->notUpdatedModels[] = $model->modelName;
+			}
 		}
-		
-		$writer->writeModels($models);
-		
-		$this->_sendJson(array(
-				'id' 		=> uniqid(),
-				'error' 	=> null,
-				'result'	=> 'Success'
-		));
-
-		
 	}
 	
 	public function changeNameAction()

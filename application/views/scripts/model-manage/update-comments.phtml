@@ -1,0 +1,19 @@
+<?php if(count($this->updatedModels)) {?>
+<div class="success">
+	<h3><?php echo $this->translate('These models have been successful updated: '); ?></h3>
+	<p><?php echo implode(', ', $this->updatedModels);?></p>
+</div>
+<?php }?>
+
+<?php if(count($this->notSavedModels))  {?>
+<div class="fail">
+	<h3><?php echo $this->translate('These models haven\'t updated.'); ?></h3>
+	<p><?php echo implode(', ', $this->notSavedModels)?></p>
+</div>
+<?php }?>
+
+<?php if(count($this->updatedModels) === 0 && count($this->notSavedModels) === 0) {?>
+<div class="success">
+	All models are up to date.
+</div>
+<?php }?>

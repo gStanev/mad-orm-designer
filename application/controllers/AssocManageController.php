@@ -17,19 +17,30 @@ class AssocManageController extends Mmg_Controller_Action
 	public function newInitAction()
 	{
 		$params = $this->_getAllParams();
+		
 		$this->_helper->layout()->disableLayout();
 		$this->view->masterModel 	= $masterModel 	= $this->_getModelBuilder('file')->factoryModel($params['assoc']['masterModel']['tableName']);
 		$this->view->models 		= $models 		= $this->_getModelBuilder('file')->factoryModels(false);
 		$this->view->assocModel 	= $assocModel 	= (isset($params['assoc']['assocModel'])) ? 
-															($this->_getModelBuilder('file')->factoryModel($params['assoc']['assocModel']['tableName'])) : 
+															($this->_getModelBuilder('file')->factoryModel($params['assoc']['assocModel']['tableName'], false)) : 
 																(current($models));
 		
-		$this->view->assoc = Mad_Script_Generator_Association_Abstract::factory($params['assoc']['type'], $masterModel, $assocModel);
+		$this->view->middleModel 	= $middleModel 	= (isset($params['assoc']['options']) && isset($params['assoc']['options']['through'])) ? 
+															($this->_getModelBuilder('file')->factoryModelByName($params['assoc']['options']['through'], false)) : 
+																(($params['assoc']['type'] === Mad_Model_Association_Base::TYPE_HAS_MANY_THROUGH) ? (current($models)) : (null));
+		
+		$assoc = Mad_Script_Generator_Association_Abstract::factory($params['assoc']['type'], $masterModel, $assocModel, $middleModel);
+		
+		$assoc->addOption('className', $assocModel->modelName);
+		
+		$this->view->assoc = $assoc;
 	}
 	
 	
     public function formAction() 
     {
+    	//echo '<pre>';
+    	//var_dump($this->_getParam('assoc')); die;
     	$this->view->assoc = $this->_factoryAssociation($this->_getParam('assoc'));
     	
     	$this->_helper->layout()->disableLayout();

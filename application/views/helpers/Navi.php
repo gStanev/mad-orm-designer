@@ -7,6 +7,7 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 	 */
 	protected $_mainItems = array(
 		array('controller' => 'index', 			'action' => 'index', 					'label' => 'Models'),
+		array('controller' => 'model-manage', 	'action' => 'update-comments', 			'label' => 'Update Models Comments'),
 		array('controller' => 'index', 			'action' => 'assoc-suggestions', 		'label' => 'Association Suggestions'),
 		array('controller' => 'index', 			'action' => 'graph', 					'label' => 'Graph'),
 		array('controller' => 'index', 			'action' => 'model-assocs', 			'label' => 'Entity Relations'),
@@ -49,7 +50,10 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 	}
 	
 	public function mainSub() {
-		$tableName 		= Zend_Controller_Front::getInstance()->getRequest()->getParam('tableName');
+		$tableName 		= ($this->view->currentModel instanceof Mad_Script_Generator_Model) ? 
+							($this->view->currentModel->tableName) : 
+								(Zend_Controller_Front::getInstance()->getRequest()->getParam('tableName'));
+		
 		$controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 		$actionName 	= Zend_Controller_Front::getInstance()->getRequest()->getActionName();
 		$consistItems = false;
@@ -70,12 +74,6 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 			echo '<li><a href="' . 
 						$this->view->url(array('controller' => 'model-manage', 'action' => 'change-name', 'tableName' => $tableName )) . '" >' . 
 							$this->view->translate('Change Model Name') .'
-					  </a>
-				</li>';
-			
-			echo '<li><a href="' .
-					$this->view->url(array('controller' => 'model-manage', 'action' => 'update-comments', 'tableName' => $tableName )) . '" >' .
-					$this->view->translate('Update comments') .'
 					  </a>
 				</li>';
 		}

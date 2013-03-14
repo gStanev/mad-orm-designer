@@ -32,6 +32,22 @@ class Mad_Script_Generator_Model_Builder
 	
 	/**
 	 * 
+	 * @param string $modelName
+	 * @param bool $addAssocs
+	 * @throws Exception
+	 * 
+	 * @eturn Mad_Script_Generator_Model
+	 */
+	public function factoryModelByName($modelName, $addAssocs = true)
+	{
+		/* @var $realModel Mad_Model_Base */
+		$realModel = new $modelName();
+		
+		return $this->factoryModel($realModel->tableName(), $addAssocs);
+	}
+	
+	/**
+	 * 
 	 * @param string	$tableName
 	 * @param bool		$addAssocs 	
 	 * @return Mad_Script_Generator_Model
@@ -104,11 +120,9 @@ class Mad_Script_Generator_Model_Builder
 					}
 					
 					//add assoc to model
-					$model->addAssoc(
-						Mad_Script_Generator_Association_Abstract::factory(
-							$assocType, $model, $assocModel,$middleModel, $assocOptions
-						)
-					);
+					$assoc = Mad_Script_Generator_Association_Abstract::factory($assocType, $model, $assocModel,$middleModel, $assocOptions);
+					$assoc->setName($assocName);
+					$model->addAssoc($assoc);
 				}
 			
 			}
@@ -143,7 +157,7 @@ class Mad_Script_Generator_Model_Builder
 	
 	/**
 	 * 
-	 * @param unknown $tableName
+	 * @param string $tableName
 	 * @return Mad_Script_Generator_Model|NULL
 	 */
 	public function searchModel($tableName)

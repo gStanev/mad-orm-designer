@@ -11,11 +11,13 @@
 class Mad_Script_Generator_Association_HasAndBelongsToMany extends Mad_Script_Generator_Association_Abstract
 {
 	/**
-	 * @return string
+	 * @return Mad_Script_Generator_Association_HasAndBelongsToMany
 	 */
-	public function getName()
+	protected function _setDefaultName()
 	{
-		return $this->assocModel->modelName;
+		$this->_name = $this->assocModel->modelName;
+		
+		return $this;
 	}
 	
 	/**

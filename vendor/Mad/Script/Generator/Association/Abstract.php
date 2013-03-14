@@ -28,6 +28,11 @@ abstract class Mad_Script_Generator_Association_Abstract
 	 */
 	protected $_options = array();
 	
+	/**
+	 * 
+	 * @var string
+	 */
+	protected  $_name;
 	
 	/**
 	 * 
@@ -40,10 +45,31 @@ abstract class Mad_Script_Generator_Association_Abstract
 		$this->assocModel 	= $assocModel;
 	}
 	
+	public function getName()
+	{
+		if($this->_name === null) {
+			$this->_setDefaultName();
+		}
+		
+		return $this->_name;
+	}
+	
 	/**
-	 * @return string
+	 * 
+	 * @param string $name
+	 * @return Mad_Script_Generator_Association_Abstract
 	 */
-	abstract public function getName();
+	public function setName($name)
+	{
+		$this->_name = $name;
+		
+		return $this;
+	}
+	
+	/**
+	 * @return Mad_Script_Generator_Association_Abstract
+	 */
+	abstract protected function _setDefaultName();
 	
 	/**
 	 * @return string
@@ -177,13 +203,19 @@ abstract class Mad_Script_Generator_Association_Abstract
 		
 		$options = (isset($data['options']) && is_array($data['options'])) ? ($data['options']) : (array());
 		
-		return self::factory(
+		$assoc = self::factory(
 			$data['type'], 
 			new Mad_Script_Generator_Model($data['masterModel']['tableName'], $data['masterModel']['modelName']), 
 			new Mad_Script_Generator_Model($data['assocModel']['tableName'], $data['assocModel']['modelName']),
 			$middleModel,
 			$options
 		);
+		
+		if(isset($data['name'])) {
+			$assoc->_name = $data['name'];
+		}
+		
+		return $assoc;
 	}
 	
 	/**

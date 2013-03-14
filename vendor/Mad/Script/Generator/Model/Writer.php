@@ -136,6 +136,15 @@ class Mad_Script_Generator_Model_Writer
 		return '';
 	}
 	
+	/**
+	 * @param Mad_Script_Generator_Model $model
+	 * @return string
+	 */
+	public function getModelContent(Mad_Script_Generator_Model $model)
+	{
+		return $this->_getFileContent($this->_getModelFilePath($model));
+	}
+	
 	
 	/**
 	 * @param string $from

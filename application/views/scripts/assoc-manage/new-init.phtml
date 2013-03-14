@@ -2,6 +2,9 @@
 /* @var $masterModel Mad_Script_Generator_Model */
 $masterModel = $this->masterModel;
 
+/* @var $middleModel Mad_Script_Generator_Model|null */
+$middleModel = $this->middleModel;
+
 /* @var $assocModel Mad_Script_Generator_Model */
 $assocModel = $this->assocModel;
 
@@ -9,11 +12,7 @@ $assocModel = $this->assocModel;
 $assoc = $this->assoc;
 ?>
 <form method="post">
-	<?php echo $this->assoc($assoc)->toInputs()?>
-	<label>
-		Association Name:
-		<input name="assoc[name]" value="<?php echo $assoc->getName()?>" >
-	</label>
+	<?php echo $this->assoc($assoc)->toInputs(array('label'))?>
 	<label>
 		Association Model:
 		<select id="assoc-model-init" name="assoc[assocModel][tableName]">
@@ -24,6 +23,23 @@ $assoc = $this->assoc;
 			<option value="<?php echo $model->tableName?>" <?php echo $selected?>><?php echo $model->modelName?></option>
 			<?php }?>
 		</select>
+	</label>
+	<?php if($middleModel instanceof Mad_Script_Generator_Model) {?>
+	<label>
+		Middle (through) Model:
+		<select id="middle-model-init" name="assoc[options][through]">
+			<?php foreach ($this->models as $model) { 
+			/* @var $model Mad_Script_Generator_Model */ 
+			$selected = ($model->modelName === $middleModel->modelName) ? ('selected="selected"') : ('');
+			?>
+			<option value="<?php echo $model->modelName?>" <?php echo $selected?>><?php echo $model->modelName?></option>
+			<?php }?>
+		</select>
+	</label>
+	<?php }?>
+	<label>
+		Association Name:
+		<input name="assoc[name]" value="<?php echo $assoc->getName()?>" size="<?php echo strlen($assoc->getName())?>" >
 	</label>
 	<a href="javascript:;" class="button" id="add-assoc-init">Next</a>
 </form>

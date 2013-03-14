@@ -41,18 +41,18 @@ class Mad_Script_Generator_Association_HasManyThrough extends Mad_Script_Generat
 	}
 	
 	/**
-	 * @return string
+	 * @return Mad_Script_Generator_Association_HasManyThrough
 	 */
-	public function getName()
+	protected function _setDefaultName()
 	{		
-		if($this->_isStandartAssocName()) {
-			return Mad_Support_Inflector::pluralize($this->assocModel->modelName);
-		}
+		$this->_name = ($this->_isStandartAssocName()) ? 
+						(Mad_Support_Inflector::pluralize($this->assocModel->modelName)) : 
+							(
+								Mad_Support_Inflector::pluralize($this->assocModel->modelName) . 
+								Mad_Support_Inflector::pluralize('Through' . $this->middleModel->modelName)
+							);
 		
-		return (
-			Mad_Support_Inflector::pluralize($this->assocModel->modelName) . 
-			Mad_Support_Inflector::pluralize('Through' . $this->middleModel->modelName)
-		);
+		return $this;
 	}	
 	
 	

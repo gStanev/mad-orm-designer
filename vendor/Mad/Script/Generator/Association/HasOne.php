@@ -11,11 +11,13 @@
 class Mad_Script_Generator_Association_HasOne extends Mad_Script_Generator_Association_Abstract
 {
 	/**
-	 * @return string
+	 * @return Mad_Script_Generator_Association_HasOne
 	 */
-	public function getName()
+	protected function _setDefaultName()
 	{
-		return $this->assocModel->modelName;
+		$this->_name = $this->assocModel->modelName;
+		
+		return $this;
 	}
 	
 	/**

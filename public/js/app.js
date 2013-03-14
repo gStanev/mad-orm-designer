@@ -37,6 +37,12 @@
 			default_index_assoc_suggestions: function() {
 				var self = this;
 				
+				self._onGraphClick = function(selected) {
+					$.get('/assoc-manage/form', {assoc: selected.node.data}, function(data) {
+						$.fancybox(data, self._fancyBoxSettings);
+					});
+				}
+				
 				self._initGraph(Graph, '/graph/not-generated-assocs/tableName');
 				self._attachModelEvents();
 				self._attachAssocManagmentEvents(Graph);
@@ -296,7 +302,7 @@
 					return false;	
 				});
 				
-				$('#assoc-model-init').live('change', function() {
+				$('#assoc-model-init, #middle-model-init').live('change', function() {
 					self._assocMangeInit($(this).closest('form'));
 				});
 				

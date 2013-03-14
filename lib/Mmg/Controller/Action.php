@@ -183,10 +183,10 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 		 
 		$middleModel =
 			(isset($assocData['middleModel'])) ?
-			($this->_getModelBuilder()->factoryModel($assocData['middleModel']['tableName'])) :
-			(null);
+				($this->_getModelBuilder()->factoryModel($assocData['middleModel']['tableName'])) :
+					(null);
 	
-		return
+		$assoc = 
 			Mad_Script_Generator_Association_Abstract::factory(
 					$assocData['type'],
 					$this->_getModelBuilder()->factoryModel($assocData['masterModel']['tableName']),
@@ -194,6 +194,12 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 					$middleModel,
 					$opts
 			);
+		
+		if(isset($assocData['name'])) {
+			$assoc->setName($assocData['name']);
+		}
+		
+		return $assoc;
 	}
 	
 	protected function _assignCurrentModelToView()
