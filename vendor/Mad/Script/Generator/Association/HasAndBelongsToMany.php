@@ -8,7 +8,7 @@
  * @license    http://opensource.org/licenses/bsd-license.php BSD
  * @author 		g.d.stanev@gmail.com <Georgi Stanev>
  */
-class Mad_Script_Generator_Association_HasAndBelongsToMany extends Mad_Script_Generator_Association_Abstract
+class Mad_Script_Generator_Association_HasAndBelongsToMany extends Mad_Script_Generator_Association_HasMany_Abstract
 {
 	/**
 	 * @return Mad_Script_Generator_Association_HasAndBelongsToMany
@@ -24,19 +24,16 @@ class Mad_Script_Generator_Association_HasAndBelongsToMany extends Mad_Script_Ge
 	 * @return array
 	 */
 	public function getAllowedOptionKeys()
-	{
+	{	
 		return Mad_Model_Association_HasAndBelongsToMany::$validOptions;
 	}
 
 	public function generateComments()
 	{
-		$toClassTabs    = Mad_Script_Generator_Model_Writer::computeTabs($this->assocModel->modelName);
-         
-        $output = PHP_EOL;
-        $output .= " * @property\t{$this->assocModel->modelName}{$toClassTabs}\${$this->getMethodName()} \n";
-        $output .= " * @method\t\t{$this->assocModel->modelName}{$toClassTabs}build{$this->getMethodName()}() \n";
-        $output .= " * @method\t\t{$this->assocModel->modelName}{$toClassTabs}create{$this->assocModel->modelName}() \n";
-       
-        return $output;
+		return $this->_generateComments(array(
+			'_commentsAccessor', '_commentsAccessorIds', '_commentsAccessorCount',
+			'_commentsMethodAdd',
+			'_commentsMethodReplace', '_commentsMethodDelete', '_commentsMethodClear', '_commentsMethodFind'
+		), 'Has-And-Belongs-To-Many Association');
 	}
 }
