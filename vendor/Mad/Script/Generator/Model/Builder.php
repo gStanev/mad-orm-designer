@@ -120,7 +120,7 @@ class Mad_Script_Generator_Model_Builder
 					}
 					
 					//add assoc to model
-					$assoc = Mad_Script_Generator_Association_Abstract::factory($assocType, $model, $assocModel,$middleModel, $assocOptions);
+					$assoc = Mad_Script_Generator_Association_Abstract::factory($assocType, $model, $assocModel, $middleModel, $assocOptions);
 					$assoc->setName($assocName);
 					$model->addAssoc($assoc);
 				}
@@ -191,8 +191,8 @@ class Mad_Script_Generator_Model_Builder
 		$assocs = array();
 		foreach ($this->factoryModels() as $currentModel) {
 			/* @var $currentModel Mad_Script_Generator_Model */
-			if($currentModel->getFieldByName($modelForeignField)) {
-				$assocs[] = $factory($model, $currentModel);
+			if($currentModel->getFieldByName($modelForeignField) && ($assoc = $factory($model, $currentModel)) instanceof Mad_Script_Generator_Association_Abstract) {
+				$assocs[] = $assoc;
 			}
 		}
 		
@@ -219,7 +219,9 @@ class Mad_Script_Generator_Model_Builder
 	public function suggestionsHasMany(Mad_Script_Generator_Model $model)
 	{
 		return $this->_crowHasOneAndMany($model, function(Mad_Script_Generator_Model $model, Mad_Script_Generator_Model $currentModel){
-			return new Mad_Script_Generator_Association_HasMany($model, $currentModel);
+			if($currentModel->getFieldByName('id')) {
+				return new Mad_Script_Generator_Association_HasMany($model, $currentModel);
+			}				
 		});		
 	}
 	
@@ -260,7 +262,7 @@ class Mad_Script_Generator_Model_Builder
 			foreach ($hasMany->assocModel->collectForeignFields() as $foreignKey) {
 				
 				/* @var $foreignKey Mad_Script_Generator_Field */
-				if(Mad_Support_Inflector::foreignKey($model->tableName) == $foreignKey->fieldName) continue;
+				if(Mad_Support_Inflector::foreignKey($model->tableName) == $foreignKey->fieldName || $hasMany->assocModel->getFieldByName('id') === null) continue;
 				
 				$tableName = Mad_Support_Inflector::foreignKeyToTableName($foreignKey->fieldName);
 				

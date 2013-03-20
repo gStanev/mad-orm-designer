@@ -156,9 +156,10 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 		//suggestionsHasOne
 		foreach (array('suggestionsBelongsTo', 'suggestionsHasMany', 'suggestionsHasManyThrough') as $method) {
 			foreach ($this->_getModelBuilder()->{$method}($notGeneratedModel) as $assoc) {
-				if($generatedModel->issetAssoc($assoc))
+				/* @var $assoc Mad_Script_Generator_Association_Abstract  */
+				if($generatedModel->issetAssoc($assoc) || count($generatedModel->getAssocs($assoc->assocModel)))
 					continue;
-					
+				
 				$notGeneratedModel->addAssoc($assoc);
 			}
 		}

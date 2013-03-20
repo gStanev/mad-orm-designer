@@ -29,7 +29,7 @@ class Mad_Script_Generator_Model
 	
 	/**
 	 * 
-	 * @var array
+	 * @var array <Mad_Script_Generator_Association_Abstract>
 	 */
 	protected $_assocs = array();
 	
@@ -61,11 +61,24 @@ class Mad_Script_Generator_Model
 	}
 	
 	/**
+	 * @var Mad_Script_Generator_Model $assocModel If this param is passed, the associations will be filtered by his table name
 	 * @return array <Mad_Script_Generator_Association_Abstract>
 	 */
-	public function getAssocs()
+	public function getAssocs(Mad_Script_Generator_Model $assocModel = null)
 	{
-		return $this->_assocs;
+		if($assocModel === null) {
+			return $this->_assocs;
+		}
+		
+		$assocs = array();
+		foreach ($this->_assocs as $assoc) {
+			/* @var $assoc Mad_Script_Generator_Association_Abstract */
+			if($assoc->assocModel->tableName === $assocModel->tableName) {
+				$assocs[] = $assoc;
+			}
+		}
+		
+		return $assocs;
 	}
 	
 	/**
