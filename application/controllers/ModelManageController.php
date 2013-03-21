@@ -60,7 +60,7 @@ class ModelManageController extends Mmg_Controller_Action
 	public function showPropertiesAction()
 	{
 		$this->_helper->layout()->disableLayout();
-		$this->_assignCurrentModelToView();
+		$this->_assignCurrentModelToView($this->_getModelBuilder('file'));
 	}
 	
 	public function saveAllSuggestionsAction()

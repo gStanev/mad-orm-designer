@@ -191,15 +191,16 @@
 				if(this._canvasContext === null){
 					this._canvasContext = $('#viewport').get(0).getContext("2d");
 					
-					this._canvasContext.highLight = function() {
+					this._canvasContext.highLight = function(edge, pt1, pt2) {
 						this.shadowColor = '#00FFFF';
 						this.shadowStyle = '#00FFFF';
 						this.shadowBlur = 3;
 						this.shadowOffsetX = 4;
 						this.shadowOffsetY = 3;	
+						this.fillText(edge.data.type, pt2.x, pt2.y - 14);
 					};
 					
-					this._canvasContext.removeHighLight = function() {
+					this._canvasContext.removeHighLight = function(edge, pt1, pt2) {
 						this.shadowColor = '#000000';
 						this.shadowStyle = '#000000';
 						this.shadowBlur = 0;
@@ -396,7 +397,7 @@
 							self._getCanvasContext().beginPath();
 							self._getParticleSystem()
 									.eachEdge(function(edge, pt1, pt2) {
-										(edge.data.highLighted) ? (self._getCanvasContext().highLight()) : (self._getCanvasContext().removeHighLight());
+										(edge.data.highLighted) ? (self._getCanvasContext().highLight(edge, pt1, pt2)) : (self._getCanvasContext().removeHighLight(edge, pt1, pt2));
 										
 										// edge: {source:Node, target:Node, length:#,
 										// data:{}}

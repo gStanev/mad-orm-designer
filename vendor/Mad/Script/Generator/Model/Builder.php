@@ -156,6 +156,7 @@ class Mad_Script_Generator_Model_Builder
 	}
 	
 	/**
+	 * Build on the mand model, and cach it for later using
 	 * 
 	 * @param string $tableName
 	 * @return Mad_Script_Generator_Model|NULL

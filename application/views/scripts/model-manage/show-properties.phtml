@@ -2,7 +2,15 @@
 /* @var $currentModel Mad_Script_Generator_Model */
 $currentModel = $this->currentModel;
 ?>
-<p>Model Name: <strong><?php echo $this->escape($currentModel->modelName);?></strong>, Table Name: <strong><?php echo $this->escape($currentModel->tableName);?></strong></p>
+<p>
+	Model Name: <strong>
+					<a 
+						href="<?php echo $this->url(array('tableName' => $currentModel->tableName, 'controller' => 'index', 'action' => 'model-assocs'))?>" 
+						title="See <?php echo $this->escape($currentModel->modelName)?> relations">
+						<?php echo $this->escape($currentModel->modelName);?></a>
+				</strong>, 
+				Table Name: <strong><?php echo $this->escape($currentModel->tableName);?></strong>
+</p>
 <table>
 	<thead>
 		<tr>
@@ -24,3 +32,10 @@ foreach ($currentModel->getFields() as $field) {
 ?>	
 	</tbody>
 </table>
+
+<div>
+	<h2>Associations</h2>
+	<?php foreach ($currentModel->getAssocs() as $assoc) { /* @var $assoc Mad_Script_Generator_Association_Abstract */?>
+		<p><b><?php echo $this->escape($assoc->getType());?></b> <?php echo $this->escape($assoc->getName())?></p>
+	<?php }?>
+</div>

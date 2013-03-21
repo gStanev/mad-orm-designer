@@ -203,10 +203,16 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 		return $assoc;
 	}
 	
-	protected function _assignCurrentModelToView()
+	/**
+	 * 
+	 * @param Mad_Script_Generator_Model_Builder $builder
+	 */
+	protected function _assignCurrentModelToView(Mad_Script_Generator_Model_Builder $builder = null)
 	{
+		$builder = ($builder !== null) ? ($builder) : ($this->_getModelBuilder());
+		
 		if($this->_getParam('tableName')) {
-			$this->view->currentModel = $this->_getModelBuilder()->factoryModel($this->_getParam('tableName'));
+			$this->view->currentModel = $builder->factoryModel($this->_getParam('tableName'));
 			return;
 		}
 		 
