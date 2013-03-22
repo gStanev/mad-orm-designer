@@ -1,3 +1,3 @@
-mad-model-generator
+ORM Designer for MAD Framework
 ===================
 In process of development ...
