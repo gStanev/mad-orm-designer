@@ -3,23 +3,27 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 {
 	/**
 	 * 
-	 * @var array
-	 */
-	protected $_mainItems = array(
-		array('controller' => 'index', 			'action' => 'index', 					'label' => 'Models'),
-		array('controller' => 'model-manage', 	'action' => 'update-comments', 			'label' => 'Update Models Comments'),
-		array('controller' => 'index', 			'action' => 'assoc-suggestions', 		'label' => 'Association Suggestions'),
-		array('controller' => 'index', 			'action' => 'graph', 					'label' => 'Graph'),
-		array('controller' => 'index', 			'action' => 'model-assocs', 			'label' => 'Entity Relations'),
-	);
-	
-	/**
-	 * 
 	 * @return Zend_View_Helper_Navi
 	 */
 	public function navi()
 	{
 		return $this;
+	}
+
+	/**
+	 * Get Navi items
+	 * 
+	 * @return array
+	 */
+	protected function _getMainItems()
+	{
+		return array(
+			array('controller' => 'index', 			'action' => 'index', 					'label' => $this->view->translate('Models Management')),
+			array('controller' => 'model-manage', 	'action' => 'update-comments', 			'label' => $this->view->translate('Models Sync')),
+			array('controller' => 'index', 			'action' => 'assoc-suggestions', 		'label' => $this->view->translate('Association Suggestions')),
+			array('controller' => 'index', 			'action' => 'graph', 					'label' => $this->view->translate('Models in Graph')),
+			array('controller' => 'index', 			'action' => 'model-assocs', 			'label' => $this->view->translate('Interactive Graph')),
+		);	
 	}
 	
 	/**
@@ -33,7 +37,7 @@ class Zend_View_Helper_Navi extends Zend_View_Helper_Abstract
 			'<div class="menu_nav">
 				<ul>';
 		
-		foreach ($this->_factoryNavi($this->_mainItems) as $page) {
+		foreach ($this->_factoryNavi($this->_getMainItems()) as $page) {
 			/* @var $page  Zend_Navigation_Page_Mvc */
 			$class = ($page->isActive()) ? ('active') : ('');
 			$output .=

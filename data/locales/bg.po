@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hobi Fishing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-03 22:31+0100\n"
+"POT-Creation-Date: 2013-03-23 13:40+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Georgi Stanev <g.d.stanev@gmail.com>\n"
 "Language-Team: Spider <g.d.stanev@gmail.com>\n"
@@ -11,447 +11,378 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: translate\n"
-"X-Poedit-Basepath: /var/www/hobi-fishing\n"
+"X-Poedit-Basepath: /var/www/mad-model-generator\n"
 "X-Poedit-Language: Bulgarian\n"
 "X-Poedit-Country: BULGARIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: /var/www/hobi-fishing/application\n"
-"X-Poedit-SearchPath-1: /var/www/hobi-fishing/lib\n"
+"X-Poedit-SearchPath-0: /var/www/mad-model-generator/application\n"
+"X-Poedit-SearchPath-1: /var/www/mad-model-generator/lib\n"
 
-#: /var/www/hobi-fishing/application/Bootstrap.php:28
-msgid "is not included in the list"
-msgstr "Не е включено в списъка"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:29
-msgid "is reserved"
-msgstr "Всички права запазени"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:30
-msgid "is invalid"
-msgstr "Не е валиден"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:31
-msgid "doesn't match confirmation"
+#: /var/www/mad-model-generator/application/views/helpers/Navi.php:68
+msgid "Save Model"
 msgstr ""
 
-#: /var/www/hobi-fishing/application/Bootstrap.php:32
-msgid "must be accepted"
-msgstr "Трябва да бъде прието"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:33
-msgid "can't be empty"
-msgstr "неможе да е празно"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:34
-msgid "can't be blank"
-msgstr "Неможе да е празно"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:35
-#, php-format
-msgid "is too long (maximum is %d characters)"
-msgstr "Прекалено дълго е (максимума е %d символа)"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:36
-#, php-format
-msgid "is too short (minimum is %d characters)"
-msgstr "Прекалено кратко е (минимума е %d символа)"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:37
-#, php-format
-msgid "is the wrong length (should be %d characters)"
+#: /var/www/mad-model-generator/application/views/helpers/Navi.php:69
+msgid "Add Association"
 msgstr ""
 
-#: /var/www/hobi-fishing/application/Bootstrap.php:38
-msgid "has already been taken"
+#: /var/www/mad-model-generator/application/views/helpers/Navi.php:76
+msgid "Change Model Name"
 msgstr ""
 
-#: /var/www/hobi-fishing/application/Bootstrap.php:39
-msgid "is not a number"
+#: /var/www/mad-model-generator/application/views/helpers/Navi.php:87
+msgid "Save All Association Suggestions"
 msgstr ""
 
-#: /var/www/hobi-fishing/application/Bootstrap.php:40
-#, php-format
-msgid "must be greater than %d"
-msgstr ""
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:41
-#, php-format
-msgid "must be greater than or equal to %d"
-msgstr ""
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:42
-#, php-format
-msgid "must be equal to %d"
-msgstr ""
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:43
-#, php-format
-msgid "must be less than %d"
-msgstr ""
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:44
-#, php-format
-msgid "must be less than or equal to %d"
-msgstr ""
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:45
-msgid "must be odd"
-msgstr ""
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:46
-msgid "must be even"
-msgstr ""
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:50
-msgid "title"
-msgstr "Полето (заглавие)"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:51
-msgid "body"
-msgstr "Полето (Вашата история)"
-
-#: /var/www/hobi-fishing/application/Bootstrap.php:52
-msgid "author_name"
-msgstr "Полето (име на автора)"
-
-#: /var/www/hobi-fishing/application/controllers/ProductsController.php:13
-msgid "content.products.meta.desc"
-msgstr "Разнообразие от продукти свързани с лова и рилолова "
-
-#: /var/www/hobi-fishing/application/controllers/ProductsController.php:14
-msgid "content.products.meta.keywords"
-msgstr "продукти, разнообразие, качество"
-
-#: /var/www/hobi-fishing/application/controllers/ProductsController.php:15
-msgid "content.products.meta.title"
-msgstr "тук може да намерите част от продуктите които предлагаме "
-
-#: /var/www/hobi-fishing/application/controllers/ProductsController.php:33
-#, php-format
-msgid "content.products-search.meta.desc(%s)"
-msgstr "Продукти филтрирани по %s"
-
-#: /var/www/hobi-fishing/application/controllers/ProductsController.php:37
-#, php-format
-msgid "content.products-search.meta.keywords(%s)"
-msgstr "продукти, %s"
-
-#: /var/www/hobi-fishing/application/controllers/ProductsController.php:43
-#, php-format
-msgid "content.products-search.meta.title(%s)"
-msgstr "Продукти филтрирани по категория: \"%s\""
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:8
-msgid "name"
-msgstr "\"Име на автора\""
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:9
-msgid "email"
-msgstr "\"Е-мail\""
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:10
-msgid "message"
-msgstr "\"Вашето Съобщение\""
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:11
-msgid "normal"
-msgstr "нормална снимка"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:12
-msgid "long"
-msgstr "продълговата снимка"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:17
-msgid "content.home.meta.desc"
-msgstr "Начална страница"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:18
-msgid "content.home.meta.keywords"
-msgstr "начална,страница"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:19
-msgid "content.home.meta.title"
-msgstr "Начална страница"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:25
-msgid "content.location.meta.desc"
-msgstr "Местоположение на ловно рибарски магазин Хоби  в град Добрич"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:26
-msgid "content.location.meta.keywords"
-msgstr "местоположение, контакти"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:27
-msgid "content.location.meta.title"
-msgstr "Местоположение на ловно рибарски магазин Хоби  в град Добрич"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:33
-msgid "content.contacts.meta.desc"
-msgstr "Свържете се с нас чрез телефонния номер, email, или формата за бърза връзка"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:34
-msgid "content.contacts.meta.keywords"
-msgstr "телефон, форма, email, контакти"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:35
-msgid "content.contacts.meta.title"
-msgstr "Свържете се с нас чрез телефонния номер, email, или формата за бърза връзка"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:45
-msgid "Customer question."
-msgstr "Потребителско запитване"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:52
-msgid "sending success request."
-msgstr "Вашето запитване е изпратено успешно :)"
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:71
-msgid "is required field."
-msgstr "е задължително поле."
-
-#: /var/www/hobi-fishing/application/controllers/IndexController.php:80
-msgid "Email input is not valid."
-msgstr "Невалиден e-mail адрес"
-
-#: /var/www/hobi-fishing/application/controllers/BlogController.php:57
-msgid "Too match spam flood!"
-msgstr ""
-
-#: /var/www/hobi-fishing/application/controllers/BlogController.php:78
-#: /var/www/hobi-fishing/application/modules/admin/controllers/ProductsController.php:67
-msgid "Success!"
-msgstr "Вие успешно побликувахте вашета вълнуваща история :)"
-
-#: /var/www/hobi-fishing/application/controllers/BlogController.php:86
-msgid "content.blog.meta.desc"
-msgstr "Тук може да споделяте своите вълнуващи истории свързани с лов и риболов, нарамили въдица или пушка в ръка"
-
-#: /var/www/hobi-fishing/application/controllers/BlogController.php:87
-msgid "content.blog.meta.keywords"
-msgstr "трофеи, споделяне, блог, форум"
-
-#: /var/www/hobi-fishing/application/controllers/BlogController.php:88
-msgid "content.blog.meta.title"
-msgstr "Блог (тук можете да се похвалите с вашите трофеи)"
-
-#: /var/www/hobi-fishing/application/modules/admin/views/helpers/MenuTree.php:90
-msgid "Own Products"
-msgstr "Нашите Продукти"
-
-#: /var/www/hobi-fishing/application/modules/admin/views/helpers/Meta.php:14
-#: /var/www/hobi-fishing/application/modules/admin/views/helpers/Meta.php:15
+#: /var/www/mad-model-generator/application/views/helpers/Meta.php:14
+#: /var/www/mad-model-generator/application/views/helpers/Meta.php:15
 msgid "content.meta.keywords"
-msgstr "ловно,рибарски,магазин,хоби,добрич,риба, рибар, море, язовир, река, риболов, кука, куки, влакна, макари, макара, телескопи, телескоп, лов, ловец, пушки, патрони, гилзи, форум"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/helpers/Meta.php:24
+#: /var/www/mad-model-generator/application/views/helpers/Meta.php:24
 msgid "content.meta.description"
-msgstr "Риболовен магазин"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/helpers/Meta.php:25
+#: /var/www/mad-model-generator/application/views/helpers/Meta.php:25
 msgid "content.meta.shortDesc"
-msgstr "(Ловно рибарски магазин Хоби)"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/helpers/Meta.php:31
+#: /var/www/mad-model-generator/application/views/helpers/Meta.php:31
 msgid "content.meta.titlePrefix"
-msgstr "Риболовен магазин \"Хоби\"  | "
+msgstr ""
 
-#: /var/www/hobi-fishing/lib/Hobi/Mailer.php:16
-msgid "New order"
-msgstr "Нова поръчка"
-
-#: /var/www/hobi-fishing/lib/Hobi/Mailer.php:42
-msgid "Request from the contact form"
-msgstr "Заявка от контактната форма"
-
-#: /var/www/hobi-fishing/lib/Hobi/Mailer.php:52
-msgid "New password requested"
-msgstr "Новата парола е заявена"
-
-#: /var/www/hobi-fishing/lib/Hobi/Mailer.php:55
-msgid "Hobi.com - new password request"
-msgstr "Хоби- заявяване на нова парола"
-
-#: /var/www/hobi-fishing/lib/Hobi/Mailer.php:75
-msgid "From: "
-msgstr "От:"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:31
+#: /var/www/mad-model-generator/application/layouts/scripts/layout.phtml:53
 msgid "content.logo"
-msgstr "<span>М</span>агазин <span>Х</span>ОБИ"
+msgstr "<span>M</span>ad <span>ORM</span> <span>D</span>esigner"
 
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:31
+#: /var/www/mad-model-generator/application/layouts/scripts/layout.phtml:53
 msgid "content.logo.desc"
-msgstr "включи се в приключението"
+msgstr "Write less, think more and be focused only over the business logic of your Project"
 
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:36
-msgid "Home"
-msgstr "Начало"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:37
-msgid "Products"
-msgstr "Продукти"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:38
-msgid "Location"
-msgstr "Местоположение"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:39
-msgid "Contacts"
-msgstr "Контакти"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:40
-msgid "Blog"
-msgstr "Блог"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:57
-msgid "Image Gallery"
-msgstr "Галерия"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:66
-msgid "content.ownPhilosophy"
-msgstr "Нашата философия"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:67
-msgid "content.ownPhilosophy.desc"
-msgstr "<p>Ние вярваме, че почтеността, достойнството и безкомпромисното качество са в сърцевината на всичко, което правим.</p><p>Ние вярваме, че вниманието към променящите се нужди на нашите клиенти е най-важно за успеха на фирмата ни.</p><p>Предлагаме на нашите клиенти качествени продукти на достъпни цени, с които могат вкусят от адреналина на лова, или приятния спокоен холидей с приятели и въдица в ръка.</p>"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:70
-msgid "Contact"
-msgstr "Контакти"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:71
-msgid "content.footer.contact"
-msgstr "гр.Добрич ул.\"Сан Стефано\" 10"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:72
-msgid "content.footer.phones"
-msgstr "Телефон (M-tel): +359/ 885 497 819 <br />Телефон (Globul)  : +359/ 896 254 094 <br /> Телефон (стационарен)  058/ 624 660"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:73
-msgid "content.footer.email"
-msgstr "E-mail: lrm_hobi@abv.bg"
-
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:92
+#: /var/www/mad-model-generator/application/layouts/scripts/layout.phtml:72
 msgid "Copyright "
-msgstr "Copyright "
+msgstr ""
 
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:93
+#: /var/www/mad-model-generator/application/layouts/scripts/layout.phtml:73
 msgid "Developed by"
-msgstr "Разработен от"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/layouts/scripts/layout.phtml:93
+#: /var/www/mad-model-generator/application/layouts/scripts/layout.phtml:73
 msgid "content.authorName"
-msgstr "Георги Станев"
+msgstr "Georgi Demirov Stanev"
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/index.phtml:6
-msgid "Add new product."
-msgstr "Добавяне на нов продукт."
+#: /var/www/mad-model-generator/application/views/scripts/index/index.phtml:7
+msgid "Highlight assoc type:"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/index.phtml:16
-msgid "Picture"
-msgstr "Снимка"
+#: /var/www/mad-model-generator/application/views/scripts/index/index.phtml:22
+msgid "Model Filter"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/index.phtml:17
-msgid "Title"
-msgstr "Заглавие"
+#: /var/www/mad-model-generator/application/views/scripts/model-manage/update-comments.phtml:3
+msgid "These models have been successful updated: "
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/index.phtml:18
-msgid "Categories"
-msgstr "Категории"
+#: /var/www/mad-model-generator/application/views/scripts/model-manage/update-comments.phtml:10
+msgid "These models haven't updated."
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/index.phtml:19
-msgid "Created at"
-msgstr "Създадено"
+#: /var/www/mad-model-generator/application/views/scripts/config/db.phtml:4
+msgid "Host"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/index.phtml:20
-msgid "Controlls"
-msgstr "Контроли"
+#: /var/www/mad-model-generator/application/views/scripts/config/db.phtml:5
+msgid "User Name"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/index.phtml:36
-msgid "edit"
-msgstr "редактиране"
+#: /var/www/mad-model-generator/application/views/scripts/config/db.phtml:6
+msgid "Password"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/index.phtml:39
-msgid "delete"
-msgstr "Изтрий"
+#: /var/www/mad-model-generator/application/views/scripts/config/db.phtml:7
+msgid "Database schema"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/manage.phtml:15
-msgid "Title (required)"
-msgstr "Заглавие (задължително поле)"
+#: /var/www/mad-model-generator/application/views/scripts/assoc-manage/form.phtml:30
+msgid "Add-option"
+msgstr ""
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/manage.phtml:19
-msgid "Image (required)"
-msgstr "Снимка (опционално поле)"
+#~ msgid "is not included in the list"
+#~ msgstr "Не е включено в списъка"
 
-#: /var/www/hobi-fishing/application/modules/admin/views/scripts/products/manage.phtml:42
-msgid "Description"
-msgstr "Описание"
+#~ msgid "is reserved"
+#~ msgstr "Всички права запазени"
 
-#: /var/www/hobi-fishing/application/views/scripts/index/index.phtml:8
-msgid "content.home.snippet"
-msgstr "<p>Ловно рибарски магазин „ХОБИ” отваря за пръв път врати през пролетта на 1999г. в гр.Добрич по ул.”Отец Паисий”. </p><p>От 2002 г. магазина се намира на ул.„Сан Стефано” №10.Един от първите магазини за риболовни принадлежности, и в настоящия момент може да се каже,че е с най-голям мащаб на дейност в града. Разбира се,в магазина се предлагат не само макари и телескопи, а и широка гама други продукти. Това са аксесоари за сладководен и морски риболов,обувки и дрехи за лов и риболов,въздушно и газово оръжие и боеприпаси за тях, ловни патрони и ножове,гумени лодки и извънбордови двигатели,фойерверки и къмпинг оборудване.Освен това се стремим постоянно да обогатяваме асортимента,като предлаганите продукти да са с добро качество и на достъпни цени.<p>В годините работа с нашите клиенти успяхме да научим какво точно искат българските ловци и риболовци и с гъвкава политика се опитваме да им предложим стоки от наложили се фирми като SERT,Mikado,Abu Garsia,Mitchell,Shimano,Rapala,DAM,Ake,Trabucco,Awa-Shima, Grauvell,Hillman,Gepard,както и продуктите на Видракс, Филстар и Sea Eagle. </p>"
+#~ msgid "is invalid"
+#~ msgstr "Не е валиден"
 
-#: /var/www/hobi-fishing/application/views/scripts/index/contacts.phtml:11
-msgid "Use bellow form to contact us."
-msgstr "Използвайте формата за да се свържете с нас."
+#~ msgid "must be accepted"
+#~ msgstr "Трябва да бъде прието"
 
-#: /var/www/hobi-fishing/application/views/scripts/index/contacts.phtml:14
-msgid "Send us"
-msgstr "Изпрати"
+#~ msgid "can't be empty"
+#~ msgstr "неможе да е празно"
 
-#: /var/www/hobi-fishing/application/views/scripts/index/contacts.phtml:14
-msgid "mail"
-msgstr "\"Е-мail\""
+#~ msgid "can't be blank"
+#~ msgstr "Неможе да е празно"
 
-#: /var/www/hobi-fishing/application/views/scripts/index/contacts.phtml:19
-#: /var/www/hobi-fishing/application/views/scripts/blog/index.phtml:21
-msgid "Name (required)"
-msgstr "Име на автора (задължително поле)"
+#~ msgid "is too long (maximum is %d characters)"
+#~ msgstr "Прекалено дълго е (максимума е %d символа)"
 
-#: /var/www/hobi-fishing/application/views/scripts/index/contacts.phtml:23
-msgid "Email Address (required)"
-msgstr "Email адрес (задължително поле)"
+#~ msgid "is too short (minimum is %d characters)"
+#~ msgstr "Прекалено кратко е (минимума е %d символа)"
 
-#: /var/www/hobi-fishing/application/views/scripts/index/contacts.phtml:28
-#: /var/www/hobi-fishing/application/views/scripts/blog/index.phtml:33
-msgid "Your Message"
-msgstr "Вашето Съобщение"
+#~ msgid "title"
+#~ msgstr "Полето (заглавие)"
 
-#: /var/www/hobi-fishing/application/views/scripts/index/location.phtml:26
-msgid "content.infoWindowContent"
-msgstr "<strong>Магазин ХОБИ</strong> <p>гр.Добрич ул.\"Сан Стефано\" 10</p>"
+#~ msgid "body"
+#~ msgstr "Полето (Вашата история)"
 
-#: /var/www/hobi-fishing/application/views/scripts/products/extended-search.phtml:16
-msgid "Current category: "
-msgstr "Текуща категория"
+#~ msgid "author_name"
+#~ msgstr "Полето (име на автора)"
 
-#: /var/www/hobi-fishing/application/views/scripts/products/item-detailed.phtml:8
-#: /var/www/hobi-fishing/application/views/scripts/products/item.phtml:9
-#: /var/www/hobi-fishing/application/views/scripts/blog/item-detailed.phtml:8
-#: /var/www/hobi-fishing/application/views/scripts/blog/item.phtml:9
-msgid "Posted"
-msgstr "Публикувано "
+#~ msgid "content.products.meta.desc"
+#~ msgstr "Разнообразие от продукти свързани с лова и рилолова "
 
-#: /var/www/hobi-fishing/application/views/scripts/products/item-detailed.phtml:8
-#: /var/www/hobi-fishing/application/views/scripts/products/item.phtml:9
-#: /var/www/hobi-fishing/application/views/scripts/blog/item-detailed.phtml:8
-#: /var/www/hobi-fishing/application/views/scripts/blog/item.phtml:9
-msgid "on"
-msgstr "на"
+#~ msgid "content.products.meta.keywords"
+#~ msgstr "продукти, разнообразие, качество"
 
-#: /var/www/hobi-fishing/application/views/scripts/products/item.phtml:14
-#: /var/www/hobi-fishing/application/views/scripts/blog/item.phtml:14
-msgid "Read more"
-msgstr "Прочети повече"
+#~ msgid "content.products.meta.title"
+#~ msgstr "тук може да намерите част от продуктите които предлагаме "
 
-#: /var/www/hobi-fishing/application/views/scripts/blog/index.phtml:16
-msgid "Leave a Reply"
-msgstr "Сподели своята вълнуваща история"
+#~ msgid "content.products-search.meta.desc(%s)"
+#~ msgstr "Продукти филтрирани по %s"
 
-#: /var/www/hobi-fishing/application/views/scripts/blog/item-detailed.phtml:8
-#: /var/www/hobi-fishing/application/views/scripts/blog/item.phtml:9
-msgid "by"
-msgstr "от"
+#~ msgid "content.products-search.meta.keywords(%s)"
+#~ msgstr "продукти, %s"
+
+#~ msgid "content.products-search.meta.title(%s)"
+#~ msgstr "Продукти филтрирани по категория: \"%s\""
+
+#~ msgid "name"
+#~ msgstr "\"Име на автора\""
+
+#~ msgid "email"
+#~ msgstr "\"Е-мail\""
+
+#~ msgid "message"
+#~ msgstr "\"Вашето Съобщение\""
+
+#~ msgid "normal"
+#~ msgstr "нормална снимка"
+
+#~ msgid "long"
+#~ msgstr "продълговата снимка"
+
+#~ msgid "content.home.meta.desc"
+#~ msgstr "Начална страница"
+
+#~ msgid "content.home.meta.keywords"
+#~ msgstr "начална,страница"
+
+#~ msgid "content.home.meta.title"
+#~ msgstr "Начална страница"
+
+#~ msgid "content.location.meta.desc"
+#~ msgstr "Местоположение на ловно рибарски магазин Хоби  в град Добрич"
+
+#~ msgid "content.location.meta.keywords"
+#~ msgstr "местоположение, контакти"
+
+#~ msgid "content.location.meta.title"
+#~ msgstr "Местоположение на ловно рибарски магазин Хоби  в град Добрич"
+
+#~ msgid "content.contacts.meta.desc"
+#~ msgstr ""
+#~ "Свържете се с нас чрез телефонния номер, email, или формата за бърза "
+#~ "връзка"
+
+#~ msgid "content.contacts.meta.keywords"
+#~ msgstr "телефон, форма, email, контакти"
+
+#~ msgid "content.contacts.meta.title"
+#~ msgstr ""
+#~ "Свържете се с нас чрез телефонния номер, email, или формата за бърза "
+#~ "връзка"
+
+#~ msgid "Customer question."
+#~ msgstr "Потребителско запитване"
+
+#~ msgid "sending success request."
+#~ msgstr "Вашето запитване е изпратено успешно :)"
+
+#~ msgid "is required field."
+#~ msgstr "е задължително поле."
+
+#~ msgid "Email input is not valid."
+#~ msgstr "Невалиден e-mail адрес"
+
+#~ msgid "Success!"
+#~ msgstr "Вие успешно побликувахте вашета вълнуваща история :)"
+
+#~ msgid "content.blog.meta.desc"
+#~ msgstr ""
+#~ "Тук може да споделяте своите вълнуващи истории свързани с лов и риболов, "
+#~ "нарамили въдица или пушка в ръка"
+
+#~ msgid "content.blog.meta.keywords"
+#~ msgstr "трофеи, споделяне, блог, форум"
+
+#~ msgid "content.blog.meta.title"
+#~ msgstr "Блог (тук можете да се похвалите с вашите трофеи)"
+
+#~ msgid "Own Products"
+#~ msgstr "Нашите Продукти"
+
+#~ msgid "New order"
+#~ msgstr "Нова поръчка"
+
+#~ msgid "Request from the contact form"
+#~ msgstr "Заявка от контактната форма"
+
+#~ msgid "New password requested"
+#~ msgstr "Новата парола е заявена"
+
+#~ msgid "Hobi.com - new password request"
+#~ msgstr "Хоби- заявяване на нова парола"
+
+#~ msgid "From: "
+#~ msgstr "От:"
+
+#~ msgid "Home"
+#~ msgstr "Начало"
+
+#~ msgid "Products"
+#~ msgstr "Продукти"
+
+#~ msgid "Location"
+#~ msgstr "Местоположение"
+
+#~ msgid "Contacts"
+#~ msgstr "Контакти"
+
+#~ msgid "Blog"
+#~ msgstr "Блог"
+
+#~ msgid "Image Gallery"
+#~ msgstr "Галерия"
+
+#~ msgid "content.ownPhilosophy"
+#~ msgstr "Нашата философия"
+
+#~ msgid "content.ownPhilosophy.desc"
+#~ msgstr ""
+#~ "<p>Ние вярваме, че почтеността, достойнството и безкомпромисното качество "
+#~ "са в сърцевината на всичко, което правим.</p><p>Ние вярваме, че "
+#~ "вниманието към променящите се нужди на нашите клиенти е най-важно за "
+#~ "успеха на фирмата ни.</p><p>Предлагаме на нашите клиенти качествени "
+#~ "продукти на достъпни цени, с които могат вкусят от адреналина на лова, "
+#~ "или приятния спокоен холидей с приятели и въдица в ръка.</p>"
+
+#~ msgid "Contact"
+#~ msgstr "Контакти"
+
+#~ msgid "content.footer.contact"
+#~ msgstr "гр.Добрич ул.\"Сан Стефано\" 10"
+
+#~ msgid "content.footer.phones"
+#~ msgstr ""
+#~ "Телефон (M-tel): +359/ 885 497 819 <br />Телефон (Globul)  : +359/ 896 "
+#~ "254 094 <br /> Телефон (стационарен)  058/ 624 660"
+
+#~ msgid "content.footer.email"
+#~ msgstr "E-mail: lrm_hobi@abv.bg"
+
+#~ msgid "Add new product."
+#~ msgstr "Добавяне на нов продукт."
+
+#~ msgid "Picture"
+#~ msgstr "Снимка"
+
+#~ msgid "Title"
+#~ msgstr "Заглавие"
+
+#~ msgid "Categories"
+#~ msgstr "Категории"
+
+#~ msgid "Created at"
+#~ msgstr "Създадено"
+
+#~ msgid "Controlls"
+#~ msgstr "Контроли"
+
+#~ msgid "edit"
+#~ msgstr "редактиране"
+
+#~ msgid "delete"
+#~ msgstr "Изтрий"
+
+#~ msgid "Title (required)"
+#~ msgstr "Заглавие (задължително поле)"
+
+#~ msgid "Image (required)"
+#~ msgstr "Снимка (опционално поле)"
+
+#~ msgid "Description"
+#~ msgstr "Описание"
+
+#~ msgid "content.home.snippet"
+#~ msgstr ""
+#~ "<p>Ловно рибарски магазин „ХОБИ” отваря за пръв път врати през пролетта "
+#~ "на 1999г. в гр.Добрич по ул.”Отец Паисий”. </p><p>От 2002 г. магазина се "
+#~ "намира на ул.„Сан Стефано” №10.Един от първите магазини за риболовни "
+#~ "принадлежности, и в настоящия момент може да се каже,че е с най-голям "
+#~ "мащаб на дейност в града. Разбира се,в магазина се предлагат не само "
+#~ "макари и телескопи, а и широка гама други продукти. Това са аксесоари за "
+#~ "сладководен и морски риболов,обувки и дрехи за лов и риболов,въздушно и "
+#~ "газово оръжие и боеприпаси за тях, ловни патрони и ножове,гумени лодки и "
+#~ "извънбордови двигатели,фойерверки и къмпинг оборудване.Освен това се "
+#~ "стремим постоянно да обогатяваме асортимента,като предлаганите продукти "
+#~ "да са с добро качество и на достъпни цени.<p>В годините работа с нашите "
+#~ "клиенти успяхме да научим какво точно искат българските ловци и риболовци "
+#~ "и с гъвкава политика се опитваме да им предложим стоки от наложили се "
+#~ "фирми като SERT,Mikado,Abu Garsia,Mitchell,Shimano,Rapala,DAM,Ake,"
+#~ "Trabucco,Awa-Shima, Grauvell,Hillman,Gepard,както и продуктите на "
+#~ "Видракс, Филстар и Sea Eagle. </p>"
+
+#~ msgid "Use bellow form to contact us."
+#~ msgstr "Използвайте формата за да се свържете с нас."
+
+#~ msgid "Send us"
+#~ msgstr "Изпрати"
+
+#~ msgid "mail"
+#~ msgstr "\"Е-мail\""
+
+#~ msgid "Name (required)"
+#~ msgstr "Име на автора (задължително поле)"
+
+#~ msgid "Email Address (required)"
+#~ msgstr "Email адрес (задължително поле)"
+
+#~ msgid "Your Message"
+#~ msgstr "Вашето Съобщение"
+
+#~ msgid "content.infoWindowContent"
+#~ msgstr ""
+#~ "<strong>Магазин ХОБИ</strong> <p>гр.Добрич ул.\"Сан Стефано\" 10</p>"
+
+#~ msgid "Current category: "
+#~ msgstr "Текуща категория"
+
+#~ msgid "Posted"
+#~ msgstr "Публикувано "
+
+#~ msgid "on"
+#~ msgstr "на"
+
+#~ msgid "Read more"
+#~ msgstr "Прочети повече"
+
+#~ msgid "Leave a Reply"
+#~ msgstr "Сподели своята вълнуваща история"
+
+#~ msgid "by"
+#~ msgstr "от"
 
 #~ msgid "content.products-search.meta.title(@category)"
 #~ msgstr "ала бала @category dasd as dsa "
@@ -508,9 +439,6 @@ msgstr "от"
 #~ msgid "Your cart"
 #~ msgstr "Вашата количка"
 
-#~ msgid "Name"
-#~ msgstr "Име"
-
 #~ msgid "Size"
 #~ msgstr "Размер"
 
@@ -559,9 +487,6 @@ msgstr "от"
 #~ msgid "Max price"
 #~ msgstr "цена до:"
 
-#~ msgid "Filter"
-#~ msgstr "Филтрирай"
-
 #~ msgid "Image"
 #~ msgstr "Снимка"
 
@@ -573,9 +498,6 @@ msgstr "от"
 
 #~ msgid "You save"
 #~ msgstr "Спестявате"
-
-#~ msgid "Add to cart"
-#~ msgstr "Добави"
 
 #~ msgid "Sitemap"
 #~ msgstr "Карта на сайта"
@@ -618,9 +540,6 @@ msgstr "от"
 
 #~ msgid "E-Mail"
 #~ msgstr "E-mail"
-
-#~ msgid "Password"
-#~ msgstr "Парола"
 
 #~ msgid "Confirm Password"
 #~ msgstr "Потвърди паролата"
