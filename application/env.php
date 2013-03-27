@@ -73,7 +73,7 @@ if(in_array(APP_ENV, array('development', 'staging'))) {
 }
 
 Zend_Registry::set('app', $application);
-
+Mes_I18n_Translatable::currentLang('en');
 			
 			
 //$GLOBALS['MAD_DEFAULT_LOGGER']->addHandler($writer);
