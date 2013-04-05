@@ -252,7 +252,7 @@ class Mad_Script_Generator_Model_Writer
 		foreach ($model->getFields() as $field) {
 			/* @var $field Mad_Script_Generator_Field */
 				
-			$output .= " * @property " . str_replace(' ', '-', $field->fieldType) . " \${$field->fieldName}" . PHP_EOL;
+			$output .= " * @property " . str_replace(' ', '-', $field->fieldType) . " \${$field->fieldName} {$field->fieldComment}" .  PHP_EOL;
 		}
 		$output .= self::PROPS_END;
 		

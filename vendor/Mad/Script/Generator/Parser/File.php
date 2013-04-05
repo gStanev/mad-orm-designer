@@ -36,9 +36,9 @@ class Mad_Script_Generator_Parser_File extends Mad_Script_Generator_Parser_Abstr
 	/**
 	 * @return array array('filedName' => 'fieldType')
 	 */
-	public function getProperties($tableName)
+	public function getFields($tableName)
 	{
-		$properties = array();
+		$fields = array();
 		$content = 
 			$this->_getContentByModelName(
 				get_class($this->getModelByTableName($tableName))
@@ -61,10 +61,11 @@ class Mad_Script_Generator_Parser_File extends Mad_Script_Generator_Parser_Abstr
 			if(!isset($propRowList[4]) || !isset($propRowList[3]))
 				continue;
 			
-			$properties[str_replace('$', '', $propRowList[4])] = $propRowList[3];
+			
+			$fields[] = new Mad_Script_Generator_Field(str_replace('$', '', $propRowList[4]), $propRowList[3]);
 		}
 		
-		return $properties;
+		return $fields;
 	}
 	
 	/**

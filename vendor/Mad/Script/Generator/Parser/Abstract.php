@@ -13,7 +13,7 @@ abstract class Mad_Script_Generator_Parser_Abstract
 	/**
 	 * @return array array('filedName' => 'fieldType')
 	 */
-	abstract public function getProperties($tableName);
+	abstract public function getFields($tableName);
 	
 	/**
 	 * @return array

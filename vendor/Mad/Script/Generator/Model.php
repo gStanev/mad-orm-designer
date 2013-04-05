@@ -114,6 +114,20 @@ class Mad_Script_Generator_Model
 	}
 	
 	/**
+	 * @param array $fields <Mad_Script_Generator_Field>
+	 * @return Mad_Script_Generator_Model
+	 * @throws Exception
+	 */
+	public function addFields(array $fields)
+	{
+		foreach ($fields as $field) {
+			$this->addField($field);
+		}
+		
+		return $this;
+	}
+	
+	/**
 	 * @return array <Mad_Script_Generator_Field>
 	 */
 	public function getFields()
@@ -149,9 +163,7 @@ class Mad_Script_Generator_Model
 		$this->_fields = array();
 		
 		if($parser !== null) {
-			foreach ($parser->getProperties($this->tableName) as $filedName => $fieldType) {
-				$this->addField(new Mad_Script_Generator_Field($filedName, $fieldType));
-			}
+			$this->addFields($parser->getFields($this->tableName));
 		}
 		
 		return $this;

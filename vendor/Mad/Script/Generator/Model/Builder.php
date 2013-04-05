@@ -59,11 +59,7 @@ class Mad_Script_Generator_Model_Builder
 				Mad_Script_Generator_Parser_Abstract $parser, 
 				Mad_Script_Generator_Model $model
 			) {
-				foreach ($parser->getProperties($model->tableName) as $fieldName => $fieldType) {
-					$model->addField(
-						new Mad_Script_Generator_Field($fieldName, $fieldType)
-					);
-				}
+				$model->addFields($parser->getFields($model->tableName));
 			};
 		
 		

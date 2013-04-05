@@ -12,13 +12,13 @@ class Mad_Script_Generator_Parser_Db extends Mad_Script_Generator_Parser_Abstrac
 {
 	/**
 	 * 
-	 * @var Horde_Db_Adapter_Abstract
+	 * @var Horde_Db_Adapter_Mysql_Schema
 	 */
-	protected $_dbConnection;
+	protected $_schema;
 	
-	public function __construct(Horde_Db_Adapter_Abstract $dbConnection)
+	public function __construct(Horde_Db_Adapter_Mysql_Schema $schema)
 	{
-		$this->_dbConnection = $dbConnection;
+		$this->_schema = $schema;
 	}
 	
 	/**
@@ -26,24 +26,17 @@ class Mad_Script_Generator_Parser_Db extends Mad_Script_Generator_Parser_Abstrac
 	 * @param string $tableName
 	 * @return array array('fieldName' => 'fieldType')
 	 */
-	public function getProperties($tableName)
+	public function getFields($tableName)
 	{
-		$existTable = $this->_dataCollector(
-			$this->_dbConnection->execute('SHOW TABLES LIKE "' . mysql_real_escape_string($tableName) . '"')
-		);
-		
-		if(!count($existTable)) {
-			throw new Exception("Table name {$tableName} doesn't exists");
-		}
-		
 		$fields = array();
-		$collectedData = $this->_dataCollector(
-			$this->_dbConnection->execute('SHOW COLUMNS FROM ' . mysql_real_escape_string($tableName)),
-			'fetch_object'
-		);
-
-		foreach ($collectedData as $data) {
-			$fields[$data->Field] = $data->Type;
+		foreach ($this->_schema->columns($tableName) as $column) {
+			/* @var $column Horde_Db_Adapter_Mysql_Column */	
+			$comment = $column->getSqlType();
+			if($column->getComment()) {
+				$comment .= "<br />{$column->getComment()}";
+			} 
+			
+			$fields[] = new Mad_Script_Generator_Field($column->getName(), $column->getType(), $comment);
 		}
 		
 		return $fields;
@@ -54,27 +47,9 @@ class Mad_Script_Generator_Parser_Db extends Mad_Script_Generator_Parser_Abstrac
 	 */
 	public function getTableNames()
 	{
-		return $this->_dataCollector($this->_dbConnection->execute('SHOW TABLES;'));
+		return $this->_schema->tables();
 	}
 	
-	/**
-	 * 
-	 * @param mysqli_resul $queryResult
-	 * @return array
-	 */
-	protected function _dataCollector(mysqli_result $queryResult, $handle = 'fetch_row')
-	{
-		$results = array();
-		while ($row = $queryResult->{$handle}()) {
-			if($handle == 'fetch_row') {
-				$row = current($row);
-			}
-			
-			$results[]  = $row;
-		}
-		
-		return $results;
-	}
 	
 	/**
 	 * @return array

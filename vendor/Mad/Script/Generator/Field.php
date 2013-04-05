@@ -22,14 +22,21 @@ class Mad_Script_Generator_Field
 	 */
 	public $fieldType;
 
+	
+	/**
+	 * @var string
+	 */
+	public $fieldComment;
+	
 	/**
 	 * 
 	 * @param string $fieldName
 	 * @param string $fieldType
 	 */
-	public function __construct($fieldName, $fieldType)
+	public function __construct($fieldName, $fieldType, $fieldComment = '')
 	{
-		$this->fieldName = $fieldName;
-		$this->fieldType = str_replace(' ', '-', $fieldType);
+		$this->fieldName	= $fieldName;
+		$this->fieldType	= str_replace(' ', '-', $fieldType);
+		$this->fieldComment	= $fieldComment;
 	}
 }
