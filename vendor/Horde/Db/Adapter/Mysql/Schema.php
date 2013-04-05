@@ -198,7 +198,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
 
         // query to build rows
         if (!$rows) {
-            $rows = $this->selectAll('SHOW FIELDS FROM ' . $this->quoteTableName($tableName), $name);
+            $rows = $this->selectAll('SHOW FULL FIELDS FROM ' . $this->quoteTableName($tableName), $name);
 
             // write cache
             $this->_cache->set("tables/$tableName", serialize($rows));
@@ -208,7 +208,7 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Abstract_Schema
         $columns = array();
         foreach ($rows as $row) {
             $columns[] = new Horde_Db_Adapter_Mysql_Column(
-                $row[0], $row[4], $row[1], $row[2] == 'YES');
+                $row[0], $row[4], $row[1], $row[2] == 'YES', $row[8]);
         }
         return $columns;
     }

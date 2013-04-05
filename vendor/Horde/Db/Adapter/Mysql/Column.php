@@ -34,17 +34,25 @@ class Horde_Db_Adapter_Mysql_Column extends Horde_Db_Adapter_Abstract_Column
     protected $_originalDefault = null;
 
     /**
+     * 
+     * @var string
+     */
+    protected $_comment;
+    
+    /**
      * Construct
      * @param   string  $name
      * @param   string  $default
      * @param   string  $sqlType
      * @param   boolean $null
      */
-    public function __construct($name, $default, $sqlType=null, $null=true)
+    public function __construct($name, $default, $sqlType=null, $null=true, $comment = '')
     {
         $this->_originalDefault = $default;
         parent::__construct($name, $default, $sqlType, $null);
 
+        $this->_comment = $comment;
+        
         if ($this->_isMissingDefaultForgedAsEmptyString()) {
             $this->_default = null;
         }
@@ -79,6 +87,11 @@ class Horde_Db_Adapter_Mysql_Column extends Horde_Db_Adapter_Abstract_Column
     {
         return !$this->_null && $this->_originalDefault == '' &&
                !in_array($this->_type, self::$_hasEmptyStringDefault);
+    }
+    
+    public function getComment()
+    {
+    	return $this->_comment;
     }
 
 }
