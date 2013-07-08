@@ -60,11 +60,13 @@ class Mad_Script_Generator_Association_BelongsTo extends Mad_Script_Generator_As
 	{
 		$toClass		= $this->assocModel->modelName;
 		$toClassTabs    = Mad_Script_Generator_Model_Writer::computeTabs($toClass);
-		$method  		= "build{$toClass}(array \$array)";
+		$methodName		= 'build' . $this->getMethodName('upper') . '()';
+		$methodNameTabs	= Mad_Script_Generator_Model_Writer::computeTabs($methodName);
+		$method  		= "build{$this->getMethodName('upper')}(array \$array)";
 		
 		return (
-				" * @method\t\t{$toClass}{$toClassTabs}build{$toClass}()" .
-				Mad_Script_Generator_Model_Writer::computeTabs("build{$toClass}()", 2) .
+				" * @method\t\t{$toClass}{$toClassTabs}{$methodName}" .
+				Mad_Script_Generator_Model_Writer::computeTabs($methodName, 2) .
 				$method .
 				Mad_Script_Generator_Model_Writer::computeTabs($method) .
 				"Build a new object to use in the association and save it.<br/><br/>Available fields {$this->assocModel->generateFieldsDocBlock()}" .
@@ -80,11 +82,13 @@ class Mad_Script_Generator_Association_BelongsTo extends Mad_Script_Generator_As
 	{
 		$toClass		= $this->assocModel->modelName;
 		$toClassTabs    = Mad_Script_Generator_Model_Writer::computeTabs($toClass);
-		$method  		= "create{$toClass}(array \$array)";
+		$methodName		= 'create' . $this->getMethodName('upper') . '()';
+		$methodNameTabs	= Mad_Script_Generator_Model_Writer::computeTabs($methodName, 2);
+		$method  		= "create{$this->getMethodName('upper')}(array \$array)";
 		
 		return (
-				" * @method\t\t{$toClass}{$toClassTabs}create{$toClass}()" .
-				Mad_Script_Generator_Model_Writer::computeTabs("create{$toClass}()", 2) .
+				" * @method\t\t{$toClass}{$toClassTabs}{$methodName}" .
+				Mad_Script_Generator_Model_Writer::computeTabs($methodName, 2) .
 				$method .
 				Mad_Script_Generator_Model_Writer::computeTabs($method) .
 				"Create a new object to use in the association and save it. build new object to use as association & save new association.<br /> This option will automatically save the associated object, but !not!.<br /> the actual association with the current object until you use save().<br/><br/>Available fields {$this->assocModel->generateFieldsDocBlock()}" .

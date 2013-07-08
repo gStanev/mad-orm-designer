@@ -105,11 +105,7 @@ abstract class Mmg_Controller_Action extends  Zend_Controller_Action {
 	private function _loadModelBuilder($parserType)
 	{
 		if($parserType === 'db') { 
-			$parser = new Mad_Script_Generator_Parser_Db(
-					new Horde_Db_Adapter_Mysqli(
-							$this->_getApplication()->confDbSettings()
-					)
-			);
+			$parser = new Mad_Script_Generator_Parser_Db(new Horde_Db_Adapter_Mysql_Schema(Mad_Model_Base::connection()));
 		} else if($parserType === 'file') {
 			$parser = new Mad_Script_Generator_Parser_File(
 				$this->_getApplication()->confModelsPath()

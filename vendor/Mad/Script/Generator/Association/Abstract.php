@@ -113,9 +113,9 @@ abstract class Mad_Script_Generator_Association_Abstract
 	 * @param string $firstLetter 'lower', 'upper'
 	 * @return string
 	 */
-	public function getMethodName($firstLetter='lower')
+	public function getMethodName($firstLetter = 'lower')
 	{
-		return Mad_Support_Inflector::camelize($this->getName(), 'lower');
+		return Mad_Support_Inflector::camelize($this->getName(), $firstLetter);
 	}
 	
 	/**
