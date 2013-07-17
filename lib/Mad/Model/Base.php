@@ -1898,6 +1898,26 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     {
         return $this->_validateData();
     }
+    
+    /**
+     * Remove validation rules
+     * @param string $attributes
+     *        ex: $this->_removeValidation('sender_id', 'body');
+     */
+    protected function _removeValidation($attributes)
+    {
+    	if (isset($this->_validations)) {
+    		foreach (func_get_args() as $attribute) {
+    			foreach ($this->_validations as $on => $validations) {
+    				foreach ($validations as $key => $validation) {
+    					if ($validation->getAttribute() === $attribute) {
+    						unset($this->_validations[$on][$key]);
+    					}
+    				}
+    			}
+    		}
+    	}
+    }
 
     /**
      * This method is invoked on every save() operation. Override
