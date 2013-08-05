@@ -1899,25 +1899,6 @@ abstract class Mad_Model_Base extends Mad_Support_Object
         return $this->_validateData();
     }
     
-    /**
-     * Remove validation rules
-     * @param string $attributes
-     *        ex: $this->_removeValidation('sender_id', 'body');
-     */
-    protected function _removeValidation($attributes)
-    {
-    	if (isset($this->_validations)) {
-    		foreach (func_get_args() as $attribute) {
-    			foreach ($this->_validations as $on => $validations) {
-    				foreach ($validations as $key => $validation) {
-    					if ($validation->getAttribute() === $attribute) {
-    						unset($this->_validations[$on][$key]);
-    					}
-    				}
-    			}
-    		}
-    	}
-    }
 
     /**
      * This method is invoked on every save() operation. Override
@@ -3410,6 +3391,48 @@ abstract class Mad_Model_Base extends Mad_Support_Object
         foreach ((array)$attributes as $attribute) {
             $this->_validations[] = Mad_Model_Validation_Base::factory($type, $attribute, $options);
         }
+    }
+    
+    /**
+     * Remove validation rules
+     * @param string $attributes
+     *        ex: $this->_validationRemove('sender_id', 'body');
+     */
+    protected function _validationRemove($attributes)
+    {
+    	if (isset($this->_validations)) {
+    		foreach (func_get_args() as $attribute) {
+    			foreach ($this->_validations as $on => $validations) {
+    				foreach ($validations as $key => $validation) {
+    					if ($validation->getAttribute() === $attribute) {
+    						unset($this->_validations[$on][$key]);
+    					}
+    				}
+    			}
+    		}
+    	}
+    }
+    
+    /**
+     * Check whether exists validation for giver attribute/attributes
+     * @param string $attributes
+     *        ex: $this->_existsValidation('sender_id', 'body');
+     *
+     * @return bool
+     */
+    protected function _validationExists($attributes)
+    {
+    	foreach (func_get_args() as $attribute) {
+    		foreach ($this->_validations as $validations) {
+    			foreach ($validations as $validation) {
+    				if ($validation->getAttribute() === $attribute) {
+    					return true;
+    				}
+    			}
+    		}
+    	}
+    
+    	return false;
     }
 
     /**

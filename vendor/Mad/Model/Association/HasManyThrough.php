@@ -33,7 +33,7 @@ class Mad_Model_Association_HasManyThrough extends Mad_Model_Association_Collect
 	 * @var array
 	 */
 	static public $validOptions = array(
-			'className', 'foreignKey', 'associationForeignKey', 
+			'className', 'foreignKey', 'associationForeignKey', 'throughReplaceAssoc',
 			'primaryKey', 'associationPrimaryKey', 'include', 
 			'select', 'conditions', 'order', 'finderSql',
 			'through', 'dependent'
