@@ -26,14 +26,14 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 				PHP_EOL
 				);
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	protected function _commentsAccessorIds()
 	{
 		$accessorName = "\$" . Mad_Support_Inflector::singularize($this->getMethodName()) . "Ids";
-	
+
 		return (
 				" * @property\tarray" .
 				Mad_Script_Generator_Model_Writer::computeTabs('array') .
@@ -46,14 +46,14 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 				PHP_EOL
 		);
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	protected function _commentsAccessorCount()
 	{
 		$toSing = Mad_Support_Inflector::singularize($this->getMethodName());
-		
+
 		return (
 				" * @property\tint" .
 				Mad_Script_Generator_Model_Writer::computeTabs('int') .
@@ -64,7 +64,7 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 				PHP_EOL
 				);
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -73,7 +73,7 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 		$toClass	= $this->assocModel->modelName;
 		$toMethod 	= Mad_Support_Inflector::singularize($this->getName());
 		$method 	= "add{$toMethod}($toClass \$" . lcfirst($toClass) . ")";
-	
+
 		return (
 				" * @method\t\tNULL{$this->getTabsNull()}add{$toMethod}()" .
 				Mad_Script_Generator_Model_Writer::computeTabs("add{$toMethod}()", 2) .
@@ -84,7 +84,7 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 				PHP_EOL
 		);
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -93,7 +93,7 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 		$toMethod 	= Mad_Support_Inflector::singularize($this->getName());
 		$toClassTabs    = Mad_Script_Generator_Model_Writer::computeTabs($this->assocModel->modelName);
 		$method  = "build{$toMethod}(array \$array)";
-	
+
 		return (
 				" * @method\t\t{$this->assocModel->modelName}{$toClassTabs}build{$toMethod}()" .
 				Mad_Script_Generator_Model_Writer::computeTabs("build{$toMethod}()", 2) .
@@ -105,7 +105,7 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 				PHP_EOL
 				);
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -114,7 +114,7 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 		$toMethod 	= Mad_Support_Inflector::singularize($this->getName());
 		$toClassTabs    = Mad_Script_Generator_Model_Writer::computeTabs($this->assocModel->modelName);
 		$method  = "create{$toMethod}(array \$array)";
-	
+
 		return (
 				" * @method\t\t{$this->assocModel->modelName}{$toClassTabs}create{$toMethod}()" .
 				Mad_Script_Generator_Model_Writer::computeTabs("create{$toMethod}()", 2) .
@@ -124,14 +124,14 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 				PHP_EOL
 				);
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	protected function _commentsMethodReplace()
 	{
 		$methodName = Mad_Support_Inflector::pluralize('replace' . $this->getName());
-		 
+
 		return (
 				" * @method\t\tNULL{$this->getTabsNull()}{$methodName}()" .
 				Mad_Script_Generator_Model_Writer::computeTabs("$methodName()", 2) .
@@ -142,48 +142,48 @@ abstract class Mad_Script_Generator_Association_HasMany_Abstract  extends Mad_Sc
 				PHP_EOL
 				);
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	protected function _commentsMethodDelete()
 	{
 		$methodName = Mad_Support_Inflector::pluralize('delete' . $this->getName());
-	
+
 		return  (
 				" * @method\t\tNULL{$this->getTabsNull()}{$methodName}()" .
 				Mad_Script_Generator_Model_Writer::computeTabs("$methodName()", 2) .
 				$methodName . '(array $array)' .
 				Mad_Script_Generator_Model_Writer::computeTabs($methodName . 'array(array $array)').
-				"Delete specific associated objects from the collection " .
+				"Delete specific associated objects from the collection" .
 				PHP_EOL
 				);
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	protected function _commentsMethodClear()
 	{
 		$methodName = Mad_Support_Inflector::pluralize('clear' . $this->getName());
-	
+
 		return (
 				" * @method\t\tNULL{$this->getTabsNull()}{$methodName}()" .
 				Mad_Script_Generator_Model_Writer::computeTabs("$methodName()", 2) .
 				$methodName . '()' .
 				Mad_Script_Generator_Model_Writer::computeTabs($methodName . 'array()').
-				"Clear all associated objects " .
+				"Clear all associated objects" .
 				PHP_EOL
 				);
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	protected function _commentsMethodFind()
 	{
 		$methodName = Mad_Support_Inflector::pluralize('find' . $this->getName());
-	
+
 		return (
 				" * @method\t\t{$this->assocModel->modelName}|Mad_Model_Collection" .
 				Mad_Script_Generator_Model_Writer::computeTabs($methodName) . "{$methodName}()" .
