@@ -31,7 +31,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Should the table introspection data be cached
-     *  - true:  Cache table introspection data to /tmp/cache/tables 
+     *  - true:  Cache table introspection data to /tmp/cache/tables
      *  - false: Introspect database table on every request
      */
     public static $cacheTables = true;
@@ -113,17 +113,17 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * @var array
      */
     protected $_columns = array();
-    
+
     /**
      * @var array
      */
     protected $_columnsHash = array();
-    
+
     /**
      * @var array
      */
     protected $_columnNames = array();
-    
+
     /**
      * An object cannot allow attribute access once it has been destroyed
      * @var boolean
@@ -150,7 +150,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     /**
      * A list of associations for this model define in concrete _initialize()
      * Lazy initialized if an unknown property/method is called
-     * 
+     *
      * @var array
      */
     protected $_associationList;
@@ -158,7 +158,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     /**
      * The list of association objects for this model
      * Lazy initialized if an unknown property/method is called
-     * 
+     *
      * @var array
      */
     protected $_associations;
@@ -182,7 +182,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * @var array
      */
     protected $_validations = array();
-    
+
     /**
      * Should we throw exceptions when validations fail
      * @var array
@@ -392,17 +392,17 @@ abstract class Mad_Model_Base extends Mad_Support_Object
         }
         return isset($str) ? "\n".$this->_className." Object: \n".join(", \n", $str) : null;
     }
-    
+
     /*##########################################################################
     # Serialization
     ##########################################################################*/
-    
+
     /**
      * Serialize only needs attributes
      */
     public function __sleep()
     {
-        return array('_attributes', '_attrReaders', 
+        return array('_attributes', '_attrReaders',
                      '_attrWriters', '_attrValues');
     }
 
@@ -417,7 +417,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
         if ($pk && isset($this->_attributes[$pk])) {
             return (string)$this->_attributes[$pk];
-        } 
+        }
     }
 
 
@@ -426,10 +426,10 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     ##########################################################################*/
 
     /**
-     * Set a logger object, defaulting to mad_default_logger. This needs to 
-     * reset connection so that the correct log is passed to the connection 
-     * adapter. 
-     * 
+     * Set a logger object, defaulting to mad_default_logger. This needs to
+     * reset connection so that the correct log is passed to the connection
+     * adapter.
+     *
      * @param   object  $logger
      */
     public static function setLogger($logger=null)
@@ -440,12 +440,12 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Returns the logger object.
-     * 
+     *
      * @return  object
      */
     public static function logger()
     {
-        // set default logger 
+        // set default logger
         if (!isset(self::$_logger)) {
             self::setLogger();
         }
@@ -460,7 +460,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     /**
      * Establishes the connection to the database. Accepts a hash as input where
      * the :adapter key must be specified with the name of a database adapter (in lower-case)
-     * 
+     *
      * Example for regular databases (MySQL, Postgresql, etc):
      * <code>
      *   Mad_Model_Base::establishConnection(array(
@@ -482,7 +482,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      *
      * The exceptions AdapterNotSpecified, AdapterNotFound and ArgumentError
      * may be returned on an error.
-     * 
+     *
      * @param   array   $spec
      * @return  Connection
      */
@@ -495,7 +495,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
                 throw new Mad_Model_Exception('Adapter Not Specified');
             }
             $spec = MAD_ENV;
-        } 
+        }
 
         // $spec is string: read YAML config for environment named by string
         // keep going to process the resulting array
@@ -504,9 +504,9 @@ abstract class Mad_Model_Base extends Mad_Support_Object
             $spec = $config[$spec];
         }
 
-        // $spec is an associative array            
+        // $spec is an associative array
         if (is_array($spec)) {
-          
+
             // validation of array is handled by horde_db
             self::$_connectionSpec = $spec;
 
@@ -516,9 +516,9 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     }
 
     /**
-     * Returns true if a connection that's accessible to this class have already 
+     * Returns true if a connection that's accessible to this class have already
      * been opened.
-     * 
+     *
      * @return  boolean
      */
     public static function isConnected()
@@ -528,7 +528,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Locate/Activate the connection
-     * 
+     *
      * @return  Mad_Model_ConnectionAdapter_Abstract
      */
     public static function retrieveConnection()
@@ -539,12 +539,12 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
         // connection based on spec
         } elseif ($spec = self::$_connectionSpec) {
-            if (empty($spec['logger'])) { 
-                $spec['logger'] = self::logger(); 
+            if (empty($spec['logger'])) {
+                $spec['logger'] = self::logger();
             }
             $adapter = Horde_Db_Adapter::getInstance($spec);
 
-            $conn = self::$_activeConnection = $adapter; 
+            $conn = self::$_activeConnection = $adapter;
         }
 
         if (empty($conn)) {
@@ -574,10 +574,10 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * Returns the connection currently associated with the class. This can
      * also be used to "borrow" the connection to do database work unrelated
      * to any of the specific Active Records.
-     * 
+     *
      * @return  Mad_Model_ConnectionAdapter_Abstract
      */
-    public static function connection() 
+    public static function connection()
     {
         if (self::$_activeConnection) {
             return self::$_activeConnection;
@@ -603,14 +603,14 @@ abstract class Mad_Model_Base extends Mad_Support_Object
             return $this->resetTableName();
         }
     }
-    
+
     /**
      * Reset the table name based on conventions
-     * 
+     *
      */
     public function resetTableName()
     {
-        return $this->_tableName = 
+        return $this->_tableName =
             Mad_Support_Inflector::tableize($this->baseClass());
     }
 
@@ -626,9 +626,9 @@ abstract class Mad_Model_Base extends Mad_Support_Object
             return $this->resetPrimaryKey();
         }
     }
-    
+
     /**
-     * Rest primary key name based on conventions. 
+     * Rest primary key name based on conventions.
      */
     public function resetPrimaryKey()
     {
@@ -673,15 +673,15 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     }
 
     /**
-     * Returns an array of column objects for the table associated 
+     * Returns an array of column objects for the table associated
      * with this class.
-     * 
+     *
      * @return  array
      */
     public function columns()
     {
         if (empty($this->_columns)) {
-            $this->_columns = $this->connection->columns($this->tableName(), 
+            $this->_columns = $this->connection->columns($this->tableName(),
                                                   "$this->_className Columns");
             foreach ($this->_columns as $col) {
                 $col->setPrimary($col->getName() == $this->_primaryKey);
@@ -691,9 +691,9 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     }
 
     /**
-     * Returns a hash of column objects for the table associated with 
+     * Returns a hash of column objects for the table associated with
      * this class.
-     * 
+     *
      * @return  array
      */
     public function columnsHash()
@@ -708,7 +708,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Returns an array of column names as strings.
-     * 
+     *
      * @return  array
      */
     public function columnNames()
@@ -726,13 +726,13 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      */
     public function resetColumnInformation()
     {
-        $this->_columns     = $this->_columnsHash = 
+        $this->_columns     = $this->_columnsHash =
         $this->_columnNames = $this->_inheritanceColumn = null;
     }
 
     /**
      * Get the base class for this model. Defined by subclass
-     * 
+     *
      * @return  string
      */
     public function baseClass()
@@ -741,7 +741,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
         // go up single hierarchy if this is an STI model
         $parentClass = get_parent_class($this);
         if ($parentClass != 'Mad_Model_Base') {
-            return $parentClass; 
+            return $parentClass;
         }
         return $this->_className;
     }
@@ -753,7 +753,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Set list of attributes protected from mass assignment
-     * 
+     *
      * @todo implement this in save statements
      * @param   string  $attribute
      */
@@ -766,7 +766,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Get the value for an attribute in this model
-     * 
+     *
      * @param   string  $name
      * @return  string
      */
@@ -784,7 +784,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Set the value for an attribute in this model
-     * 
+     *
      * @param   string  $name
      * @param   mixed   $value
      */
@@ -798,7 +798,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Get the human attribute name for a given attribute
-     * 
+     *
      * @return  string
      */
     public function humanAttributeName($attr)
@@ -815,8 +815,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     {
         return $this->_attributes;
     }
-    
-    /** 
+
+    /**
      * Mass assign attributes for this model
      * @param   array   $attributes
      */
@@ -837,12 +837,12 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * Finder methods must instantiate through this method to work with the
      * single-table inheritance model that makes it possible to create
      * objects of different types from the same table.
-     * 
+     *
      * @param   array   $record
      */
     public function instantiate($record)
     {
-        // single table inheritance 
+        // single table inheritance
         $column = $this->inheritanceColumn();
         if (isset($record[$column]) && $className = $record[$column]) {
             if (!class_exists($className)) {
@@ -898,9 +898,9 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
 
     /**
-     * Returns an array of names for the attributes available on this 
+     * Returns an array of names for the attributes available on this
      * object sorted alphabetically.
-     * 
+     *
      * @return  array
      */
     public function attributeNames()
@@ -912,7 +912,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Returns the column object for the named attribute
-     * 
+     *
      * @param   string  $name
      * @return  object
      */
@@ -972,7 +972,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * @deprecated
      * @return  string
      */
-    public function getInsertValuesStr() 
+    public function getInsertValuesStr()
     {
         $vals = array();
         foreach ($this->_attributes as $name => $value) {
@@ -988,10 +988,10 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Returns the Association object for the named association
-     * 
+     *
      * @param   string  $name
      * @return  Mad_Model_Association_Base
-     */ 
+     */
     public function reflectOnAssociation($name)
     {
         $this->_initAssociations();
@@ -1025,16 +1025,16 @@ abstract class Mad_Model_Base extends Mad_Support_Object
             $this->_associations[$name]->setLoaded();
         }
     }
-    
+
     /**
-     * 
+     *
      * @return array
      */
     public function getAssociations()
     {
     	return $this->_associations;
     }
-    
+
     /**
      *
      * @return array
@@ -1043,7 +1043,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     {
 		return $this->_associationList;
     }
-    
+
 
 
     /*##########################################################################
@@ -1138,7 +1138,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      *  $binderCnt = Binder::count(array('name' => 'Stubbed Images'));
      * </code>
      */
-    public static function count($options=null, $bindVars=null) 
+    public static function count($options=null, $bindVars=null)
     {
         // hack to get name of this class (because of static)
         $className = get_called_class();
@@ -1184,8 +1184,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     }
 
     /**
-     * This method provides an interface for counting records using direct sql 
-     * instead of the componentized api of find(). This is however not always 
+     * This method provides an interface for counting records using direct sql
+     * instead of the componentized api of find(). This is however not always
      * desired as find() does some magic that this method cannot do.
      *
      * <b>COUNT RECORDS BY SQL</b>
@@ -1210,7 +1210,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Paginate records for find()
-     * 
+     *
      * @param   array   $options
      * @param   array   $bindVars
      * @return  Mad_Model_Collection
@@ -1402,20 +1402,20 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
         } catch (Exception $e) {
             $this->connection->rollbackDbTransaction();
-            if ($this->_throw) { 
+            if ($this->_throw) {
                 $this->_throw = false;
-                throw $e; 
+                throw $e;
             }
             return false;
         }
     }
 
     /**
-     * Attempts to save the record, but instead of just returning false if it 
+     * Attempts to save the record, but instead of just returning false if it
      * couldn't happen, it throws a Mad_Model_Exception_Validation
-     * 
+     *
      * @see Mad_Model_Base::save()
-     * 
+     *
      * @return  object
      * @throws  Mad_Model_Exception_Validation
      */
@@ -1495,7 +1495,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
             $this->_destroy();
             $this->_afterDestroy();
 
-            if (!$started) { $this->connection->commitDbTransaction(); }            
+            if (!$started) { $this->connection->commitDbTransaction(); }
             return true;
 
         } catch (Exception $e) {
@@ -1505,8 +1505,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     }
 
     /**
-     * Replace bind variables in the sql string. 
-     * 
+     * Replace bind variables in the sql string.
+     *
      * @param   string  $sql
      * @param   array   $bindVars
      */
@@ -1521,8 +1521,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
                 throw new Mad_Model_Exception($msg);
             }
             $sql = str_replace(
-                $replacement, 
-                $this->_quoteValue($bindVars[$replacement]), 
+                $replacement,
+                $this->_quoteValue($bindVars[$replacement]),
                 $sql
             );
         }
@@ -1545,7 +1545,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
                 $assoc->setLoaded(false);
             }
         }
-        
+
         return $this;
     }
 
@@ -1709,7 +1709,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      *
      * Another options available to hasOne is 'dependent'. You can define if the associated
      * object is dependent on this object existing. This can be one of two options,
-     *  1. destroy 
+     *  1. destroy
      *  2. nullify (the default)
      *  3. none
      *
@@ -1740,10 +1740,10 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      *
      * Another options available to hasMany is 'dependent'. You can define if the associated
      * object is dependent on this object existing. This can be one of two options,
-     *  1. destroy 
+     *  1. destroy
      *  2. nullify (the default)
      *  3. none
-     *  
+     *
      * For Folder model with multiple documents
      * <code>
      * <?php
@@ -1898,7 +1898,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     {
         return $this->_validateData();
     }
-    
+
 
     /**
      * This method is invoked on every save() operation. Override
@@ -2109,10 +2109,10 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Validate that the email address is formatted correctly
-     * Options: 
-     *  - on:      string   
-     *  - message: 
-     * 
+     * Options:
+     *  - on:      string
+     *  - message:
+     *
      *
      * <code>
      *  <?php
@@ -2139,7 +2139,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     /*##########################################################################
     # Serialization
     ##########################################################################*/
-    
+
     /**
      * Builds an XML document to represent the model. Some configuration is
      * available through <code>options</code>. However more complicated cases should
@@ -2172,7 +2172,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      *
      * For instance:
      *
-     *   $topic->toXml(array('skip_instruct' => true, 
+     *   $topic->toXml(array('skip_instruct' => true,
      *                       'except' => array('id', 'bonus_time', 'written_on', 'replies_count'));
      *
      *   <topic>
@@ -2212,7 +2212,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      *
      * To include deeper levels of associations pass a hash like this:
      *
-     *   $firm->toXml(array('include' => array('Account' => array(), 
+     *   $firm->toXml(array('include' => array('Account' => array(),
      *                                         'Clients' => array('include' => 'Address'))));
      *
      *   <?xml version="1.0" encoding="UTF-8"?>
@@ -2270,20 +2270,20 @@ abstract class Mad_Model_Base extends Mad_Support_Object
         return $serializer->serialize();
     }
 
-    /** 
+    /**
      * Convert XML to an Mad_Model record
-     * 
+     *
      * @see     Mad_Model_Base::toXml()
      * @param   string  $xml
      * @return  Mad_Model_Base
-     */    
+     */
     public function fromXml($xml)
     {
         $converted  = Mad_Support_ArrayObject::fromXml($xml);
         $values     = array_values($converted);
         $attributes = $values[0];
 
-        $this->setAttributes($attributes); 
+        $this->setAttributes($attributes);
         return $this;
     }
 
@@ -2292,7 +2292,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
         return Mad_Support_Inflector::underscore($this->_className);
     }
 
-    /** 
+    /**
      * Returns a JSON string representing the model. Some configuration is
      * available through <code>$options</code>.
      *
@@ -2304,8 +2304,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      *   # => {"id": 1, "name": "Konata Izumi", "age": 16,
      *         "created_at": "2006/08/01", "awesome": true}
      *
-     * The <code>only</code> and <code>except</code> options can be used to limit 
-     * the attributes included, and work similar to the <code>attributes</code> 
+     * The <code>only</code> and <code>except</code> options can be used to limit
+     * the attributes included, and work similar to the <code>attributes</code>
      * method. For example:
      *
      *   $konata->toJson(array('only' => array('id', 'name')));
@@ -2341,7 +2341,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      *                    "title": "Welcome to the weblog"},
      *                   {"comments": [{"body": "Don't think too hard"}],
      *                    "title": "So I was thinking"}]}
-     * 
+     *
      * @param   array   $options
      * @return  string
      */
@@ -2349,27 +2349,27 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     {
         $serializer = new Mad_Model_Serializer_Json($this, $options);
         $serialized = $serializer->serialize();
-        
+
         if (self::$includeRootInJson) {
-            $jsonName = $this->getJsonClassName(); 
+            $jsonName = $this->getJsonClassName();
             return "{ $jsonName: $serialized }";
         } else {
             return $serialized;
         }
     }
-    
-    /** 
+
+    /**
      * Convert Json notation to an Mad_Model record
-     * 
+     *
      * @see     Mad_Model_Base::toJson()
      * @param   string  $json
      * @return  Mad_Model_Base
      */
     public function fromJson($json)
     {
-        if (! function_exists('json_decode')) { 
+        if (! function_exists('json_decode')) {
             throw new Mad_Model_Exception('json_decode() function required');
-        }        
+        }
 
         $attributes = (array)json_decode($json);
         $this->setAttributes($attributes);
@@ -2395,7 +2395,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
             $this->id, $this->columnForAttribute($this->primaryKey())
         );
     }
-    
+
     /**
      * Quote strings appropriately for SQL statements.
      */
@@ -2407,10 +2407,10 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     /**
      * Initializes the attributes array with keys matching the columns
      * from the linked table and the values matching the corresponding
-     * default value of that column, so that a new instance, or one 
+     * default value of that column, so that a new instance, or one
      * populated from a passed-in Hash, still has all the attributes
      * that instances loaded from the database would.
-     * 
+     *
      * @todo finish
      */
     protected function _attributesFromColumnDefinition()
@@ -2686,7 +2686,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     protected function _findInitialBySql($sql, $bindVars)
     {
         $sql = $this->sanitizeSql($sql, $bindVars);
-        $sql = $this->connection->addLimitOffset($sql, array('limit'  => 1, 
+        $sql = $this->connection->addLimitOffset($sql, array('limit'  => 1,
                                                              'offset' => 0));
 
         if ($row = $this->connection->selectOne($sql, "$this->_className Load")) {
@@ -2711,8 +2711,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     }
 
     /**
-     * Paginate is a proxy to find, but determines offset/limit based on 
-     * 
+     * Paginate is a proxy to find, but determines offset/limit based on
+     *
      * @see     Mad_Model_Base::paginate()
      * @param   array   $options
      * @param   array   $bindVars
@@ -2772,13 +2772,13 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
         return new Mad_Model_Collection($this, $joinDependency->instantiate($rows));
     }
-    
+
     /**
      * Count model objects with eager loaded associations
      * @param   array   $options
      * @param   array   $bindVars
      */
-    protected function _countWithAssociations($options, $bindVars) 
+    protected function _countWithAssociations($options, $bindVars)
     {
         $joinDependency = new Mad_Model_Join_Dependency($this, $options['include']);
         $sql = $this->_constructFinderSqlWithAssoc($options, $joinDependency, $bindVars);
@@ -2843,17 +2843,17 @@ abstract class Mad_Model_Base extends Mad_Support_Object
                  $this->primaryKey()." IN ($idList)";
         return $sql;
     }
-    
+
     /**
      * @param   array   $options
      * @param   object  $joinDependency
      * @param   array   $bindVars
-     * @return  string  
+     * @return  string
      */
     protected function _selectLimitedIdsList($options, $joinDependency, $bindVars)
     {
         $result = $this->connection->selectAll(
-            $this->_constructFinderSqlForAssocLimiting($options, $joinDependency, $bindVars), 
+            $this->_constructFinderSqlForAssocLimiting($options, $joinDependency, $bindVars),
             "$this->_className Load IDs For Limited Eager Loading");
         $ids = array();
         foreach ($result as $row) {
@@ -2870,7 +2870,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      */
     protected function _constructFinderSqlForAssocLimiting($options, $joinDependency, $bindVars)
     {
-        $isDistinct = $this->_includeEagerConditions($options) ||  
+        $isDistinct = $this->_includeEagerConditions($options) ||
                       $this->_includeEagerOrder($options);
         $sql = "SELECT ";
         if ($isDistinct) {
@@ -2881,8 +2881,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
         $sql .= ' FROM '.$this->tableName().' ';
 
         // add join tables/conditions/ordering
-        if ($isDistinct) { 
-            $sql .= $this->_constructAssociationJoinSql($joinDependency); 
+        if ($isDistinct) {
+            $sql .= $this->_constructAssociationJoinSql($joinDependency);
         }
 
         $sql = $this->_addConditions($sql, $options['conditions']);
@@ -2898,9 +2898,9 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     }
 
     /**
-     * Checks if the conditions reference a table other than the 
+     * Checks if the conditions reference a table other than the
      * current model table
-     * 
+     *
      * @param   array   $options
      * @return  boolean
      */
@@ -2916,9 +2916,9 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     }
 
     /**
-     * Checks if the query order references a table other than the 
+     * Checks if the query order references a table other than the
      * current model's table.
-     * 
+     *
      * @param   array   $options
      * @return  boolean
      */
@@ -2935,7 +2935,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Cannot use LIMIT/OFFSET on certain associations
-     * 
+     *
      * @param   array   $reflections
      * @return  boolean
      */
@@ -2950,10 +2950,10 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Construct 'OUTER JOIN' sql fragments from associations
-     * 
+     *
      * @param   object  $joinDependency
      */
-    protected function _constructAssociationJoinSql($joinDependency) 
+    protected function _constructAssociationJoinSql($joinDependency)
     {
         // get joins from dependency
         $joins = array();
@@ -3007,9 +3007,9 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     ##########################################################################*/
 
     /**
-     * Perform save operation. Only save if model data has changed. 
+     * Perform save operation. Only save if model data has changed.
      * This method will perform all callback hooks for the save/update/create
-     * operation. 
+     * operation.
      */
     protected function _createOrUpdate()
     {
@@ -3019,20 +3019,20 @@ abstract class Mad_Model_Base extends Mad_Support_Object
         if ($this->isNewRecord()) {
             $this->_beforeCreate();
             $this->_saveCreate();
-            $this->_afterCreate(); 
+            $this->_afterCreate();
 
         } else {
             $this->_beforeUpdate();
             $this->_saveUpdate();
-            $this->_afterUpdate(); 
+            $this->_afterUpdate();
         }
         // after save callback
-        $this->_afterSave(); 
+        $this->_afterSave();
     }
 
     /**
      * Create object during save
-     * 
+     *
      * @throws Mad_Model_Exception_Validation
      */
     protected function _saveCreate()
@@ -3056,7 +3056,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
 
     /**
      * Update object during save
-     * 
+     *
      * @throws Mad_Model_Exception_Validation
      */
     protected function _saveUpdate()
@@ -3090,11 +3090,11 @@ abstract class Mad_Model_Base extends Mad_Support_Object
         $attr = $this->getAttributes();
 
         // new records
-        if (array_key_exists('created_at', $attr) && 
+        if (array_key_exists('created_at', $attr) &&
             (empty($this->created_at) || $this->created_at == '0000-00-00 00:00:00')) {
             $this->writeAttribute('created_at', $time);
         }
-        if (array_key_exists('created_on', $attr) && 
+        if (array_key_exists('created_on', $attr) &&
             (empty($this->created_on) || $this->created_on == '0000-00-00')) {
             $this->writeAttribute('created_on', $date);
         }
@@ -3166,7 +3166,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * Update multiple records matching the given criteria.
      *
      * @todo    replacements for bindvars
-     * 
+     *
      * @see     Mad_Model_Base::updateAll()
      * @param   string  $set
      * @param   string  $conditions
@@ -3228,7 +3228,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
      * Delete multiple records by the given conditions
      *
      * @todo    replacements for bindvars
-     * 
+     *
      * @see     Mad_Model_Base::deleteAll()
      * @param   string  $conditions
      * @param   array   $bindVars
@@ -3392,13 +3392,13 @@ abstract class Mad_Model_Base extends Mad_Support_Object
             $this->_validations[] = Mad_Model_Validation_Base::factory($type, $attribute, $options);
         }
     }
-    
+
     /**
      * Remove validation rules
      * @param string $attributes
      *        ex: $this->_validationRemove('sender_id', 'body');
      */
-    protected function _validationRemove($attributes)
+    public function removeValidationsOfAttr($attributes)
     {
     	if (isset($this->_validations)) {
     		foreach (func_get_args() as $attribute) {
@@ -3412,7 +3412,8 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     		}
     	}
     }
-    
+
+
     /**
      * Check whether exists validation for giver attribute/attributes
      * @param string $attributes
@@ -3431,7 +3432,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     			}
     		}
     	}
-    
+
     	return false;
     }
 
@@ -3495,7 +3496,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
     }
 
     /**
-     * Force a reload of all associations. 
+     * Force a reload of all associations.
      */
     protected function _resetAssociations()
     {
@@ -3539,7 +3540,7 @@ abstract class Mad_Model_Base extends Mad_Support_Object
             }
         }
     }
-    
+
     public function setThrow($thow = false)
     {
     	$this->_throw = $thow;
